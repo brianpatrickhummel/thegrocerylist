@@ -1,0 +1,35 @@
+{
+  "name": "thegrocerylist",
+  "version": "1.0.0",
+  "description": "automated grocery list creator",
+  "main": "index.js",
+  "engines": {
+    "node": "8.3.0",
+    "npm": "5.5.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brianpatrickhummel/thegrocerylist.git"
+  },
+  "author": "BrianPatrickHummel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brianpatrickhummel/thegrocerylist/issues"
+  },
+  "homepage": "https://github.com/brianpatrickhummel/thegrocerylist#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.0",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.3",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0"
+  }
+}

@@ -5,6 +5,8 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var keys = require("./config/keys");
 
+require("./services/passport");
+
 // Require Mongoose Schemas
 var User = require("./models/User.js");
 
@@ -20,6 +22,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+// Initialize Passport
+app.use(passport.initialize());
 
 // MONGOOSE
 // Set mongoose to leverage built in JavaScript ES6 Promises

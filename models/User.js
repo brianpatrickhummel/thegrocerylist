@@ -6,6 +6,7 @@ const { Schema } = mongoose;
 
 // Instantiate a userSchema object with the Schema class we just made
 var UserSchema = new Schema({
+  googleId: String,
   // username is a string. We will trim any trailing whitespace. It's also required
   username: {
     type: String,

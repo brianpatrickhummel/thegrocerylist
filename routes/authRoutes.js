@@ -1,6 +1,7 @@
-module.exports = app => {
+const passport = require("passport");
 
-  // Passport redirects request to Google for OAuth 
+module.exports = app => {
+  // Passport redirects request to Google for OAuth
   app.get(
     "/auth/google",
     passport.authenticate("google", {
@@ -13,6 +14,6 @@ module.exports = app => {
   // Attempts to exchange the code for a user profile and accessToken
   // Once authenticated, redirects to surveys page
   app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
-    res.send({brian: "Brian"}});
+    res.send({ brian: "Brian" });
   });
 };

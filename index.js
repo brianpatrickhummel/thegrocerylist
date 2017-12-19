@@ -1,31 +1,36 @@
 // Include Server Dependencies
-var express = require("express");
-var bodyParser = require("body-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
-var keys = require("./config/keys");
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const keys = require("./config/keys");
 const passport = require("passport");
-
+const cookieSession = require("cookie-session");
 require("./services/passport");
-
 // Require Mongoose Schemas
-var User = require("./models/User.js");
+require("./models/User.js");
 
 // Create Instance of Express
-var app = express();
+const app = express();
 
 // MIDDLEWARES
 // Run Morgan for Logging
 app.use(logger("dev"));
-
-// Configure body-parser
+// Parse req object on http request and make body available on req.body property
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-
-// Initialize Passport
+// stores session data within cookie on client-side
+// also extracts data out of cookie and assigns it to req.session property
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
+// express loads the session data, passport.initialize accesses req.session.passport.user
 app.use(passport.initialize());
+// passport.session detects a serialized user, calls the deserializeUser() method
+// which attaches user to req.user
+app.use(passport.session());
 
 // MONGOOSE
 // Set mongoose to leverage built in JavaScript ES6 Promises

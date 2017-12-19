@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-// user id is converted back into a mongoose user model instance (req.user)
+// cookie req.session.passport.user id is converted back into a mongoose user model instance (req.user)
 passport.deserializeUser((id, done) => {
   User.findById(id).then(user => {
     done(null, user);
@@ -37,6 +37,7 @@ passport.use(
       }
       // Create a new instance/document of the User Model
       const user = await new User({ googleId: profile.id }).save();
+      // Call done, back to passport.authenticate which calls req.login/serializeUser();
       done(null, user);
     }
   )

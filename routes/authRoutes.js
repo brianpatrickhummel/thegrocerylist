@@ -12,8 +12,9 @@ module.exports = app => {
 
   // Passport returns authentication object and user code from Google, executes the callback in GoogleStrategy
   // Attempts to exchange the code for a user profile and accessToken
-  // Once authenticated, redirects to surveys page
+  // Once authenticated and serialized to session, redirects
   app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
-    res.send({ brian: "Brian" });
+    console.log(req.user);
+    res.send({ brian: "brian" });
   });
 };

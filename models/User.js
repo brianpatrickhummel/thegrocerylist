@@ -75,7 +75,7 @@ var UserSchema = new Schema({
 });
 
 // Create the "User" model with our UserSchema schema
-var User = mongoose.model("User", UserSchema);
+var User = mongoose.model("users", UserSchema);
 
 // Export the User model, so it can be used in server.js with a require
 module.exports = User;

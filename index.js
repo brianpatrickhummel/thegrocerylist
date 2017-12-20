@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
-require("./services/passport");
+// require("./services/passport");
 // Require Mongoose Schemas
 require("./models/User.js");
 

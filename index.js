@@ -37,7 +37,7 @@ app.use(passport.session());
 mongoose.Promise = Promise;
 // MongoDB Configuration configuration
 mongoose.connect(keys.mongoURI, { useMongoClient: true });
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
 });

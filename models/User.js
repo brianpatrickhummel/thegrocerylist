@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 // Instantiate a userSchema object with the Schema class we just made
-var UserSchema = new Schema({
+const UserSchema = new Schema({
   googleId: String,
   // username is a string. We will trim any trailing whitespace. It's also required
   username: {
@@ -75,7 +75,7 @@ var UserSchema = new Schema({
 });
 
 // Create the "User" model with our UserSchema schema
-var User = mongoose.model("users", UserSchema);
+const User = mongoose.model("users", UserSchema);
 
 // Export the User model, so it can be used in server.js with a require
 module.exports = User;

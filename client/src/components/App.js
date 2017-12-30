@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import Button from "antd/lib/button";
+import { Row, Col, Icon, Button } from "antd";
 import "antd/dist/antd.css";
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>Welcome/Login Screen</h1>
-        <Button type="primary">Button</Button>
+      <div style={{ textAlign: "center" }}>
+        <h1>Welcome & Login Page</h1>
+        <Button type="primary" ghost>
+          <a href="/auth/google">LogIn With Google</a>
+        </Button>
       </div>
     );
   }

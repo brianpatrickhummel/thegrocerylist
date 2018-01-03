@@ -1,27 +1,29 @@
 import React, { Component } from "react";
-import { Button, DatePicker } from "antd";
-const { RangePicker } = DatePicker;
+import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
-function onChange(date, dateString) {
-  console.log(date, dateString);
-}
+import Landing from "./Landing";
 
 class App extends Component {
+  componentDidMount() {}
+
   render() {
+    const Wrapper = styled.div`
+      font-family: "Cassanet";
+      height: 100%;
+    `;
+
     return (
-      <div style={{ textAlign: "center" }}>
-        <h1>Welcome & Login Page</h1>
-        <Button type="primary" ghost>
-          <a href="/auth/google">LogIn With Google</a>
-        </Button>
-        <div>
-          <br />
-          <RangePicker onChange={onChange} />
-          <br />
-        </div>
+      <div>
+        <BrowserRouter>
+          <Wrapper>
+            <Route exact path="/" component={Landing} />
+          </Wrapper>
+        </BrowserRouter>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(null, {})(App);

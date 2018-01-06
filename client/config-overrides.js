@@ -6,6 +6,7 @@ module.exports = (config, env) => {
   // change importing css to less
   config = rewireLess.withLoaderOptions({
     modifyVars: {
+      "@font-family": "Futura",
       "@body-background": "#6c4c4c",
       "@btn-primary-color": "#FFF",
       "@btn-primary-bg ": "#2e0f10"

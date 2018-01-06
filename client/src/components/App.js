@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import styled from "styled-components";
+import "./index.css";
 
 import Landing from "./Landing";
 const Header = () => <h2>Header</h2>;
@@ -23,8 +24,7 @@ class App extends Component {
 
   render() {
     const Wrapper = styled.div`
-      font-family: "Cassanet";
-      height: 100%;
+      font-family: "Futura";
     `;
 
     return (

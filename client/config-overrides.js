@@ -7,8 +7,8 @@ module.exports = (config, env) => {
   config = rewireLess.withLoaderOptions({
     modifyVars: {
       "@body-background": "#6c4c4c",
-      "@btn-primary-color": "#2e0f10",
-      "@btn-primary-bg ": " @btn-primary-color"
+      "@btn-primary-color": "#FFF",
+      "@btn-primary-bg ": "#2e0f10"
     }
   })(config, env);
 

@@ -9,7 +9,9 @@ module.exports = (config, env) => {
       "@font-family": "Futura",
       "@body-background": "#6c4c4c",
       "@btn-primary-color": "#FFF",
-      "@btn-primary-bg ": "#2e0f10"
+      "@btn-primary-bg": "#2e0f10",
+      "@layout-header-background": "#5d3c3d",
+      "@layout-body-background": "#bdb6b6"
     }
   })(config, env);
 

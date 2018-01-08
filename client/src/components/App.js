@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import styled from "styled-components";
 import "./index.css";
+import { Layout } from "antd";
 
 import Landing from "./Landing";
-const Header = () => <h2>Header</h2>;
-const Dashboard = () => <h2>Dashboard with Create Button</h2>;
+import Dashboard from "./Dashboard";
+import HeaderBar from "./HeaderBar";
 const Create = () => <h2>Create a new list</h2>;
 const ViewOneList = () => <h2>Here's your list</h2>;
 const Preferences = () => <h2>Preferences Page</h2>;
@@ -31,16 +32,18 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Wrapper>
-            <Route path="/" render={props => props.location.pathname !== "/" && <Header />} />
+            <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
             <Route exact path="/" component={Landing} />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route exact path="/create" component={Create} />
-            <Route path="/lists" component={MyGroceryLists} />
-            <Route path="/viewonelist/:listid" component={ViewOneList} />
-            <Route path="/preferences" component={Preferences} />
-            <Route path="/saved" component={SavedRecipes} />
-            <Route path="/favorites" component={Favorites} />
-            <Route path="/search" component={SearchForRecipes} />
+            <Layout className="layout">
+              <Route path="/dashboard" component={Dashboard} />
+              <Route exact path="/create" component={Create} />
+              <Route path="/lists" component={MyGroceryLists} />
+              <Route path="/viewonelist/:listid" component={ViewOneList} />
+              <Route path="/preferences" component={Preferences} />
+              <Route path="/saved" component={SavedRecipes} />
+              <Route path="/favorites" component={Favorites} />
+              <Route path="/search" component={SearchForRecipes} />
+            </Layout>
           </Wrapper>
         </BrowserRouter>
       </div>

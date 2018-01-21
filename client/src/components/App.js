@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import styled from "styled-components";
@@ -23,6 +23,7 @@ class App extends Component {
     this.props.fetchUser();
   }
 
+
   render() {
     const Wrapper = styled.div`
       font-family: "Futura";
@@ -33,7 +34,7 @@ class App extends Component {
         <BrowserRouter>
           <Wrapper>
             <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
-            <Route exact path="/" component={Landing} />
+            <Route exact path="/" render={() => (!this.props.auth ? (<Landing />) :  (<Redirect to='/dashboard'/>) )} />
             <Layout className="layout">
               <Route path="/dashboard" component={Dashboard} />
               <Route exact path="/create" component={Create} />
@@ -51,5 +52,9 @@ class App extends Component {
   }
 }
 
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
 // pass all of our action creators to mapDispatchToProps
-export default connect(null, actions)(App);
+export default connect(mapStateToProps, actions)(App);

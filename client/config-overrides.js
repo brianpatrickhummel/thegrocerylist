@@ -1,3 +1,5 @@
+// Ant Designs configuration overrides
+
 const { injectBabelPlugin } = require("react-app-rewired");
 const rewireLess = require("react-app-rewire-less");
 

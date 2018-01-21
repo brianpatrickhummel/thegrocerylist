@@ -16,7 +16,7 @@ module.exports = app => {
   // Attempts to exchange the code for a user profile and accessToken
   // Once authenticated and serialized to session, redirects
   app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
-    console.log(req.user);
+    console.log("req.user: ", req.user);
     console.log("session: ", req.session);
     res.redirect("/dashboard");
   });

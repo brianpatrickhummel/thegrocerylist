@@ -2,9 +2,9 @@
 
 /* ======== App.js ========== */
 
-* {
+/* * {
   border: 1px solid red;
-}
+} */
 
 .ant-btn {
   font-family: futura !important;
@@ -14,15 +14,60 @@
   background: #5d3c3d !important;
 } */
 
+/* Ant Layout */
+.layout,
+.ant-layout {
+  height: 100vh;
+}
+
 /* HeaderBar */
 .ant-layout-header {
-  height: 146px;
+  height: 100%;
 }
-
-.ant-menu-horizontal {
-}
-
 .ant-menu-horizontal > .ant-menu-item {
   margin: 0 10px;
   display: inline;
 }
+
+/* = = = = = = = = = Media Queries = = = = = = = = = = */
+
+/* FOR HEADER COMPONENT */
+@media (max-width: 1127px) {
+  .ant-menu-horizontal > .ant-menu-item {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 866px) {
+  .ant-menu-horizontal > .ant-menu-item {
+    padding: 0 4px;
+  }
+}
+
+@media (max-width: 700px) {
+  .ant-menu-horizontal > .ant-menu-item {
+    padding: 0 0px;
+  }
+}
+
+@media (max-width: 628px) {
+  .ant-layout-header {
+    display: none;
+  }
+
+  .ant-menu-inline .ant-menu-item {
+    margin-top: 0px;
+    line-height: 8px;
+    overflow: visible !important;
+    /* disable the default, momentary display of ellipses */
+    text-overflow: unset !important;
+  }
+}
+
+@media (min-width: 628px) {
+  .ant-layout-has-sider {
+    display: none;
+  }
+}
+
+/* END HEADER COMPONENT */

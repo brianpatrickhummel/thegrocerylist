@@ -23,7 +23,6 @@ class App extends Component {
     this.props.fetchUser();
   }
 
-
   render() {
     const Wrapper = styled.div`
       font-family: "Futura";
@@ -34,17 +33,18 @@ class App extends Component {
         <BrowserRouter>
           <Wrapper>
             <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
-            <Route exact path="/" render={() => (!this.props.auth ? (<Landing />) :  (<Redirect to='/dashboard'/>) )} />
-            <Layout className="layout">
-              <Route path="/dashboard" component={Dashboard} />
-              <Route exact path="/create" component={Create} />
-              <Route path="/lists" component={MyGroceryLists} />
-              <Route path="/viewonelist/:listid" component={ViewOneList} />
-              <Route path="/preferences" component={Preferences} />
-              <Route path="/saved" component={SavedRecipes} />
-              <Route path="/favorites" component={Favorites} />
-              <Route path="/search" component={SearchForRecipes} />
-            </Layout>
+            <Route path="/" render={props => props.location.pathname !== "/" && <Layout className="layout" />} />
+            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/dashboard" />)} />
+            {/* <Layout className="layout"> */}
+            <Route path="/dashboard" component={Dashboard} />
+            <Route exact path="/create" component={Create} />
+            <Route path="/lists" component={MyGroceryLists} />
+            <Route path="/viewonelist/:listid" component={ViewOneList} />
+            <Route path="/preferences" component={Preferences} />
+            <Route path="/saved" component={SavedRecipes} />
+            <Route path="/favorites" component={Favorites} />
+            <Route path="/search" component={SearchForRecipes} />
+            {/* </Layout> */}
           </Wrapper>
         </BrowserRouter>
       </div>

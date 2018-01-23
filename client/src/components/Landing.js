@@ -37,6 +37,7 @@ export default Landing;
 
 const Wrapper = styled.div`
   margin-top: 50px;
+  height: 100vh;
 `;
 
 const TitleHeader = styled.h1`

@@ -2,9 +2,9 @@
 
 /* ======== App.js ========== */
 
-/* * {
+* {
   border: 1px solid red;
-} */
+}
 
 .ant-btn {
   font-family: futura !important;
@@ -13,3 +13,16 @@
 /* .ant-layout-header {
   background: #5d3c3d !important;
 } */
+
+/* HeaderBar */
+.ant-layout-header {
+  height: 146px;
+}
+
+.ant-menu-horizontal {
+}
+
+.ant-menu-horizontal > .ant-menu-item {
+  margin: 0 10px;
+  display: inline;
+}

@@ -29,6 +29,16 @@
   display: inline;
 }
 
+.ant-menu-inline-collapsed > .ant-menu-item {
+  padding: 0px !important;
+  text-align: center;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: #6d5151 !important;
+}
+
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
 
 /* FOR HEADER COMPONENT */
@@ -46,7 +56,7 @@
 
 @media (max-width: 700px) {
   .ant-menu-horizontal > .ant-menu-item {
-    padding: 0 0px;
+    padding: 0 2px;
   }
 }
 
@@ -56,11 +66,33 @@
   }
 
   .ant-menu-inline .ant-menu-item {
-    margin-top: 0px;
     line-height: 8px;
-    overflow: visible !important;
+    margin-top: 0px !important;
     /* disable the default, momentary display of ellipses */
     text-overflow: unset !important;
+  }
+
+  .ant-menu-vertical .ant-menu-item {
+    margin-top: 0px !important;
+  }
+
+  .ant-layout-sider-collapsed {
+    flex: 0 0 50px !important;
+    max-width: 50px !important;
+    min-width: 50px !important;
+    width: 50px !important;
+  }
+
+  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
+    width: 50px !important;
+  }
+
+  .ant-layout-has-sider {
+    float: left;
+  }
+
+  .logo {
+    margin-top: 35px;
   }
 }
 

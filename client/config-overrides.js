@@ -13,7 +13,10 @@ module.exports = (config, env) => {
       "@btn-primary-color": "#FFF",
       "@btn-primary-bg": "#2e0f10",
       "@layout-header-background": "#5d3c3d",
-      "@layout-body-background": "#bdb6b6"
+      "@layout-body-background": "#bdb6b6",
+      "@tooltip-bg": "#6d5151",
+      "@tooltip-color": "#fff",
+      "@menu-collapsed-width": "50px"
     }
   })(config, env);
 

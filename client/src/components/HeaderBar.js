@@ -75,82 +75,75 @@ class HeaderBar extends Component {
         <Layout style={{ minHeight: "100vh" }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
-            <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+            <Menu theme="dark" defaultSelectedKeys={[""]} mode="inline">
               <Menu.Item key="1">
-                <Icon>
-                  <LinkAnchor href="/create">
+                <LinkAnchor href="/create">
+                  <Icon>
                     <LinkImage src={require("../images/CreateList.svg")} alt="" />
-                  </LinkAnchor>
-                </Icon>
-                <span>
+                  </Icon>
+
                   <LinkText>CREATE LIST</LinkText>
-                </span>
+                </LinkAnchor>
               </Menu.Item>
 
               <Menu.Item key="2">
-                <Icon>
-                  <LinkAnchor href="/preferences">
+                <LinkAnchor href="/preferences">
+                  <Icon>
                     <LinkImage src={require("../images/Prefs.svg")} alt="" />
-                  </LinkAnchor>
-                </Icon>
-                <span>
+                  </Icon>
+
                   <LinkText>PREFERENCES</LinkText>
-                </span>
+                </LinkAnchor>
               </Menu.Item>
 
               <Menu.Item key="3">
-                <Icon>
-                  <LinkAnchor href="/saved">
+                <LinkAnchor href="/saved">
+                  <Icon>
                     <LinkImage src={require("../images/Database.svg")} alt="" />
-                  </LinkAnchor>
-                </Icon>
-                <span>
+                  </Icon>
+
                   <LinkText>MY RECIPES</LinkText>
-                </span>
+                </LinkAnchor>
               </Menu.Item>
 
               <Menu.Item key="4">
-                <Icon>
-                  <LinkAnchor href="/favorites">
+                <LinkAnchor href="/favorites">
+                  <Icon>
                     <LinkImage src={require("../images/Favorites.svg")} alt="" />
-                  </LinkAnchor>
-                </Icon>
-                <span>
+                  </Icon>
+
                   <LinkText>FAVORITES</LinkText>
-                </span>
+                </LinkAnchor>
               </Menu.Item>
 
               <Menu.Item key="5">
-                <Icon>
-                  <LinkAnchor href="/lists">
+                <LinkAnchor href="/lists">
+                  <Icon>
                     <LinkImage src={require("../images/List.svg")} alt="" />
-                  </LinkAnchor>
-                </Icon>
-                <span>
+                  </Icon>
+
                   <LinkText>MY LISTS</LinkText>
-                </span>
+                </LinkAnchor>
               </Menu.Item>
 
               <Menu.Item key="6">
-                <Icon>
-                  <LinkAnchor href="/search">
+                <LinkAnchor href="/search">
+                  <Icon>
                     <LinkImage src={require("../images/Search.svg")} alt="" />
-                  </LinkAnchor>
-                </Icon>
-                <span>
+                  </Icon>
+
                   <LinkText>RECIPE SEARCH</LinkText>
-                </span>
+                </LinkAnchor>
               </Menu.Item>
 
               <Menu.Item key="7">
-                <Icon>
-                  <LinkAnchor href="/api/logout">
+                <LinkAnchor href="/api/logout">
+                  <Icon href="/api/logout">
                     <LinkImage src={require("../images/Logout.svg")} alt="" />
-                  </LinkAnchor>
-                </Icon>
-                <span>
+                  </Icon>
+
                   <LinkText>LOGOUT</LinkText>
-                </span>
+                </LinkAnchor>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -194,8 +187,9 @@ const LinkImage = styled.img`
   }
 
   @media (max-width: 628px) {
-    height: 20px;
-    max-width: 25px;
+    min-width: 16px;
+    max-width: 16px;
+    max-height: 15px;
   }
 `;
 
@@ -222,5 +216,7 @@ const LinkText = styled.span`
 
   @media (max-width: 628px) {
     display: inline;
+    font-size: 11px;
+    padding-top: 1px;
   }
 `;

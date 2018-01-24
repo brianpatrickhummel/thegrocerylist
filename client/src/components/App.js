@@ -18,9 +18,19 @@ const MyGroceryLists = () => <h2>My Grocery Lists</h2>;
 const SearchForRecipes = () => <h2>SearchForRecipes</h2>;
 
 class App extends Component {
+  state = {
+    current: ""
+  };
+
+  updateCurrentMenuIcon = e => {
+    this.setState({
+      current: e
+    });
+  };
   componentDidMount() {
     // when app launches call the fetchUser action creator
     this.props.fetchUser();
+    console.log(`mount current state: ${this.state.current}`);
   }
 
   render() {
@@ -36,24 +46,22 @@ class App extends Component {
               path="/"
               render={props =>
                 props.location.pathname !== "/" && (
-                  <div>
-                    <HeaderBar />
-                    <Layout className="layout">
-                      <Route path="/dashboard" component={Dashboard} />
-                      <Route exact path="/create" component={Create} />
-                      <Route path="/lists" component={MyGroceryLists} />
-                      <Route path="/viewonelist/:listid" component={ViewOneList} />
-                      <Route path="/preferences" component={Preferences} />
-                      <Route path="/saved" component={SavedRecipes} />
-                      <Route path="/favorites" component={Favorites} />
-                      <Route path="/search" component={SearchForRecipes} />
-                    </Layout>
-                  </div>
+                  <HeaderBar current={this.state.current} updateState={this.updateCurrentMenuIcon} />
                 )
               }
             />
 
             <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/dashboard" />)} />
+            <Layout className="layout">
+              <Route path="/dashboard" component={Dashboard} />
+              <Route exact path="/create" component={Create} />
+              <Route path="/lists" component={MyGroceryLists} />
+              <Route path="/viewonelist/:listid" component={ViewOneList} />
+              <Route path="/preferences" component={Preferences} />
+              <Route path="/saved" component={SavedRecipes} />
+              <Route path="/favorites" component={Favorites} />
+              <Route path="/search" component={SearchForRecipes} />
+            </Layout>
           </Wrapper>
         </BrowserRouter>
       </div>

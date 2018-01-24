@@ -39,6 +39,26 @@
   background-color: #6d5151 !important;
 }
 
+/* Shrink Hover CSS Animation Effect */
+.hvr-shrink {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-shrink:hover,
+.hvr-shrink:focus,
+.hvr-shrink:active {
+  -webkit-transform: scale(0.93);
+  transform: scale(0.93);
+}
+/* END Shrink Hover CSS Animation Effect */
+
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
 
 /* FOR HEADER COMPONENT */
@@ -58,6 +78,10 @@
   .ant-menu-horizontal > .ant-menu-item {
     padding: 0 2px;
   }
+
+  .NavBar {
+    margin: 18px 0;
+  }
 }
 
 @media (max-width: 628px) {
@@ -76,7 +100,7 @@
     margin-top: 0px !important;
   }
 
-  .ant-layout-sider-collapsed {
+  .ant-layout-sider.ant-layout-sider-collapsed {
     flex: 0 0 50px !important;
     max-width: 50px !important;
     min-width: 50px !important;
@@ -89,6 +113,17 @@
 
   .ant-layout-has-sider {
     float: left;
+  }
+
+  .ant-layout-sider {
+    flex: 0 0 175px !important;
+    max-width: 175px !important;
+    min-width: 175px !important;
+    width: 175px !important;
+  }
+
+  .ant-layout-sider-trigger {
+    width: 175px !important;
   }
 
   .logo {

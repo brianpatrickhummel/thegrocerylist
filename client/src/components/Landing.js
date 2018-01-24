@@ -5,7 +5,7 @@ import styled from "styled-components";
 class Landing extends Component {
   render() {
     return (
-      <Wrapper style={{ textAlign: "center" }}>
+      <Wrapper>
         <TitleHeader style={{ marginTop: "120px" }}>GROCERY</TitleHeader>
         <TitleHeader style={{ marginBottom: "20px" }}>LIST</TitleHeader>
         <ShoppingCartIcon src={require("../images/ShoppingCartIcon.svg")} />
@@ -25,9 +25,6 @@ class Landing extends Component {
         >
           LOGIN WITH GOOGLE
         </Button>
-        <div>
-          <br />
-        </div>
       </Wrapper>
     );
   }
@@ -36,8 +33,7 @@ class Landing extends Component {
 export default Landing;
 
 const Wrapper = styled.div`
-  margin-top: 50px;
-  height: 100vh;
+  text-align: center;
 `;
 
 const TitleHeader = styled.h1`
@@ -50,6 +46,19 @@ const TitleHeader = styled.h1`
   text-shadow: 1px 1px 6px rgba(1, 1, 1, 0.1), -1px -1px 6px rgba(1, 1, 1, 0.1);
   letter-spacing: 0.08em;
   text-indent: 0.075em;
+
+  @media (max-width: 576px) {
+    font-size: 80px;
+  }
+
+  @media (max-width: 492px) {
+    font-size: 70px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 60px;
+    line-height: 60px;
+  }
 `;
 
 const ListIcon = styled.img`

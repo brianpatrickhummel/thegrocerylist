@@ -8,6 +8,12 @@ class HeaderBar extends Component {
   state = {
     collapsed: true
   };
+
+  handleClick = e => {
+    console.log("click ", e);
+    this.props.updateState(e.key);
+  };
+
   onCollapse = collapsed => {
     console.log(collapsed);
     this.setState({ collapsed });
@@ -19,54 +25,74 @@ class HeaderBar extends Component {
         {/* Header Nav - visibility controlled by Media Queries */}
         <Header style={{ textAlign: "center" }}>
           <Row type="flex" justify="center">
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[""]}>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={[""]}
+              onClick={this.handleClick}
+              selectedKeys={[this.props.current]}
+            >
               <Menu.Item key="1">
-                <LinkAnchor href="/create">
-                  <LinkImage src={require("../images/CreateList.svg")} alt="" />
-                  <LinkText>CREATE LIST</LinkText>
-                </LinkAnchor>
+                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
+                  <LinkAnchor href="/create">
+                    <LinkImage src={require("../images/CreateList.svg")} alt="" />
+                    <LinkText>CREATE LIST</LinkText>
+                  </LinkAnchor>
+                </div>
               </Menu.Item>
 
               <Menu.Item key="2">
-                <LinkAnchor href="/preferences">
-                  <LinkImage src={require("../images/Prefs.svg")} alt="" />
-                  <LinkText>PREFERENCES</LinkText>
-                </LinkAnchor>
+                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
+                  <LinkAnchor href="/preferences">
+                    <LinkImage src={require("../images/Prefs.svg")} alt="" />
+                    <LinkText>PREFERENCES</LinkText>
+                  </LinkAnchor>
+                </div>
               </Menu.Item>
 
               <Menu.Item key="3">
-                <LinkAnchor href="/saved">
-                  <LinkImage src={require("../images/Database.svg")} alt="" />
-                  <LinkText>MY RECIPES</LinkText>
-                </LinkAnchor>
+                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
+                  <LinkAnchor href="/saved">
+                    <LinkImage src={require("../images/Database.svg")} alt="" />
+                    <LinkText>MY RECIPES</LinkText>
+                  </LinkAnchor>
+                </div>
               </Menu.Item>
 
               <Menu.Item key="4">
-                <LinkAnchor href="/favorites">
-                  <LinkImage src={require("../images/Favorites.svg")} alt="" />
-                  <LinkText>FAVORITES</LinkText>
-                </LinkAnchor>
+                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
+                  <LinkAnchor href="/favorites">
+                    <LinkImage src={require("../images/Favorites.svg")} alt="" />
+                    <LinkText>FAVORITES</LinkText>
+                  </LinkAnchor>
+                </div>
               </Menu.Item>
 
               <Menu.Item key="5">
-                <LinkAnchor href="/lists">
-                  <LinkImage src={require("../images/List.svg")} alt="" />
-                  <LinkText>MY LISTS</LinkText>
-                </LinkAnchor>
+                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
+                  <LinkAnchor href="/lists">
+                    <LinkImage src={require("../images/List.svg")} alt="" />
+                    <LinkText>MY LISTS</LinkText>
+                  </LinkAnchor>
+                </div>
               </Menu.Item>
 
               <Menu.Item key="6">
-                <LinkAnchor href="/search">
-                  <LinkImage src={require("../images/Search.svg")} alt="" />
-                  <LinkText>RECIPE SEARCH</LinkText>
-                </LinkAnchor>
+                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
+                  <LinkAnchor href="/search">
+                    <LinkImage src={require("../images/Search.svg")} alt="" />
+                    <LinkText>RECIPE SEARCH</LinkText>
+                  </LinkAnchor>
+                </div>
               </Menu.Item>
 
               <Menu.Item key="7">
-                <LinkAnchor href="/api/logout">
-                  <LinkImage src={require("../images/Logout.svg")} alt="" />
-                  <LinkText>LOGOUT</LinkText>
-                </LinkAnchor>
+                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
+                  <LinkAnchor href="/api/logout">
+                    <LinkImage src={require("../images/Logout.svg")} alt="" />
+                    <LinkText>LOGOUT</LinkText>
+                  </LinkAnchor>
+                </div>
               </Menu.Item>
             </Menu>
           </Row>
@@ -81,67 +107,54 @@ class HeaderBar extends Component {
                   <Icon>
                     <LinkImage src={require("../images/CreateList.svg")} alt="" />
                   </Icon>
-
                   <LinkText>CREATE LIST</LinkText>
                 </LinkAnchor>
               </Menu.Item>
-
               <Menu.Item key="2">
                 <LinkAnchor href="/preferences">
                   <Icon>
                     <LinkImage src={require("../images/Prefs.svg")} alt="" />
                   </Icon>
-
                   <LinkText>PREFERENCES</LinkText>
                 </LinkAnchor>
               </Menu.Item>
-
               <Menu.Item key="3">
                 <LinkAnchor href="/saved">
                   <Icon>
                     <LinkImage src={require("../images/Database.svg")} alt="" />
                   </Icon>
-
                   <LinkText>MY RECIPES</LinkText>
                 </LinkAnchor>
               </Menu.Item>
-
               <Menu.Item key="4">
                 <LinkAnchor href="/favorites">
                   <Icon>
                     <LinkImage src={require("../images/Favorites.svg")} alt="" />
                   </Icon>
-
                   <LinkText>FAVORITES</LinkText>
                 </LinkAnchor>
               </Menu.Item>
-
               <Menu.Item key="5">
                 <LinkAnchor href="/lists">
                   <Icon>
                     <LinkImage src={require("../images/List.svg")} alt="" />
                   </Icon>
-
                   <LinkText>MY LISTS</LinkText>
                 </LinkAnchor>
               </Menu.Item>
-
               <Menu.Item key="6">
                 <LinkAnchor href="/search">
                   <Icon>
                     <LinkImage src={require("../images/Search.svg")} alt="" />
                   </Icon>
-
                   <LinkText>RECIPE SEARCH</LinkText>
                 </LinkAnchor>
               </Menu.Item>
-
               <Menu.Item key="7">
                 <LinkAnchor href="/api/logout">
-                  <Icon href="/api/logout">
+                  <Icon>
                     <LinkImage src={require("../images/Logout.svg")} alt="" />
                   </Icon>
-
                   <LinkText>LOGOUT</LinkText>
                 </LinkAnchor>
               </Menu.Item>
@@ -157,6 +170,7 @@ export default HeaderBar;
 
 const LinkAnchor = styled.a`
   margin: 25px 0;
+  height: 100%;
 
   @media (max-width: 1127px) {
     margin: 25px 0;

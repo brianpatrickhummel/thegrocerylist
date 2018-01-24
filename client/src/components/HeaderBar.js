@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon, Row, Layout, Menu } from "antd";
 import "./index.css";
@@ -6,14 +7,19 @@ const { Header, Sider } = Layout;
 
 class HeaderBar extends Component {
   state = {
-    collapsed: true
+    collapsed: true,
+    current: " "
   };
 
+  // Capture currently selected Menu Item and Update State with Menu.Item Key
   handleClick = e => {
     console.log("click ", e);
-    this.props.updateState(e.key);
+    this.setState({
+      current: e.key
+    });
   };
 
+  // Control whether the SideBar Nav is collapsed
   onCollapse = collapsed => {
     console.log(collapsed);
     this.setState({ collapsed });
@@ -30,11 +36,11 @@ class HeaderBar extends Component {
               mode="horizontal"
               defaultSelectedKeys={[""]}
               onClick={this.handleClick}
-              selectedKeys={[this.props.current]}
+              selectedKeys={[this.state.current]}
             >
               <Menu.Item key="1">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor href="/create">
+                  <LinkAnchor to="/create">
                     <LinkImage src={require("../images/CreateList.svg")} alt="" />
                     <LinkText>CREATE LIST</LinkText>
                   </LinkAnchor>
@@ -43,7 +49,7 @@ class HeaderBar extends Component {
 
               <Menu.Item key="2">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor href="/preferences">
+                  <LinkAnchor to="/preferences">
                     <LinkImage src={require("../images/Prefs.svg")} alt="" />
                     <LinkText>PREFERENCES</LinkText>
                   </LinkAnchor>
@@ -52,7 +58,7 @@ class HeaderBar extends Component {
 
               <Menu.Item key="3">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor href="/saved">
+                  <LinkAnchor to="/saved">
                     <LinkImage src={require("../images/Database.svg")} alt="" />
                     <LinkText>MY RECIPES</LinkText>
                   </LinkAnchor>
@@ -61,7 +67,7 @@ class HeaderBar extends Component {
 
               <Menu.Item key="4">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor href="/favorites">
+                  <LinkAnchor to="/favorites">
                     <LinkImage src={require("../images/Favorites.svg")} alt="" />
                     <LinkText>FAVORITES</LinkText>
                   </LinkAnchor>
@@ -70,7 +76,7 @@ class HeaderBar extends Component {
 
               <Menu.Item key="5">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor href="/lists">
+                  <LinkAnchor to="/lists">
                     <LinkImage src={require("../images/List.svg")} alt="" />
                     <LinkText>MY LISTS</LinkText>
                   </LinkAnchor>
@@ -79,7 +85,7 @@ class HeaderBar extends Component {
 
               <Menu.Item key="6">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor href="/search">
+                  <LinkAnchor to="/search">
                     <LinkImage src={require("../images/Search.svg")} alt="" />
                     <LinkText>RECIPE SEARCH</LinkText>
                   </LinkAnchor>
@@ -88,10 +94,10 @@ class HeaderBar extends Component {
 
               <Menu.Item key="7">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor href="/api/logout">
+                  <LinkAnchor2 to="/api/logout">
                     <LinkImage src={require("../images/Logout.svg")} alt="" />
                     <LinkText>LOGOUT</LinkText>
-                  </LinkAnchor>
+                  </LinkAnchor2>
                 </div>
               </Menu.Item>
             </Menu>
@@ -103,7 +109,7 @@ class HeaderBar extends Component {
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={[""]} mode="inline">
               <Menu.Item key="1">
-                <LinkAnchor href="/create">
+                <LinkAnchor to="/create">
                   <Icon>
                     <LinkImage src={require("../images/CreateList.svg")} alt="" />
                   </Icon>
@@ -111,7 +117,7 @@ class HeaderBar extends Component {
                 </LinkAnchor>
               </Menu.Item>
               <Menu.Item key="2">
-                <LinkAnchor href="/preferences">
+                <LinkAnchor to="/preferences">
                   <Icon>
                     <LinkImage src={require("../images/Prefs.svg")} alt="" />
                   </Icon>
@@ -119,7 +125,7 @@ class HeaderBar extends Component {
                 </LinkAnchor>
               </Menu.Item>
               <Menu.Item key="3">
-                <LinkAnchor href="/saved">
+                <LinkAnchor to="/saved">
                   <Icon>
                     <LinkImage src={require("../images/Database.svg")} alt="" />
                   </Icon>
@@ -127,7 +133,7 @@ class HeaderBar extends Component {
                 </LinkAnchor>
               </Menu.Item>
               <Menu.Item key="4">
-                <LinkAnchor href="/favorites">
+                <LinkAnchor to="/favorites">
                   <Icon>
                     <LinkImage src={require("../images/Favorites.svg")} alt="" />
                   </Icon>
@@ -135,7 +141,7 @@ class HeaderBar extends Component {
                 </LinkAnchor>
               </Menu.Item>
               <Menu.Item key="5">
-                <LinkAnchor href="/lists">
+                <LinkAnchor to="/lists">
                   <Icon>
                     <LinkImage src={require("../images/List.svg")} alt="" />
                   </Icon>
@@ -143,7 +149,7 @@ class HeaderBar extends Component {
                 </LinkAnchor>
               </Menu.Item>
               <Menu.Item key="6">
-                <LinkAnchor href="/search">
+                <LinkAnchor to="/search">
                   <Icon>
                     <LinkImage src={require("../images/Search.svg")} alt="" />
                   </Icon>
@@ -151,12 +157,12 @@ class HeaderBar extends Component {
                 </LinkAnchor>
               </Menu.Item>
               <Menu.Item key="7">
-                <LinkAnchor href="/api/logout">
+                <LinkAnchor2 href="/api/logout">
                   <Icon>
                     <LinkImage src={require("../images/Logout.svg")} alt="" />
                   </Icon>
                   <LinkText>LOGOUT</LinkText>
-                </LinkAnchor>
+                </LinkAnchor2>
               </Menu.Item>
             </Menu>
           </Sider>
@@ -168,7 +174,22 @@ class HeaderBar extends Component {
 
 export default HeaderBar;
 
-const LinkAnchor = styled.a`
+// React Router Links
+const LinkAnchor = styled(Link)`
+  margin: 25px 0;
+  height: 100%;
+
+  @media (max-width: 1127px) {
+    margin: 25px 0;
+  }
+
+  @media (max-width: 628px) {
+    margin: 0px;
+  }
+`;
+
+// External/Server API Links
+const LinkAnchor2 = styled.a`
   margin: 25px 0;
   height: 100%;
 

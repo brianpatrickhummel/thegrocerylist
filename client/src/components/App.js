@@ -18,32 +18,50 @@ const MyGroceryLists = () => <h2>My Grocery Lists</h2>;
 const SearchForRecipes = () => <h2>SearchForRecipes</h2>;
 
 class App extends Component {
+  state = {
+    modalIsOpen: false,
+    count: 0
+  };
+
   componentDidMount() {
     // when app launches call the fetchUser action creator
     this.props.fetchUser();
   }
 
-  render() {
-    const Wrapper = styled.div`
-      font-family: "Futura";
-    `;
+  componentDidUpdate() {
+    // Display welcome modal when user first logs in
+    if (!this.state.modalIsOpen && this.state.count === 0) {
+      this.setState({ modalIsOpen: true, count: 1 });
+    }
+  }
 
+  render() {
     return (
       <div>
         <BrowserRouter>
           <Wrapper>
-            <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
             <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/dashboard" />)} />
-            <Layout className="layout">
-              <Route path="/dashboard" component={Dashboard} />
-              <Route exact path="/create" component={Create} />
-              <Route path="/lists" component={MyGroceryLists} />
-              <Route path="/viewonelist/:listid" component={ViewOneList} />
-              <Route path="/preferences" component={Preferences} />
-              <Route path="/saved" component={SavedRecipes} />
-              <Route path="/favorites" component={Favorites} />
-              <Route path="/search" component={SearchForRecipes} />
-            </Layout>
+            <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
+            <Route
+              path="*"
+              render={props =>
+                props.location.pathname !== "/" && (
+                  <Layout className="layout">
+                    <Route
+                      path="/dashboard"
+                      component={() => <Dashboard auth={this.props.auth} modalIsOpen={this.state.modalIsOpen} />}
+                    />
+                    <Route exact path="/create" component={Create} />
+                    <Route path="/lists" component={MyGroceryLists} />
+                    <Route path="/viewonelist/:listid" component={ViewOneList} />
+                    <Route path="/preferences" component={Preferences} />
+                    <Route path="/saved" component={SavedRecipes} />
+                    <Route path="/favorites" component={Favorites} />
+                    <Route path="/search" component={SearchForRecipes} />
+                  </Layout>
+                )
+              }
+            />
           </Wrapper>
         </BrowserRouter>
       </div>
@@ -57,3 +75,7 @@ function mapStateToProps({ auth }) {
 
 // pass all of our action creators to mapDispatchToProps
 export default connect(mapStateToProps, actions)(App);
+
+const Wrapper = styled.div`
+  font-family: "Futura";
+`;

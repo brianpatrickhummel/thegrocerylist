@@ -29,14 +29,18 @@ passport.use(
     // Verify Callback when Google has returned the following account data items
     // done is a callback function
     async (accessToken, refreshToken, profile, done) => {
-      // console.log('profile: ', profile);
+      // console.log("profile: ", profile);
       // All database queries are asynchronous, results are returned via a promise
       const existingUser = await User.findOne({ googleId: profile.id });
       if (existingUser) {
         return done(null, existingUser);
       }
       // Create a new instance/document of the User Model
-      const user = await new User({ googleId: profile.id, username: profile.displayName, email: profile.emails[0].value }).save();
+      const user = await new User({
+        googleId: profile.id,
+        username: profile.displayName,
+        googleEmail: profile.emails[0].value
+      }).save();
       // Call done, back to passport.authenticate which calls req.login/serializeUser();
       done(null, user);
     }

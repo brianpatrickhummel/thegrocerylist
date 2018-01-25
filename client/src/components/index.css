@@ -2,9 +2,10 @@
 
 /* ======== App.js ========== */
 
-/* * {
-  border: 1px solid red;
-} */
+* {
+  /* border: 1px solid red; */
+  text-decoration: none !important;
+}
 
 .ant-btn {
   font-family: futura !important;

@@ -7,19 +7,21 @@ const { Schema } = mongoose;
 // Instantiate a userSchema object with the Schema class we just made
 const UserSchema = new Schema({
   googleId: String,
-  // username is a string. We will trim any trailing whitespace. It's also required
   username: {
     type: String,
     trim: true
   },
-  // email is a string, and it must be a unique one in our collection
-  // Notice how it must match our regex, which checks for email
-  email: {
+
+  googleEmail: {
     type: String,
     lowercase: true,
     trim: true
   },
-  // This will make a userCreated entry in our doc, by default the current time string.
+  altEmail: {
+    type: String,
+    lowercase: true,
+    trim: true
+  },
   userCreated: {
     type: Date,
     default: Date.now

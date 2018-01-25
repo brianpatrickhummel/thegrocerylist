@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { Icon, Row, Layout, Menu } from "antd";
 import "./index.css";
@@ -7,21 +8,11 @@ const { Header, Sider } = Layout;
 
 class HeaderBar extends Component {
   state = {
-    collapsed: true,
-    current: " "
-  };
-
-  // Capture currently selected Menu Item and Update State with Menu.Item Key
-  handleClick = e => {
-    console.log("click ", e);
-    this.setState({
-      current: e.key
-    });
+    collapsed: true
   };
 
   // Control whether the SideBar Nav is collapsed
   onCollapse = collapsed => {
-    console.log(collapsed);
     this.setState({ collapsed });
   };
 
@@ -31,13 +22,7 @@ class HeaderBar extends Component {
         {/* Header Nav - visibility controlled by Media Queries */}
         <Header style={{ textAlign: "center" }}>
           <Row type="flex" justify="center">
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={[""]}
-              onClick={this.handleClick}
-              selectedKeys={[this.state.current]}
-            >
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[""]}>
               <Menu.Item key="1">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
                   <LinkAnchor to="/create">
@@ -46,7 +31,6 @@ class HeaderBar extends Component {
                   </LinkAnchor>
                 </div>
               </Menu.Item>
-
               <Menu.Item key="2">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
                   <LinkAnchor to="/preferences">
@@ -55,7 +39,6 @@ class HeaderBar extends Component {
                   </LinkAnchor>
                 </div>
               </Menu.Item>
-
               <Menu.Item key="3">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
                   <LinkAnchor to="/saved">
@@ -64,7 +47,6 @@ class HeaderBar extends Component {
                   </LinkAnchor>
                 </div>
               </Menu.Item>
-
               <Menu.Item key="4">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
                   <LinkAnchor to="/favorites">
@@ -73,7 +55,6 @@ class HeaderBar extends Component {
                   </LinkAnchor>
                 </div>
               </Menu.Item>
-
               <Menu.Item key="5">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
                   <LinkAnchor to="/lists">
@@ -82,7 +63,6 @@ class HeaderBar extends Component {
                   </LinkAnchor>
                 </div>
               </Menu.Item>
-
               <Menu.Item key="6">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
                   <LinkAnchor to="/search">
@@ -91,10 +71,9 @@ class HeaderBar extends Component {
                   </LinkAnchor>
                 </div>
               </Menu.Item>
-
               <Menu.Item key="7">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor2 to="/api/logout">
+                  <LinkAnchor2 href="/api/logout">
                     <LinkImage src={require("../images/Logout.svg")} alt="" />
                     <LinkText>LOGOUT</LinkText>
                   </LinkAnchor2>
@@ -172,7 +151,11 @@ class HeaderBar extends Component {
   }
 }
 
-export default HeaderBar;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(HeaderBar);
 
 // React Router Links
 const LinkAnchor = styled(Link)`

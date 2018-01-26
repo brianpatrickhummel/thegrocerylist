@@ -21,8 +21,6 @@ class Dashboard extends Component {
     }
   }
 
-  renderModal() {}
-
   success() {
     message.config({ top: "35%" });
     const hide = message.loading(

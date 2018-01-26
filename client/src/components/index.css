@@ -1,6 +1,5 @@
 /* CSS for Components - mostly for Ant Design overrides */
 
-
 /* ======== App.js ========== */
 
 * {
@@ -12,11 +11,9 @@
   font-family: futura !important;
 }
 
-
 /* .ant-layout-header {
   background: #5d3c3d !important;
 } */
-
 
 /* Ant Layout */
 
@@ -25,19 +22,18 @@
   height: 100vh;
 }
 
-
 /* HeaderBar */
 
 .ant-layout-header {
   height: 100%;
 }
 
-.ant-menu-horizontal>.ant-menu-item {
+.ant-menu-horizontal > .ant-menu-item {
   margin: 0 10px;
   display: inline;
 }
 
-.ant-menu-inline-collapsed>.ant-menu-item {
+.ant-menu-inline-collapsed > .ant-menu-item {
   padding: 0px !important;
   text-align: center;
 }
@@ -51,7 +47,6 @@
 .ant-tooltip-open {
   color: white !important;
 }
-
 
 /* Shrink Hover CSS Animation Effect */
 
@@ -74,29 +69,26 @@
   transform: scale(0.93);
 }
 
-
 /* END Shrink Hover CSS Animation Effect */
 
-
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
-
 
 /* FOR HEADER COMPONENT */
 
 @media (max-width: 1127px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 10px;
   }
 }
 
 @media (max-width: 866px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 4px;
   }
 }
 
 @media (max-width: 700px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 2px;
   }
   .NavBar {
@@ -123,7 +115,7 @@
     min-width: 50px !important;
     width: 50px !important;
   }
-  .ant-layout-sider-collapsed>.ant-layout-sider-trigger {
+  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
     width: 50px !important;
   }
   .ant-layout-has-sider {
@@ -148,6 +140,5 @@
     display: none;
   }
 }
-
 
 /* END HEADER COMPONENT */

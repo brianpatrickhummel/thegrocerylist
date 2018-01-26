@@ -1,18 +1,53 @@
 import React, { Component } from "react";
 import { Button } from "antd";
 import styled from "styled-components";
+const FontAwesome = require("react-fontawesome");
 
 class Landing extends Component {
+  renderGooeyButton() {
+    return (
+      <div className="share" style={{ textAlign: "center" }}>
+        <button className="share-toggle-button">
+          <FontAwesome className="share-icon" name="user-circle-o" size="2x" />
+        </button>
+        <ul className="share-items">
+          <li className="share-item">
+            <a href="#" className="share-button">
+              <FontAwesome className="share-icon" name="facebook" />
+            </a>
+          </li>
+          <li className="share-item">
+            <a href="#" className="share-button">
+              <FontAwesome className="share-icon" name="twitter" />
+            </a>
+          </li>
+          <li className="share-item">
+            <a href="/auth/google" className="share-button">
+              <FontAwesome className="share-icon" name="google" />
+            </a>
+          </li>
+          <li className="share-item">
+            <a href="#" className="share-button">
+              <FontAwesome className="share-icon" name="pinterest" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
   render() {
     return (
       <Wrapper>
         <TitleHeader style={{ marginTop: "120px" }}>GROCERY</TitleHeader>
         <TitleHeader style={{ marginBottom: "20px" }}>LIST</TitleHeader>
-        <ShoppingCartIcon src={require("../images/ShoppingCartIcon.svg")} />
-        <ListIcon src={require("../images/ListIcon.svg")} />
-        <SilverWareIcon src={require("../images/SilverWareIcon.svg")} />
+        <div>
+          <ShoppingCartIcon src={require("../images/ShoppingCartIcon.svg")} />
+          <ListIcon src={require("../images/ListIcon.svg")} />
+          <SilverWareIcon src={require("../images/SilverWareIcon.svg")} />
+        </div>
         <br />
-        <Button
+        {/* <Button
           style={{
             marginTop: "50px",
             letterSpacing: "0.1em",
@@ -24,7 +59,8 @@ class Landing extends Component {
           href="/auth/google"
         >
           LOGIN WITH GOOGLE
-        </Button>
+        </Button> */}
+        {this.renderGooeyButton()}
       </Wrapper>
     );
   }

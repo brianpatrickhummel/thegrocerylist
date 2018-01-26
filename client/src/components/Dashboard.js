@@ -1,13 +1,27 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { message } from "antd";
-// import styled from "styled-components";
 
 class Dashboard extends Component {
-  renderModal() {
-    if (this.props.modalIsOpen) {
+  state = {
+    modalIsOpen: false,
+    count: 0
+  };
+
+  componentDidMount() {
+    // Display welcome modal when user first logs in
+    if (!this.state.modalIsOpen && this.state.count === 0) {
+      this.setState({ modalIsOpen: true, count: 1 });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.auth && this.state.modalIsOpen) {
       this.success();
     }
   }
+
+  renderModal() {}
 
   success() {
     message.config({ top: "35%" });
@@ -22,7 +36,6 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboardContainer">
-        {this.renderModal()}
         <h1>Dashboard</h1>
         <p>Instructions</p>
       </div>
@@ -30,4 +43,8 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(Dashboard);

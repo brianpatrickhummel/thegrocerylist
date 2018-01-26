@@ -84,7 +84,7 @@ class HeaderBar extends Component {
         </Header>
         {/* Sidebar Nav- visibility controlled by Media Queries */}
         <Layout style={{ minHeight: "100vh" }}>
-          <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
+          <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{ color: "white" }}>
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={[""]} mode="inline">
               <Menu.Item key="1">

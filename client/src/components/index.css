@@ -1,5 +1,6 @@
 /* CSS for Components - mostly for Ant Design overrides */
 
+
 /* ======== App.js ========== */
 
 * {
@@ -11,26 +12,32 @@
   font-family: futura !important;
 }
 
+
 /* .ant-layout-header {
   background: #5d3c3d !important;
 } */
 
+
 /* Ant Layout */
+
 .layout,
 .ant-layout {
   height: 100vh;
 }
 
+
 /* HeaderBar */
+
 .ant-layout-header {
   height: 100%;
 }
-.ant-menu-horizontal > .ant-menu-item {
+
+.ant-menu-horizontal>.ant-menu-item {
   margin: 0 10px;
   display: inline;
 }
 
-.ant-menu-inline-collapsed > .ant-menu-item {
+.ant-menu-inline-collapsed>.ant-menu-item {
   padding: 0px !important;
   text-align: center;
 }
@@ -40,7 +47,14 @@
   background-color: #6d5151 !important;
 }
 
+.ant-menu-item-active,
+.ant-tooltip-open {
+  color: white !important;
+}
+
+
 /* Shrink Hover CSS Animation Effect */
+
 .hvr-shrink {
   display: inline-block;
   vertical-align: middle;
@@ -52,34 +66,39 @@
   -webkit-transition-property: transform;
   transition-property: transform;
 }
+
 .hvr-shrink:hover,
 .hvr-shrink:focus,
 .hvr-shrink:active {
   -webkit-transform: scale(0.93);
   transform: scale(0.93);
 }
+
+
 /* END Shrink Hover CSS Animation Effect */
+
 
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
 
+
 /* FOR HEADER COMPONENT */
+
 @media (max-width: 1127px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 10px;
   }
 }
 
 @media (max-width: 866px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 4px;
   }
 }
 
 @media (max-width: 700px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 2px;
   }
-
   .NavBar {
     margin: 18px 0;
   }
@@ -89,44 +108,36 @@
   .ant-layout-header {
     display: none;
   }
-
   .ant-menu-inline .ant-menu-item {
     line-height: 8px;
     margin-top: 0px !important;
     /* disable the default, momentary display of ellipses */
     text-overflow: unset !important;
   }
-
   .ant-menu-vertical .ant-menu-item {
     margin-top: 0px !important;
   }
-
   .ant-layout-sider.ant-layout-sider-collapsed {
     flex: 0 0 50px !important;
     max-width: 50px !important;
     min-width: 50px !important;
     width: 50px !important;
   }
-
-  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
+  .ant-layout-sider-collapsed>.ant-layout-sider-trigger {
     width: 50px !important;
   }
-
   .ant-layout-has-sider {
     float: left;
   }
-
   .ant-layout-sider {
     flex: 0 0 175px !important;
     max-width: 175px !important;
     min-width: 175px !important;
     width: 175px !important;
   }
-
   .ant-layout-sider-trigger {
     width: 175px !important;
   }
-
   .logo {
     margin-top: 35px;
   }
@@ -137,5 +148,6 @@
     display: none;
   }
 }
+
 
 /* END HEADER COMPONENT */

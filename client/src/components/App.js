@@ -18,21 +18,9 @@ const MyGroceryLists = () => <h2>My Grocery Lists</h2>;
 const SearchForRecipes = () => <h2>SearchForRecipes</h2>;
 
 class App extends Component {
-  state = {
-    modalIsOpen: false,
-    count: 0
-  };
-
   componentDidMount() {
     // when app launches call the fetchUser action creator
     this.props.fetchUser();
-  }
-
-  componentDidUpdate() {
-    // Display welcome modal when user first logs in
-    if (!this.state.modalIsOpen && this.state.count === 0) {
-      this.setState({ modalIsOpen: true, count: 1 });
-    }
   }
 
   render() {
@@ -47,10 +35,7 @@ class App extends Component {
               render={props =>
                 props.location.pathname !== "/" && (
                   <Layout className="layout">
-                    <Route
-                      path="/dashboard"
-                      component={() => <Dashboard auth={this.props.auth} modalIsOpen={this.state.modalIsOpen} />}
-                    />
+                    <Route path="/dashboard" component={Dashboard} />
                     <Route exact path="/create" component={Create} />
                     <Route path="/lists" component={MyGroceryLists} />
                     <Route path="/viewonelist/:listid" component={ViewOneList} />

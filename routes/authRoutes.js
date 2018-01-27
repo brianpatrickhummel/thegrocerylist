@@ -44,11 +44,14 @@ module.exports = app => {
   // handle the callback after twitter has authorized the user
   app.get(
     "/auth/twitter/callback",
-    passport.authenticate("twitter", (req, res) => {
+    passport.authenticate("twitter", {
+      failureRedirect: "/"
+    }),
+    (req, res) => {
       console.log("after Twitter auth, req.user: ", req.user);
       console.log("after Twitter auth, session: ", req.session);
       res.redirect("/dashboard");
-    })
+    }
   );
 
   // = = = = = = = = API = = = = = = = = = = = = = = =

@@ -62,7 +62,7 @@ passport.use(
       profileFields: ["id", "displayName", "name", "gender", "profileUrl", "email"]
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log("Facebook profile: ", profile);
+      // console.log("Facebook profile: ", profile);
       const existingUser = await User.findOne({ "authProviders.facebook.facebookId": profile.id });
       if (existingUser) {
         return done(null, existingUser);
@@ -94,7 +94,7 @@ passport.use(
       callbackURL: "/auth/twitter/callback"
     },
     async (token, tokenSecret, profile, done) => {
-      console.log("Twitter profile: ", profile);
+      // console.log("Twitter profile: ", profile);
       const existingUser = await User.findOne({ "authProviders.twitter.twitterId": profile.id });
       if (existingUser) {
         return done(null, existingUser);

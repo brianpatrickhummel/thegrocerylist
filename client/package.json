@@ -25,10 +25,10 @@
     "eject": "react-scripts eject"
   },
   "proxy": {
-    "/auth/google": {
+    "/api/*": {
       "target": "http://localhost:5000"
     },
-    "/api/*": {
+    "/auth/*": {
       "target": "http://localhost:5000"
     }
   },

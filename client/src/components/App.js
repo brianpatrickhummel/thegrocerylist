@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import styled from "styled-components";
@@ -35,14 +35,17 @@ class App extends Component {
               render={props =>
                 props.location.pathname !== "/" && (
                   <Layout className="layout">
-                    <Route path="/dashboard" component={Dashboard} />
-                    <Route exact path="/create" component={Create} />
-                    <Route path="/lists" component={MyGroceryLists} />
-                    <Route path="/viewonelist/:listid" component={ViewOneList} />
-                    <Route path="/preferences" component={Preferences} />
-                    <Route path="/saved" component={SavedRecipes} />
-                    <Route path="/favorites" component={Favorites} />
-                    <Route path="/search" component={SearchForRecipes} />
+                    <Switch>
+                      <Route path="/dashboard" component={Dashboard} />
+                      <Route exact path="/create" component={Create} />
+                      <Route path="/lists" component={MyGroceryLists} />
+                      <Route path="/viewonelist/:listid" component={ViewOneList} />
+                      <Route path="/preferences" component={Preferences} />
+                      <Route path="/saved" component={SavedRecipes} />
+                      <Route path="/favorites" component={Favorites} />
+                      <Route path="/search" component={SearchForRecipes} />
+                      {/* <Redirect from="*" to="/" /> */}
+                    </Switch>
                   </Layout>
                 )
               }

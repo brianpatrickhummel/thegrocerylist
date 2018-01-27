@@ -1,7 +1,9 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("../config/keys");
-const User = require("../models/User");
+const passport = require("passport"),
+  GoogleStrategy = require("passport-google-oauth20").Strategy,
+  FacebookStrategy = require("passport-facebook"),
+  TwitterStrategy = require("passport-twitter").Strategy,
+  keys = require("../config/keys"),
+  User = require("../models/User");
 
 // MongoDB user passed from req.login(), user.id will be inserted into token
 passport.serializeUser((user, done) => {
@@ -15,10 +17,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-// register the Google Strategy with Passport and create a new instance of this strategy
-// redirects browser to google for user to grant permission to our app
-// google will redirect to callbackURL and include user code
-// express server will retrieve user profile from Google and execute the callback below
+// GOOGLE = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 passport.use(
   new GoogleStrategy(
     {
@@ -29,17 +28,85 @@ passport.use(
     // Verify Callback when Google has returned the following account data items
     // done is a callback function
     async (accessToken, refreshToken, profile, done) => {
-      // console.log("profile: ", profile);
+      // console.log(`Google profile: ${profile}`);
       // All database queries are asynchronous, results are returned via a promise
-      const existingUser = await User.findOne({ googleId: profile.id });
+      const existingUser = await User.findOne({ "authProviders.google.googleId": profile.id });
       if (existingUser) {
         return done(null, existingUser);
       }
       // Create a new instance/document of the User Model
       const user = await new User({
-        googleId: profile.id,
-        username: profile.displayName,
-        googleEmail: profile.emails[0].value
+        authProviders: {
+          google: {
+            googleId: profile.id,
+            username: profile.displayName,
+            lastName: profile.name.familyName,
+            firstName: profile.name.givenName,
+            googleEmail: profile.emails[0].value
+          }
+        }
+      }).save();
+      // Call done, back to passport.authenticate which calls req.login/serializeUser();
+      done(null, user);
+    }
+  )
+);
+
+// FACEBOOK = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: keys.facebookClientID,
+      clientSecret: keys.facebookClientSecret,
+      callbackURL: "/auth/facebook/callback",
+      profileFields: ["id", "displayName", "name", "gender", "profileUrl", "email"]
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      console.log("Facebook profile: ", profile);
+      const existingUser = await User.findOne({ "authProviders.facebook.facebookId": profile.id });
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+      // Create a new instance/document of the User Model
+      const user = await new User({
+        authProviders: {
+          facebook: {
+            facebookId: profile.id,
+            displayName: profile.displayName,
+            facebookEmail: profile.emails[0].value,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName
+          }
+        }
+      }).save();
+      // Call done, back to passport.authenticate which calls req.login/serializeUser();
+      done(null, user);
+    }
+  )
+);
+
+// TWITTER = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+passport.use(
+  new TwitterStrategy(
+    {
+      consumerKey: keys.twitterConsumerKey,
+      consumerSecret: keys.twitterConsumerSecret,
+      callbackURL: "/auth/twitter/callback"
+    },
+    async (token, tokenSecret, profile, done) => {
+      console.log("Twitter profile: ", profile);
+      const existingUser = await User.findOne({ "authProviders.twitter.twitterId": profile.id });
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+      // Create a new instance/document of the User Model
+      const user = await new User({
+        authProviders: {
+          twitter: {
+            twitterId: profile.id,
+            displayName: profile.name
+          }
+        }
       }).save();
       // Call done, back to passport.authenticate which calls req.login/serializeUser();
       done(null, user);

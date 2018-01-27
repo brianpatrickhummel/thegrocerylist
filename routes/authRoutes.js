@@ -2,7 +2,8 @@ const passport = require("passport");
 
 module.exports = app => {
   // PASSPORT AUTH
-  // Passport redirects request to Google for OAuth authorization
+
+  // = = = = = GOOGLE = = = = = = = = = = = = = = = =
   app.get(
     "/auth/google",
     passport.authenticate("google", {
@@ -16,10 +17,41 @@ module.exports = app => {
   // Attempts to exchange the code for a user profile and accessToken
   // Once authenticated and serialized to session, redirects
   app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
-    console.log("req.user: ", req.user);
-    console.log("session: ", req.session);
+    console.log("after Google auth, req.user: ", req.user);
+    console.log("after Google auth, session: ", req.session);
     res.redirect("/dashboard");
   });
+
+  // = = = = = Facebook = = = = = = = = = = = = = = =
+  app.get(
+    "/auth/facebook",
+    passport.authenticate("facebook", {
+      scope: ["public_profile", "email"]
+    })
+  );
+
+  app.get("/auth/facebook/callback", passport.authenticate("facebook"), (req, res) => {
+    console.log("after Facebook auth, req.user: ", req.user);
+    console.log("after Facebook auth, session: ", req.session);
+    res.redirect("/dashboard");
+  });
+
+  // = = = = = = Twitter = = = = = = = = = = = = = = =
+
+  // send to twitter to do the authentication
+  app.get("/auth/twitter", passport.authenticate("twitter", { scope: "email" }));
+
+  // handle the callback after twitter has authorized the user
+  app.get(
+    "/auth/twitter/callback",
+    passport.authenticate("twitter", (req, res) => {
+      console.log("after Twitter auth, req.user: ", req.user);
+      console.log("after Twitter auth, session: ", req.session);
+      res.redirect("/dashboard");
+    })
+  );
+
+  // = = = = = = = = API = = = = = = = = = = = = = = =
 
   // GET CURRENT USER
   app.get("/api/current_user", (req, res) => {
@@ -32,6 +64,8 @@ module.exports = app => {
   // method removes the req.user property and clears the login session
   app.get("/api/logout", (req, res) => {
     req.logout();
+    console.log("after LOGOUT req.user: ", req.user);
+    console.log("after LOGOUT session: ", req.session);
     res.redirect("/");
   });
 };

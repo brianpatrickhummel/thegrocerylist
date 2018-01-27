@@ -1,23 +1,23 @@
 import React, { Component } from "react";
-import { Button } from "antd";
+// import { Button } from "antd";
 import styled from "styled-components";
 const FontAwesome = require("react-fontawesome");
 
 class Landing extends Component {
   renderGooeyButton() {
     return (
-      <div className="share" style={{ textAlign: "center" }}>
+      <div className="share">
         <button className="share-toggle-button">
           <FontAwesome className="share-icon" name="user-circle-o" size="2x" />
         </button>
         <ul className="share-items">
           <li className="share-item">
-            <a href="#" className="share-button">
+            <a href="/auth/facebook" className="share-button">
               <FontAwesome className="share-icon" name="facebook" />
             </a>
           </li>
           <li className="share-item">
-            <a href="#" className="share-button">
+            <a href="/auth/twitter" className="share-button">
               <FontAwesome className="share-icon" name="twitter" />
             </a>
           </li>
@@ -27,7 +27,7 @@ class Landing extends Component {
             </a>
           </li>
           <li className="share-item">
-            <a href="#" className="share-button">
+            <a href="" className="share-button">
               <FontAwesome className="share-icon" name="pinterest" />
             </a>
           </li>
@@ -41,11 +41,11 @@ class Landing extends Component {
       <Wrapper>
         <TitleHeader style={{ marginTop: "120px" }}>GROCERY</TitleHeader>
         <TitleHeader style={{ marginBottom: "20px" }}>LIST</TitleHeader>
-        <div>
+        <ImageContainer>
           <ShoppingCartIcon src={require("../images/ShoppingCartIcon.svg")} />
           <ListIcon src={require("../images/ListIcon.svg")} />
           <SilverWareIcon src={require("../images/SilverWareIcon.svg")} />
-        </div>
+        </ImageContainer>
         <br />
         {/* <Button
           style={{
@@ -71,6 +71,10 @@ export default Landing;
 const Wrapper = styled.div`
   text-align: center;
   min-height: 100vh;
+`;
+
+const ImageContainer = styled.div`
+  margin-right: 9px;
 `;
 
 const TitleHeader = styled.h1`

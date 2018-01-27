@@ -6,16 +6,53 @@ const { Schema } = mongoose;
 
 // Instantiate a userSchema object with the Schema class we just made
 const UserSchema = new Schema({
-  googleId: String,
-  username: {
-    type: String,
-    trim: true
-  },
-
-  googleEmail: {
-    type: String,
-    lowercase: true,
-    trim: true
+  authProviders: {
+    google: {
+      googleId: String,
+      username: {
+        type: String,
+        trim: true
+      },
+      lastName: {
+        type: String,
+        trim: true
+      },
+      firstName: {
+        type: String,
+        trim: true
+      },
+      googleEmail: {
+        type: String,
+        lowercase: true,
+        trim: true
+      }
+    },
+    facebook: {
+      facebookId: String,
+      displayName: {
+        type: String,
+        trim: true
+      },
+      facebookEmail: {
+        type: String,
+        trim: true
+      },
+      lastName: {
+        type: String,
+        trim: true
+      },
+      firstName: {
+        type: String,
+        trim: true
+      }
+    },
+    twitter: {
+      twitterId: String,
+      displayName: {
+        type: String,
+        trim: true
+      }
+    }
   },
   altEmail: {
     type: String,
@@ -26,55 +63,57 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  intolerances: {
-    dairy: { type: Boolean, default: false },
-    egg: { type: Boolean, default: false },
-    gluten: { type: Boolean, default: false },
-    peanut: { type: Boolean, default: false },
-    seafood: { type: Boolean, default: false },
-    sesame: { type: Boolean, default: false },
-    shellfish: { type: Boolean, default: false },
-    soy: { type: Boolean, default: false },
-    sulfite: { type: Boolean, default: false },
-    treenut: { type: Boolean, default: false },
-    wheat: { type: Boolean, default: false }
-  },
-  diettype: {
-    lactovegetarian: { type: Boolean, default: false },
-    ovovegetarian: { type: Boolean, default: false },
-    paleo: { type: Boolean, default: false },
-    primal: { type: Boolean, default: false },
-    pescetarian: { type: Boolean, default: false },
-    vegan: { type: Boolean, default: false },
-    vegetarian: { type: Boolean, default: false },
-    ketogenic: { type: Boolean, default: false },
-    whole30: { type: Boolean, default: false }
-  },
-  cuisines: {
-    african: { type: Boolean, default: false },
-    american: { type: Boolean, default: false },
-    british: { type: Boolean, default: false },
-    cajun: { type: Boolean, default: false },
-    caribbean: { type: Boolean, default: false },
-    chinese: { type: Boolean, default: false },
-    easterneuropean: { type: Boolean, default: false },
-    french: { type: Boolean, default: false },
-    german: { type: Boolean, default: false },
-    greek: { type: Boolean, default: false },
-    indian: { type: Boolean, default: false },
-    irish: { type: Boolean, default: false },
-    italian: { type: Boolean, default: false },
-    japanese: { type: Boolean, default: false },
-    jewish: { type: Boolean, default: false },
-    korean: { type: Boolean, default: false },
-    latinamerican: { type: Boolean, default: false },
-    mexican: { type: Boolean, default: false },
-    middleeastern: { type: Boolean, default: false },
-    nordic: { type: Boolean, default: false },
-    southern: { type: Boolean, default: false },
-    spanish: { type: Boolean, default: false },
-    thai: { type: Boolean, default: false },
-    vietnamese: { type: Boolean, default: false }
+  preferences: {
+    intolerances: {
+      dairy: { type: Boolean, default: false },
+      egg: { type: Boolean, default: false },
+      gluten: { type: Boolean, default: false },
+      peanut: { type: Boolean, default: false },
+      seafood: { type: Boolean, default: false },
+      sesame: { type: Boolean, default: false },
+      shellfish: { type: Boolean, default: false },
+      soy: { type: Boolean, default: false },
+      sulfite: { type: Boolean, default: false },
+      treenut: { type: Boolean, default: false },
+      wheat: { type: Boolean, default: false }
+    },
+    dietType: {
+      lactovegetarian: { type: Boolean, default: false },
+      ovovegetarian: { type: Boolean, default: false },
+      paleo: { type: Boolean, default: false },
+      primal: { type: Boolean, default: false },
+      pescetarian: { type: Boolean, default: false },
+      vegan: { type: Boolean, default: false },
+      vegetarian: { type: Boolean, default: false },
+      ketogenic: { type: Boolean, default: false },
+      whole30: { type: Boolean, default: false }
+    },
+    cuisines: {
+      african: { type: Boolean, default: false },
+      american: { type: Boolean, default: false },
+      british: { type: Boolean, default: false },
+      cajun: { type: Boolean, default: false },
+      caribbean: { type: Boolean, default: false },
+      chinese: { type: Boolean, default: false },
+      easterneuropean: { type: Boolean, default: false },
+      french: { type: Boolean, default: false },
+      german: { type: Boolean, default: false },
+      greek: { type: Boolean, default: false },
+      indian: { type: Boolean, default: false },
+      irish: { type: Boolean, default: false },
+      italian: { type: Boolean, default: false },
+      japanese: { type: Boolean, default: false },
+      jewish: { type: Boolean, default: false },
+      korean: { type: Boolean, default: false },
+      latinamerican: { type: Boolean, default: false },
+      mexican: { type: Boolean, default: false },
+      middleeastern: { type: Boolean, default: false },
+      nordic: { type: Boolean, default: false },
+      southern: { type: Boolean, default: false },
+      spanish: { type: Boolean, default: false },
+      thai: { type: Boolean, default: false },
+      vietnamese: { type: Boolean, default: false }
+    }
   }
 });
 

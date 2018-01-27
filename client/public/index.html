@@ -10,6 +10,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <!-- <link rel="stylesheet" type="text/css" href="static/fonts/fontawesome.min.css" /> -->
   <link rel="stylesheet" type="text/css" href="/static/css/share.css" />
+
 </head>
 
 <body>
@@ -23,6 +24,16 @@
   </script>
   <script type="text/javascript" src="/static/js/TweenMax.min.js"></script>
   <script type="text/javascript" src="/static/js/share.js"></script>
+  <!-- Script to remove the "#_=_" added by Facebook to Auth  redirect URIs -->
+  <script>
+    $(window).on('load', function (e) {
+      if (window.location.hash == '#_=_') {
+        window.location.hash = ''; // for older browsers, leaves a # behind
+        history.pushState('', document.title, window.location.pathname); // nice and clean
+        e.preventDefault(); // no page reload
+      }
+    })
+  </script>
 </body>
 
 </html>

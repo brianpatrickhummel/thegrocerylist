@@ -8,10 +8,11 @@ const { Schema } = mongoose;
 const UserSchema = new Schema({
   primaryId: String,
   primaryAccount: String,
+  primaryDisplayName: String,
   authProviders: {
     google: {
       googleId: String,
-      username: {
+      displayName: {
         type: String,
         trim: true
       },
@@ -54,6 +55,11 @@ const UserSchema = new Schema({
         type: String,
         trim: true
       }
+    },
+    github: {
+      githubId: String,
+      displayName: String,
+      email: String
     }
   },
   altEmail: {

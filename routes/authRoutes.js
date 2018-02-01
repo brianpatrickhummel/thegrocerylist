@@ -54,6 +54,24 @@ module.exports = app => {
     }
   );
 
+  // = = = = = = Github = = = = = = = = = = = = = = =
+
+  // send to twitter to do the authentication
+  app.get("/auth/github", passport.authenticate("github", { scope: "email" }));
+
+  // handle the callback after twitter has authorized the user
+  app.get(
+    "/auth/github/callback",
+    passport.authenticate("github", {
+      failureRedirect: "/"
+    }),
+    (req, res) => {
+      console.log("after Github auth, req.user: ", req.user);
+      console.log("after Github auth, session: ", req.session);
+      res.redirect("/dashboard");
+    }
+  );
+
   // = = = = = = = = API = = = = = = = = = = = = = = =
 
   // GET CURRENT USER

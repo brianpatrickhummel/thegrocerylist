@@ -17,7 +17,7 @@ class Dashboard extends Component {
 
   componentDidUpdate() {
     if (this.props.auth && this.state.modalIsOpen) {
-      // this.success();
+      this.success();
     }
   }
 
@@ -25,7 +25,7 @@ class Dashboard extends Component {
     message.config({ top: "35%" });
     const hide = message.loading(
       `WELCOME BACK, 
-      ${this.props.auth.authProviders["google"].username.toUpperCase()}`
+      ${this.props.auth.primaryDisplayName.toUpperCase()}`
     );
     // Dismiss manually and asynchronously
     setTimeout(hide, 1000);

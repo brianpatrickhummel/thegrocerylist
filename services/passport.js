@@ -2,6 +2,7 @@ const passport = require("passport"),
   GoogleStrategy = require("passport-google-oauth20").Strategy,
   FacebookStrategy = require("passport-facebook"),
   TwitterStrategy = require("passport-twitter").Strategy,
+  GitHubStrategy = require("passport-github").Strategy,
   keys = require("../config/keys"),
   User = require("../models/User");
 
@@ -38,10 +39,11 @@ passport.use(
       const user = await new User({
         primaryId: profile.id,
         primaryAccount: "google",
+        primaryDisplayName: profile.displayName,
         authProviders: {
           google: {
             googleId: profile.id,
-            username: profile.displayName,
+            displayName: profile.displayName,
             lastName: profile.name.familyName,
             firstName: profile.name.givenName,
             googleEmail: profile.emails[0].value
@@ -73,6 +75,7 @@ passport.use(
       const user = await new User({
         primaryId: profile.id,
         primaryAccount: "facebook",
+        primaryDisplayName: profile.displayName,
         authProviders: {
           facebook: {
             facebookId: profile.id,
@@ -107,6 +110,7 @@ passport.use(
       const user = await new User({
         primaryId: profile.id,
         primaryAccount: "twitter",
+        primaryDisplayName: profile.name,
         authProviders: {
           twitter: {
             twitterId: profile.id,
@@ -116,6 +120,40 @@ passport.use(
       }).save();
       // Call done, back to passport.authenticate which calls req.login/serializeUser();
       done(null, user);
+    }
+  )
+);
+
+// GITHUB = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: keys.githubClientID,
+      clientSecret: keys.githubClientSecret,
+      callbackURL: "/auth/github/callback"
+    },
+    async (accessToken, refreshToken, profile, cb) => {
+      // console.log("Github profile: ", profile);
+      const existingUser = await User.findOne({ "authProviders.github.githubId": profile.id });
+
+      if (existingUser) {
+        return cb(null, existingUser);
+      }
+      // Create a new instance/document of the User Model
+      const user = await new User({
+        primaryId: profile.id,
+        primaryAccount: "github",
+        primaryDisplayName: profile.displayName,
+        authProviders: {
+          github: {
+            githubId: profile.id,
+            displayName: profile.displayName,
+            githubEmail: profile.emails[0].value
+          }
+        }
+      }).save();
+      // Call done, back to passport.authenticate which calls req.login/serializeUser();
+      cb(null, user);
     }
   )
 );

@@ -27,8 +27,8 @@ class Landing extends Component {
             </a>
           </li>
           <li className="share-item">
-            <a href="" className="share-button">
-              <FontAwesome className="share-icon" name="pinterest" />
+            <a href="/auth/github" className="share-button">
+              <FontAwesome className="share-icon" name="github" />
             </a>
           </li>
         </ul>

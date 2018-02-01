@@ -9,7 +9,7 @@ module.exports = app => {
   // = = = = = GOOGLE = = = = = = = = = = = = = = = = = = = = = = = = = =
 
   // Send to Google to do the authorization
-  app.get("/connect/google", passport.authorize("google", { scope: ["profile", "email"] }));
+  app.get("/connect/google", requireLogin, passport.authorize("google", { scope: ["profile", "email"] }));
 
   app.get(
     "/connect/google/callback",
@@ -22,7 +22,7 @@ module.exports = app => {
   // = = = = = FACEBOOK = = = = = = = = = = = = = = = = = = = = = = = = = =
 
   // Send to Facebook to do the authorization
-  app.get("/connect/facebook", passport.authorize("facebook", { scope: ["public_profile", "email"] }));
+  app.get("/connect/facebook", requireLogin, passport.authorize("facebook", { scope: ["public_profile", "email"] }));
 
   app.get(
     "/connect/facebook/callback",
@@ -35,7 +35,7 @@ module.exports = app => {
   // = = = = = TWITTER = = = = = = = = = = = = = = = = = = = = = = = = = =
 
   // Send to Twitter to do the authorization
-  app.get("/connect/twitter", passport.authorize("twitter", { scope: ["include_email=true"] }));
+  app.get("/connect/twitter", requireLogin, passport.authorize("twitter", { scope: ["include_email=true"] }));
 
   app.get(
     "/connect/twitter/callback",
@@ -48,7 +48,7 @@ module.exports = app => {
   // = = = = = GITHUB = = = = = = = = = = = = = = = = = = = = = = = = = =
 
   // Send to Github to do the authorization
-  app.get("/connect/github", passport.authorize("github", { scope: "email" }));
+  app.get("/connect/github", requireLogin, passport.authorize("github", { scope: "email" }));
 
   app.get(
     "/connect/github/callback",

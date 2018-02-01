@@ -48,7 +48,8 @@ passport.use(
             google: {
               googleId: profile.id,
               googleDisplayName: profile.displayName,
-              googleEmail: profile.emails[0].value
+              googleEmail: profile.emails[0].value,
+              isPrimary: true
             }
           }
         }).save();
@@ -64,7 +65,8 @@ passport.use(
         // update the current user's Google credentials
         (user.authProviders.google.googleId = profile.id),
           (user.authProviders.google.googleDisplayName = profile.displayName),
-          (user.authProviders.google.googleEmail = profile.emails[0].value);
+          (user.authProviders.google.googleEmail = profile.emails[0].value),
+          (user.authProviders.google.isPrimary = false);
 
         // save the user
         user.save(function(err) {
@@ -103,7 +105,8 @@ passport.use(
             facebook: {
               facebookId: profile.id,
               facebookDisplayName: profile.displayName,
-              facebookEmail: profile.emails[0].value
+              facebookEmail: profile.emails[0].value,
+              isPrimary: true
             }
           }
         }).save();
@@ -117,7 +120,8 @@ passport.use(
         // update the current user's Facebook credentials
         (user.authProviders.facebook.facebookId = profile.id),
           (user.authProviders.facebook.facebookDisplayName = profile.displayName),
-          (user.authProviders.facebook.facebookEmail = profile.emails[0].value);
+          (user.authProviders.facebook.facebookEmail = profile.emails[0].value),
+          (user.authProviders.facebook.isPrimary = false);
 
         // save the user
         user.save(function(err) {
@@ -156,7 +160,8 @@ passport.use(
             twitter: {
               twitterId: profile.id,
               twitterEmail: profile.emails[0].value,
-              twitterDisplayName: profile.displayName
+              twitterDisplayName: profile.displayName,
+              isPrimary: true
             }
           }
         }).save();
@@ -170,7 +175,8 @@ passport.use(
         // update the current user's Twitter credentials
         (user.authProviders.twitter.twitterId = profile.id),
           (user.authProviders.twitter.twitterDisplayName = profile.displayName),
-          (user.authProviders.twitter.twitterEmail = profile.emails[0].value);
+          (user.authProviders.twitter.twitterEmail = profile.emails[0].value),
+          (user.authProviders.twitter.isPrimary = false);
 
         // save the user
         user.save(function(err) {
@@ -209,7 +215,8 @@ passport.use(
             github: {
               githubId: profile.id,
               githubDisplayName: profile.displayName,
-              githubEmail: profile.emails[0].value
+              githubEmail: profile.emails[0].value,
+              isPrimary: true
             }
           }
         }).save();
@@ -223,7 +230,8 @@ passport.use(
         // update the current user's Github credentials
         (user.authProviders.github.githubId = profile.id),
           (user.authProviders.github.githubDisplayName = profile.displayName),
-          (user.authProviders.github.githubEmail = profile.emails[0].value);
+          (user.authProviders.github.githubEmail = profile.emails[0].value),
+          (user.authProviders.github.isPrimary = false);
 
         // save the user
         user.save(function(err) {

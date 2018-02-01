@@ -21,6 +21,10 @@ const UserSchema = new Schema({
         type: String,
         lowercase: true,
         trim: true
+      },
+      isPrimary: {
+        type: Boolean,
+        default: false
       }
     },
     facebook: {
@@ -32,6 +36,10 @@ const UserSchema = new Schema({
       facebookEmail: {
         type: String,
         trim: true
+      },
+      isPrimary: {
+        type: Boolean,
+        default: false
       }
     },
     twitter: {
@@ -40,12 +48,20 @@ const UserSchema = new Schema({
       twitterDisplayName: {
         type: String,
         trim: true
+      },
+      isPrimary: {
+        type: Boolean,
+        default: false
       }
     },
     github: {
       githubId: String,
       githubDisplayName: String,
-      githubEmail: String
+      githubEmail: String,
+      isPrimary: {
+        type: Boolean,
+        default: false
+      }
     }
   },
   altEmail: {

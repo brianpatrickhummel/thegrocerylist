@@ -9,6 +9,7 @@ const cookieSession = require("cookie-session");
 require("./services/passport");
 // Require Mongoose Schemas
 require("./models/User.js");
+require("./models/Prefs.js");
 
 // Create Instance of Express
 const app = express();
@@ -18,6 +19,11 @@ const app = express();
 app.use(logger("dev"));
 // Parse req object on http request and make body available on req.body property
 app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 // stores session data within cookie on client-side
 // also extracts data out of cookie and assigns it to req.session property
 app.use(

@@ -36,6 +36,8 @@ passport.use(
       }
       // Create a new instance/document of the User Model
       const user = await new User({
+        primaryId: profile.id,
+        primaryAccount: "google",
         authProviders: {
           google: {
             googleId: profile.id,
@@ -69,6 +71,8 @@ passport.use(
       }
       // Create a new instance/document of the User Model
       const user = await new User({
+        primaryId: profile.id,
+        primaryAccount: "facebook",
         authProviders: {
           facebook: {
             facebookId: profile.id,
@@ -101,6 +105,8 @@ passport.use(
       }
       // Create a new instance/document of the User Model
       const user = await new User({
+        primaryId: profile.id,
+        primaryAccount: "twitter",
         authProviders: {
           twitter: {
             twitterId: profile.id,

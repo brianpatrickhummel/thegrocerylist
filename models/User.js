@@ -9,18 +9,11 @@ const UserSchema = new Schema({
   primaryId: String,
   primaryAccount: String,
   primaryDisplayName: String,
+  primaryEmail: String,
   authProviders: {
     google: {
       googleId: String,
-      displayName: {
-        type: String,
-        trim: true
-      },
-      lastName: {
-        type: String,
-        trim: true
-      },
-      firstName: {
+      googleDisplayName: {
         type: String,
         trim: true
       },
@@ -32,34 +25,27 @@ const UserSchema = new Schema({
     },
     facebook: {
       facebookId: String,
-      displayName: {
+      facebookDisplayName: {
         type: String,
         trim: true
       },
       facebookEmail: {
         type: String,
         trim: true
-      },
-      lastName: {
-        type: String,
-        trim: true
-      },
-      firstName: {
-        type: String,
-        trim: true
       }
     },
     twitter: {
       twitterId: String,
-      displayName: {
+      twitterEmail: String,
+      twitterDisplayName: {
         type: String,
         trim: true
       }
     },
     github: {
       githubId: String,
-      displayName: String,
-      email: String
+      githubDisplayName: String,
+      githubEmail: String
     }
   },
   altEmail: {

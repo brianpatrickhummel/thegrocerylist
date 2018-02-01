@@ -30,6 +30,9 @@
     },
     "/auth/*": {
       "target": "http://localhost:5000"
+    },
+    "/connect/*": {
+      "target": "http://localhost:5000"
     }
   },
   "devDependencies": {

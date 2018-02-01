@@ -53,6 +53,8 @@ db.once("open", function() {
 
 // ROUTES
 require("./routes/authRoutes")(app);
+require("./routes/connectRoutes")(app);
+require("./routes/apiRoutes")(app);
 require("./routes/prefRoutes")(app);
 
 const PORT = process.env.PORT || 5000;

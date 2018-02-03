@@ -4,6 +4,7 @@
 
 * {
   /* border: 1px solid red; */
+  box-sizing: border-box;
   text-decoration: none !important;
 }
 
@@ -22,7 +23,7 @@
   height: 100vh;
 }
 
-/* HeaderBar */
+/* = = = = = = HeaderBar = = = = = = = */
 
 .ant-layout-header {
   height: 100%;
@@ -46,6 +47,17 @@
 .ant-menu-item-active,
 .ant-tooltip-open {
   color: white !important;
+}
+
+/* = = = = = = Dashboard = = = = = = */
+
+.ant-collapse-header {
+  padding: 10px !important;
+  text-align: center;
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header:hover {
+  color: #a83b3f;
 }
 
 /* Shrink Hover CSS Animation Effect */

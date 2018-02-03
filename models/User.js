@@ -7,20 +7,32 @@ const { Schema } = mongoose;
 // Instantiate a userSchema object with the Schema class we just made
 const UserSchema = new Schema({
   primaryId: String,
-  primaryAccount: String,
-  primaryDisplayName: String,
-  primaryEmail: String,
+  primaryAccount: {
+    type: String,
+    trim: true
+  },
+  primaryDisplayName: {
+    type: String,
+    trim: true,
+    uppercase: true
+  },
+  primaryEmail: {
+    type: String,
+    trim: true,
+    uppercase: true
+  },
   authProviders: {
     google: {
       googleId: String,
       googleDisplayName: {
         type: String,
-        trim: true
+        trim: true,
+        uppercase: true
       },
       googleEmail: {
         type: String,
-        lowercase: true,
-        trim: true
+        trim: true,
+        uppercase: true
       },
       isPrimary: {
         type: Boolean,
@@ -31,11 +43,13 @@ const UserSchema = new Schema({
       facebookId: String,
       facebookDisplayName: {
         type: String,
-        trim: true
+        trim: true,
+        uppercase: true
       },
       facebookEmail: {
         type: String,
-        trim: true
+        trim: true,
+        uppercase: true
       },
       isPrimary: {
         type: Boolean,
@@ -44,10 +58,15 @@ const UserSchema = new Schema({
     },
     twitter: {
       twitterId: String,
-      twitterEmail: String,
+      twitterEmail: {
+        type: String,
+        trim: true,
+        uppercase: true
+      },
       twitterDisplayName: {
         type: String,
-        trim: true
+        trim: true,
+        uppercase: true
       },
       isPrimary: {
         type: Boolean,
@@ -56,8 +75,16 @@ const UserSchema = new Schema({
     },
     github: {
       githubId: String,
-      githubDisplayName: String,
-      githubEmail: String,
+      githubDisplayName: {
+        type: String,
+        trim: true,
+        uppercase: true
+      },
+      githubEmail: {
+        type: String,
+        trim: true,
+        uppercase: true
+      },
       isPrimary: {
         type: Boolean,
         default: false
@@ -66,8 +93,8 @@ const UserSchema = new Schema({
   },
   altEmail: {
     type: String,
-    lowercase: true,
-    trim: true
+    trim: true,
+    uppercase: true
   },
   userCreated: {
     type: Date,

@@ -9,9 +9,9 @@ const passport = require("passport"),
 module.exports = app => {
   app.get("/unlink/:account", async (req, res) => {
     let accountType = req.params.account,
-      query1 = "authProviders." + accountType + "." + accountType + "Id",
-      query2 = "authProviders." + accountType + "." + accountType + "Email",
-      query3 = "authProviders." + accountType + "." + accountType + "DisplayName";
+      query1 = "authProviders." + accountType + ".Id",
+      query2 = "authProviders." + accountType + ".Email",
+      query3 = "authProviders." + accountType + ".DisplayName";
     await User.update(
       { _id: req.user._id },
       {

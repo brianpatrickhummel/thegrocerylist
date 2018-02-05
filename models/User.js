@@ -23,71 +23,71 @@ const UserSchema = new Schema({
   },
   authProviders: {
     google: {
-      googleId: String,
-      googleDisplayName: {
+      DisplayName: {
         type: String,
         trim: true,
         uppercase: true
       },
-      googleEmail: {
+      Email: {
         type: String,
         trim: true,
         uppercase: true
       },
+      Id: String,
       isPrimary: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: null
       }
     },
     facebook: {
-      facebookId: String,
-      facebookDisplayName: {
+      DisplayName: {
         type: String,
         trim: true,
         uppercase: true
       },
-      facebookEmail: {
+      Email: {
         type: String,
         trim: true,
         uppercase: true
       },
+      Id: String,
       isPrimary: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: null
       }
     },
     twitter: {
-      twitterId: String,
-      twitterEmail: {
+      DisplayName: {
         type: String,
         trim: true,
         uppercase: true
       },
-      twitterDisplayName: {
+      Email: {
         type: String,
         trim: true,
         uppercase: true
       },
+      Id: String,
       isPrimary: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: null
       }
     },
     github: {
-      githubId: String,
-      githubDisplayName: {
+      DisplayName: {
         type: String,
         trim: true,
         uppercase: true
       },
-      githubEmail: {
+      Email: {
         type: String,
         trim: true,
         uppercase: true
       },
+      Id: String,
       isPrimary: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: null
       }
     }
   },

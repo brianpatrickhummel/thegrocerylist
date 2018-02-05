@@ -6,10 +6,9 @@ const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
 
 class Preferences extends Component {
-
   renderPrimaryAcct() {
     return this.props.auth ? (
-      <Col xs={{ span: 20, offset: 2 }} sm={{ span: 22, offset: 1 }}>
+      <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }}>
         <PanelContainer bordered={true} defaultActiveKey={["1"]}>
           <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
             <PanelBody>
@@ -46,11 +45,59 @@ class Preferences extends Component {
     ) : null;
   }
 
+  renderSecondaryAccts() {
+    return this.props.auth ? (
+      <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }}>
+        <PanelContainer bordered={true} defaultActiveKey={[""]}>
+          <PanelHeader header="MANAGE LINKED ACCOUNTS" key="1" showArrow={false}>
+            <PanelBody>{this.renderRows()}</PanelBody>
+          </PanelHeader>
+        </PanelContainer>
+      </Col>
+    ) : null;
+  }
+
+  renderRows() {
+    let rowsArray = [];
+    var keys = Object.keys(this.props.auth.authProviders);
+    for (let i = 0; i < keys.length; i++) {
+      let acctObject = this.props.auth.authProviders[keys[i]];
+      if (acctObject.isPrimary === "NO") {
+        rowsArray.push([
+          <Row type="flex" align="middle">
+            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
+              <FontAwesome className="share-icon" size="2x" name={keys[i]} style={{ color: "#1E2529" }} />
+            </InfoTextContainer>
+            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }}>
+              <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
+                <InfoText> {acctObject.DisplayName}</InfoText>
+              </InfoTextColumns>
+              <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
+                <InfoTextType>NAME</InfoTextType>
+              </InfoTextColumns>
+            </InfoTextContainer>
+            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }}>
+              <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
+                <InfoText>{acctObject.Email}</InfoText>
+              </InfoTextColumns>
+              <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
+                <InfoTextType>EMAIL</InfoTextType>
+              </InfoTextColumns>
+            </InfoTextContainer>
+          </Row>
+        ]);
+      }
+      console.log(rowsArray);
+    }
+
+    return <div>{rowsArray}</div>;
+  }
+
   render() {
     return (
-      <div className="dashboardContainer">
-        <h1>Preferences</h1>
-        {this.renderPrimaryAcct()}
+      <div className="preferencesContainer">
+        <div className="primaryAccount">{this.renderPrimaryAcct()}</div>
+        <div className="secondaryAccounts">{this.renderSecondaryAccts()}</div>
       </div>
     );
   }
@@ -63,7 +110,7 @@ function mapStateToProps({ auth }) {
 export default connect(mapStateToProps)(Preferences);
 
 const PanelContainer = styled(Collapse)`
-  // margin: 50px !important;
+  margin-top: 25px !important;
 `;
 
 const PanelHeader = styled(Panel)`

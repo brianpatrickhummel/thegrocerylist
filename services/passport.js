@@ -46,10 +46,10 @@ passport.use(
           primaryEmail: profile.emails[0].value,
           authProviders: {
             google: {
-              googleId: profile.id,
-              googleDisplayName: profile.displayName,
-              googleEmail: profile.emails[0].value,
-              isPrimary: true
+              Id: profile.id,
+              DisplayName: profile.displayName,
+              Email: profile.emails[0].value,
+              isPrimary: "YES"
             }
           }
         }).save();
@@ -63,10 +63,10 @@ passport.use(
         var user = req.user;
 
         // update the current user's Google credentials
-        (user.authProviders.google.googleId = profile.id),
-          (user.authProviders.google.googleDisplayName = profile.displayName),
-          (user.authProviders.google.googleEmail = profile.emails[0].value),
-          (user.authProviders.google.isPrimary = false);
+        (user.authProviders.google.Id = profile.id),
+          (user.authProviders.google.DisplayName = profile.displayName),
+          (user.authProviders.google.Email = profile.emails[0].value),
+          (user.authProviders.google.isPrimary = "NO");
 
         // save the user
         user.save(function(err) {
@@ -103,10 +103,10 @@ passport.use(
           primaryEmail: profile.emails[0].value,
           authProviders: {
             facebook: {
-              facebookId: profile.id,
-              facebookDisplayName: profile.displayName,
-              facebookEmail: profile.emails[0].value,
-              isPrimary: true
+              Id: profile.id,
+              DisplayName: profile.displayName,
+              Email: profile.emails[0].value,
+              isPrimary: "YES"
             }
           }
         }).save();
@@ -118,10 +118,10 @@ passport.use(
         var user = req.user;
 
         // update the current user's Facebook credentials
-        (user.authProviders.facebook.facebookId = profile.id),
-          (user.authProviders.facebook.facebookDisplayName = profile.displayName),
-          (user.authProviders.facebook.facebookEmail = profile.emails[0].value),
-          (user.authProviders.facebook.isPrimary = false);
+        (user.authProviders.facebook.Id = profile.id),
+          (user.authProviders.facebook.DisplayName = profile.displayName),
+          (user.authProviders.facebook.Email = profile.emails[0].value),
+          (user.authProviders.facebook.isPrimary = "NO");
 
         // save the user
         user.save(function(err) {
@@ -158,10 +158,10 @@ passport.use(
           primaryEmail: profile.emails[0].value,
           authProviders: {
             twitter: {
-              twitterId: profile.id,
-              twitterEmail: profile.emails[0].value,
-              twitterDisplayName: profile.displayName,
-              isPrimary: true
+              Id: profile.id,
+              Email: profile.emails[0].value,
+              DisplayName: profile.displayName,
+              isPrimary: "YES"
             }
           }
         }).save();
@@ -173,10 +173,10 @@ passport.use(
         var user = req.user;
 
         // update the current user's Twitter credentials
-        (user.authProviders.twitter.twitterId = profile.id),
-          (user.authProviders.twitter.twitterDisplayName = profile.displayName),
-          (user.authProviders.twitter.twitterEmail = profile.emails[0].value),
-          (user.authProviders.twitter.isPrimary = false);
+        (user.authProviders.twitter.Id = profile.id),
+          (user.authProviders.twitter.DisplayName = profile.displayName),
+          (user.authProviders.twitter.Email = profile.emails[0].value),
+          (user.authProviders.twitter.isPrimary = "NO");
 
         // save the user
         user.save(function(err) {
@@ -213,10 +213,10 @@ passport.use(
           primaryEmail: profile.emails[0].value,
           authProviders: {
             github: {
-              githubId: profile.id,
-              githubDisplayName: profile.displayName,
-              githubEmail: profile.emails[0].value,
-              isPrimary: true
+              Id: profile.id,
+              DisplayName: profile.displayName,
+              Email: profile.emails[0].value,
+              isPrimary: "YES"
             }
           }
         }).save();
@@ -228,10 +228,10 @@ passport.use(
         var user = req.user;
 
         // update the current user's Github credentials
-        (user.authProviders.github.githubId = profile.id),
-          (user.authProviders.github.githubDisplayName = profile.displayName),
-          (user.authProviders.github.githubEmail = profile.emails[0].value),
-          (user.authProviders.github.isPrimary = false);
+        (user.authProviders.github.Id = profile.id),
+          (user.authProviders.github.DisplayName = profile.displayName),
+          (user.authProviders.github.Email = profile.emails[0].value),
+          (user.authProviders.github.isPrimary = "NO");
 
         // save the user
         user.save(function(err) {

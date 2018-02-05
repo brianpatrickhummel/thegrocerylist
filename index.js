@@ -56,6 +56,7 @@ require("./routes/authRoutes")(app);
 require("./routes/connectRoutes")(app);
 require("./routes/apiRoutes")(app);
 require("./routes/prefRoutes")(app);
+require("./routes/unlinkRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function() {

@@ -33,6 +33,9 @@
     },
     "/connect/*": {
       "target": "http://localhost:5000"
+    },
+    "/unlink/*": {
+      "target": "http://localhost:5000"
     }
   },
   "devDependencies": {

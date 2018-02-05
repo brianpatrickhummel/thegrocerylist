@@ -27,8 +27,8 @@ module.exports = app => {
   // method removes the req.user property and clears the login session
   app.get("/api/logout", (req, res) => {
     req.logout();
-    console.log("after LOGOUT req.user: ", req.user);
-    console.log("after LOGOUT session: ", req.session);
+    // console.log("after LOGOUT req.user: ", req.user);
+    // console.log("after LOGOUT session: ", req.session);
     res.redirect("/");
   });
 };

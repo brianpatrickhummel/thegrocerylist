@@ -7,11 +7,10 @@ import "./index.css";
 import { Layout } from "antd";
 
 import Landing from "./Landing";
-import Dashboard from "./Dashboard";
+import Preferences from "./Preferences";
 import HeaderBar from "./HeaderBar";
 const Create = () => <h2>Create a new list</h2>;
 const ViewOneList = () => <h2>Here's your list</h2>;
-const Preferences = () => <h2>Preferences Page</h2>;
 const SavedRecipes = () => <h2>Saved Recipes</h2>;
 const Favorites = () => <h2>Favorites</h2>;
 const MyGroceryLists = () => <h2>My Grocery Lists</h2>;
@@ -28,7 +27,7 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Wrapper>
-            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/dashboard" />)} />
+            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences" />)} />
             <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
             <Route
               path="*"
@@ -36,11 +35,10 @@ class App extends Component {
                 props.location.pathname !== "/" && (
                   <Layout className="layout">
                     <Switch>
-                      <Route path="/dashboard" component={Dashboard} />
+                      <Route path="/preferences" component={Preferences} />
                       <Route exact path="/create" component={Create} />
                       <Route path="/lists" component={MyGroceryLists} />
                       <Route path="/viewonelist/:listid" component={ViewOneList} />
-                      <Route path="/preferences" component={Preferences} />
                       <Route path="/saved" component={SavedRecipes} />
                       <Route path="/favorites" component={Favorites} />
                       <Route path="/search" component={SearchForRecipes} />

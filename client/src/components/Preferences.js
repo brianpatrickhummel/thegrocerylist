@@ -1,38 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { message, Collapse, Row, Col } from "antd";
+import { Collapse, Row, Col } from "antd";
 import { connect } from "react-redux";
 const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
 
-class Dashboard extends Component {
-  state = {
-    modalIsOpen: false,
-    count: 0
-  };
-
-  componentDidMount() {
-    // Display welcome modal when user first logs in
-    if (!this.state.modalIsOpen && this.state.count === 0) {
-      this.setState({ modalIsOpen: true, count: 1 });
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.auth && this.state.modalIsOpen) {
-      this.success();
-    }
-  }
-
-  success() {
-    message.config({ top: "5%" });
-    const hide = message.loading(
-      `WELCOME BACK, 
-      ${this.props.auth.primaryDisplayName.toUpperCase()}`
-    );
-    // Dismiss manually and asynchronously
-    setTimeout(hide, 1000);
-  }
+class Preferences extends Component {
 
   renderPrimaryAcct() {
     return this.props.auth ? (
@@ -76,7 +49,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dashboardContainer">
-        <h1>Dashboard</h1>
+        <h1>Preferences</h1>
         {this.renderPrimaryAcct()}
       </div>
     );
@@ -87,7 +60,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(Preferences);
 
 const PanelContainer = styled(Collapse)`
   // margin: 50px !important;

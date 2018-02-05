@@ -7,60 +7,18 @@ const passport = require("passport"),
   User = require("../models/User");
 
 module.exports = app => {
-  // FACEBOOK = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-  app.get("/unlink/facebook", async (req, res) => {
+  app.get("/unlink/:account", async (req, res) => {
+    let accountType = req.params.account,
+      query1 = "authProviders." + accountType + "." + accountType + "Id",
+      query2 = "authProviders." + accountType + "." + accountType + "Email",
+      query3 = "authProviders." + accountType + "." + accountType + "DisplayName";
     await User.update(
       { _id: req.user._id },
       {
         $unset: {
-          "authProviders.facebook.facebookId": "",
-          "authProviders.facebook.facebookDisplayName": "",
-          "authProviders.facebook.facebookEmail": ""
-        }
-      }
-    );
-    res.redirect("/preferences");
-  });
-
-  // TWITTER = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-  app.get("/unlink/twitter", async (req, res) => {
-    await User.update(
-      { _id: req.user._id },
-      {
-        $unset: {
-          "authProviders.twitter.twitterId": "",
-          "authProviders.twitter.twitterDisplayName": "",
-          "authProviders.twitter.twitterEmail": ""
-        }
-      }
-    );
-    res.redirect("/preferences");
-  });
-
-  // GOOGLE = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-  app.get("/unlink/google", async (req, res) => {
-    await User.update(
-      { _id: req.user._id },
-      {
-        $unset: {
-          "authProviders.google.googleId": "",
-          "authProviders.google.googleDisplayName": "",
-          "authProviders.google.googleEmail": ""
-        }
-      }
-    );
-    res.redirect("/preferences");
-  });
-
-  // GITHUB = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-  app.get("/unlink/github", async (req, res) => {
-    await User.update(
-      { _id: req.user._id },
-      {
-        $unset: {
-          "authProviders.github.githubId": "",
-          "authProviders.github.githubDisplayName": "",
-          "authProviders.github.githubEmail": ""
+          [query1]: "",
+          [query2]: "",
+          [query3]: ""
         }
       }
     );

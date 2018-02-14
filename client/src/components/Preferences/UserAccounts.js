@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Collapse, Row, Col, Button } from "antd";
+import { Collapse, Row, Col, Button, Tooltip } from "antd";
 import { connect } from "react-redux";
 const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
@@ -22,26 +22,21 @@ class UserAccounts extends Component {
                 <PanelBody>
                   <Row type="flex" align="middle">
                     <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
-                      <FontAwesome
-                        className="share-icon"
-                        size="2x"
-                        name={this.props.auth.primaryAccount}
-                        style={{ color: "#1E2529" }}
-                      />
+                      <FontAwesome className="share-icon" size="2x" name={this.props.auth.primaryAccount} />
                     </InfoTextContainer>
-                    <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }}>
-                      <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
+                    <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
+                      <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                         <InfoText> {this.props.auth.primaryDisplayName}</InfoText>
                       </InfoTextColumns>
-                      <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
+                      <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                         <InfoTextType>NAME</InfoTextType>
                       </InfoTextColumns>
                     </InfoTextContainer>
-                    <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }}>
-                      <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
+                    <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
+                      <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                         <InfoText>{this.props.auth.primaryEmail}</InfoText>
                       </InfoTextColumns>
-                      <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
+                      <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                         <InfoTextType>EMAIL</InfoTextType>
                       </InfoTextColumns>
                     </InfoTextContainer>
@@ -74,35 +69,39 @@ class UserAccounts extends Component {
         rowsArray.push([
           <AccountRows key={i}>
             <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
-              <FontAwesome className="share-icon" size="2x" name={keys[i]} style={{ color: "#1E2529" }} />
+              <FontAwesome className="share-icon" size="2x" name={keys[i]} />
             </InfoTextContainer>
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 9, offset: 1 }}>
-              <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
+            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
+              <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                 <InfoText> {acctObject.DisplayName}</InfoText>
               </InfoTextColumns>
-              <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
+              <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                 <InfoTextType>NAME</InfoTextType>
               </InfoTextColumns>
             </InfoTextContainer>
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 9, offset: 1 }}>
-              <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
+            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
+              <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                 <InfoText>{acctObject.Email}</InfoText>
               </InfoTextColumns>
-              <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
+              <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                 <InfoTextType>EMAIL</InfoTextType>
               </InfoTextColumns>
             </InfoTextContainer>
-            <Col xs={{ span: 10, offset: 7 }} sm={{ span: 2, offset: 0 }}>
-              <ButtonColumns xs={{ span: 12 }}>
-                <SecondaryButtons size="small" type="primary" href="">
-                  P
-                </SecondaryButtons>
+            <Col xs={{ span: 10, offset: 7 }} sm={{ span: 3, offset: 0 }}>
+              <ButtonColumns xs={{ span: 12 }} sm={{ span: 8, offset: 4 }}>
+                <Tooltip placement="top" title={<ToolText>MAKE PRIMARY</ToolText>}>
+                  <SecondaryButtons size="small" type="primary" href="">
+                    P
+                  </SecondaryButtons>
+                </Tooltip>
               </ButtonColumns>
 
-              <ButtonColumns xs={{ span: 12 }}>
-                <SecondaryButtons size="small" type="primary" href="">
-                  U
-                </SecondaryButtons>
+              <ButtonColumns xs={{ span: 12 }} sm={{ span: 8 }}>
+                <Tooltip placement="top" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
+                  <SecondaryButtons size="small" type="primary" href="">
+                    U
+                  </SecondaryButtons>
+                </Tooltip>
               </ButtonColumns>
             </Col>
           </AccountRows>
@@ -181,9 +180,9 @@ const InfoTextColumns = styled(Col)`
 
 const AccountRows = styled(Row)`
   padding: 20px 0;
-  background-color: rgba(63, 23, 24, 0.02);
   border-radius: 10px;
   margin: 10px 0;
+  background-color: rgba(63, 23, 24, 0.02);
 `;
 
 const SecondaryButtons = styled(Button)`
@@ -193,16 +192,21 @@ const SecondaryButtons = styled(Button)`
   margin-top: 10px;
 
   &:hover {
-    background-color: #4f778f !important;
-    border-color: #4f778f !important;
-  }
-
-  @media (max-width: 480px) {
+    background-color: #6d5151 !important;
+    border-color: #6d5151 !important;
   }
 `;
 
 const ButtonColumns = styled(Col)`
   text-align: center;
   display: block;
-  margin-top: 20px !important;
+  margin: 0 5px !important;
+
+  @media (max-width: 575px) {
+    margin: 20px 0 0 0 !important;
+  }
+`;
+
+const ToolText = styled.span`
+  font-size: 10px;
 `;

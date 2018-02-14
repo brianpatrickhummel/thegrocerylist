@@ -60,6 +60,10 @@
   color: #4F778F;
 }
 
+/* = = = = = = Preferences = = = = = = */
+
+.ant-tooltip-inner {}
+
 /* Shrink Hover CSS Animation Effect */
 
 .hvr-shrink {

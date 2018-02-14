@@ -34,8 +34,9 @@ passport.use(
       if (!req.user) {
         // console.log(`Google profile: ${profile}`);
         // All database queries are asynchronous, results are returned via a promise
-        const existingUser = await User.findOne({ "authProviders.google.googleId": profile.id });
+        const existingUser = await User.findOne({ "authProviders.google.Id": profile.id });
         if (existingUser) {
+          console.log("FOUND EXISTING USER");
           return done(null, existingUser);
         }
         // Create a new instance/document of the User Model
@@ -53,6 +54,7 @@ passport.use(
             }
           }
         }).save();
+        console.log("COULD NOT FIND EXISTING USER, CREATED NEW USER");
         // Call done, back to passport.authenticate which calls req.login/serializeUser();
         done(null, user);
 
@@ -60,6 +62,7 @@ passport.use(
       } else {
         // user already exists and is logged in, we have to link accounts
         // pull the user out of the session
+        console.log("REQ.USER ALREADY LOGGED IN, WILL AUTHORIZE AND CONNECT THIS ACCOUNT");
         var user = req.user;
 
         // update the current user's Google credentials
@@ -91,7 +94,7 @@ passport.use(
     async (req, accessToken, refreshToken, profile, done) => {
       if (!req.user) {
         // console.log("Facebook profile: ", profile);
-        const existingUser = await User.findOne({ "authProviders.facebook.facebookId": profile.id });
+        const existingUser = await User.findOne({ "authProviders.facebook.Id": profile.id });
         if (existingUser) {
           return done(null, existingUser);
         }
@@ -146,7 +149,7 @@ passport.use(
     async (req, token, tokenSecret, profile, done) => {
       if (!req.user) {
         console.log("Twitter profile: ", profile);
-        const existingUser = await User.findOne({ "authProviders.twitter.twitterId": profile.id });
+        const existingUser = await User.findOne({ "authProviders.twitter.Id": profile.id });
         if (existingUser) {
           return done(null, existingUser);
         }
@@ -200,7 +203,7 @@ passport.use(
     async (req, accessToken, refreshToken, profile, cb) => {
       if (!req.user) {
         console.log("Github profile: ", profile);
-        const existingUser = await User.findOne({ "authProviders.github.githubId": profile.id });
+        const existingUser = await User.findOne({ "authProviders.github.Id": profile.id });
 
         if (existingUser) {
           return cb(null, existingUser);

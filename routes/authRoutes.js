@@ -21,8 +21,8 @@ module.exports = app => {
   // Attempts to exchange the code for a user profile and accessToken
   // Once authenticated and serialized to session, redirects
   app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
-    console.log("after Google auth, req.user: ", req.user);
-    console.log("after Google auth, session: ", req.session);
+    // console.log("after Google auth, req.user: ", req.user);
+    // console.log("after Google auth, session: ", req.session);
     res.redirect("/preferences");
   });
 
@@ -37,8 +37,8 @@ module.exports = app => {
   );
   // Handle callback after Facebook has authorized user
   app.get("/auth/facebook/callback", passport.authenticate("facebook"), (req, res) => {
-    console.log("after Facebook auth, req.user: ", req.user);
-    console.log("after Facebook auth, session: ", req.session);
+    // console.log("after Facebook auth, req.user: ", req.user);
+    // console.log("after Facebook auth, session: ", req.session);
     res.redirect("/preferences");
   });
 
@@ -54,8 +54,8 @@ module.exports = app => {
       failureRedirect: "/"
     }),
     (req, res) => {
-      console.log("after Twitter auth, req.user: ", req.user);
-      console.log("after Twitter auth, session: ", req.session);
+      // console.log("after Twitter auth, req.user: ", req.user);
+      // console.log("after Twitter auth, session: ", req.session);
       res.redirect("/preferences");
     }
   );
@@ -72,8 +72,8 @@ module.exports = app => {
       failureRedirect: "/"
     }),
     (req, res) => {
-      console.log("after Github auth, req.user: ", req.user);
-      console.log("after Github auth, session: ", req.session);
+      // console.log("after Github auth, req.user: ", req.user);
+      // console.log("after Github auth, session: ", req.session);
       res.redirect("/preferences");
     }
   );

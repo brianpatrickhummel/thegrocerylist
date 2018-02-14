@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PrimaryAccounts from "./PrimaryAccounts";
+import UserAccounts from "./UserAccounts";
 
 class Preferences extends Component {
   render() {
-    return <PrimaryAccounts />;
+    return <UserAccounts />;
   }
 }
 

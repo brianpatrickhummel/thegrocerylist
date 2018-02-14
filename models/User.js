@@ -14,87 +14,83 @@ const UserSchema = new Schema({
   primaryDisplayName: {
     type: String,
     trim: true,
-    uppercase: true
+    lowercase: true
   },
   primaryEmail: {
     type: String,
     trim: true,
-    uppercase: true
+    lowercase: true
   },
   authProviders: {
     google: {
       DisplayName: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Email: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: null
+        type: String
       }
     },
     facebook: {
       DisplayName: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Email: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: null
+        type: String
       }
     },
     twitter: {
       DisplayName: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Email: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: null
+        type: String
       }
     },
     github: {
       DisplayName: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Email: {
         type: String,
         trim: true,
-        uppercase: true
+        lowercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: null
+        type: String
       }
     }
   },
   altEmail: {
     type: String,
     trim: true,
-    uppercase: true
+    lowercase: true
   },
   userCreated: {
     type: Date,

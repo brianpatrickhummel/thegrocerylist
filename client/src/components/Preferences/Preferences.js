@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Collapse, Row, Col } from "antd";
+import { Collapse, Row, Col, Button } from "antd";
 import { connect } from "react-redux";
 const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
@@ -8,7 +8,7 @@ const FontAwesome = require("react-fontawesome");
 class Preferences extends Component {
   renderPrimaryAcct() {
     return this.props.auth ? (
-      <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }}>
+      <Col xs={{ span: 20, offset: 2 }} sm={{ span: 22, offset: 1 }}>
         <PanelContainer bordered={true} defaultActiveKey={["1"]}>
           <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
             <PanelBody>
@@ -46,15 +46,19 @@ class Preferences extends Component {
   }
 
   renderSecondaryAccts() {
-    return this.props.auth ? (
-      <Col xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }}>
-        <PanelContainer bordered={true} defaultActiveKey={[""]}>
-          <PanelHeader header="MANAGE LINKED ACCOUNTS" key="1" showArrow={false}>
-            <PanelBody>{this.renderRows()}</PanelBody>
-          </PanelHeader>
-        </PanelContainer>
-      </Col>
-    ) : null;
+    return (
+      this.props.auth && (
+        <Col xs={{ span: 20, offset: 2 }} sm={{ span: 22, offset: 1 }}>
+          <PanelContainer bordered={true} defaultActiveKey={[""]}>
+            <PanelHeader header="MANAGE LINKED ACCOUNTS" key="1" showArrow={false}>
+              <PanelBody>
+                {Object.keys(this.props.auth.authProviders).length > 1 ? this.renderRows() : "this is it"}
+              </PanelBody>
+            </PanelHeader>
+          </PanelContainer>
+        </Col>
+      )
+    );
   }
 
   renderRows() {
@@ -63,33 +67,9 @@ class Preferences extends Component {
     for (let i = 0; i < keys.length; i++) {
       let acctObject = this.props.auth.authProviders[keys[i]];
       if (acctObject.isPrimary === "NO") {
-        rowsArray.push([
-          <Row type="flex" align="middle">
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
-              <FontAwesome className="share-icon" size="2x" name={keys[i]} style={{ color: "#1E2529" }} />
-            </InfoTextContainer>
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }}>
-              <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
-                <InfoText> {acctObject.DisplayName}</InfoText>
-              </InfoTextColumns>
-              <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
-                <InfoTextType>NAME</InfoTextType>
-              </InfoTextColumns>
-            </InfoTextContainer>
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 10, offset: 1 }}>
-              <InfoTextColumns xs={{ span: 20, push: 3 }} sm={{ span: 24, push: 0 }}>
-                <InfoText>{acctObject.Email}</InfoText>
-              </InfoTextColumns>
-              <InfoTextColumns xs={{ span: 3, pull: 20 }} sm={{ span: 24, pull: 0 }}>
-                <InfoTextType>EMAIL</InfoTextType>
-              </InfoTextColumns>
-            </InfoTextContainer>
-          </Row>
-        ]);
+        rowsArray.push([]);
       }
-      console.log(rowsArray);
     }
-
     return <div>{rowsArray}</div>;
   }
 
@@ -109,6 +89,7 @@ function mapStateToProps({ auth }) {
 
 export default connect(mapStateToProps)(Preferences);
 
+// = = = = = = CSS = = = = = = = = = = = = = = = = = = = = =
 const PanelContainer = styled(Collapse)`
   margin-top: 25px !important;
 `;
@@ -161,5 +142,19 @@ const InfoTextColumns = styled(Col)`
 
   @media (max-width: 768px) {
     display: inline;
+  }
+`;
+
+const AccountRows = styled(Row)`
+  padding: 10px 0;
+`;
+
+const SecondaryButtons = styled(Button)`
+  border-radius: 50% !important;
+  width: 26px !important;
+  height: 26px !important;
+  margin-top: 20px !important;
+
+  @media (max-width: 480px) {
   }
 `;

@@ -7,7 +7,7 @@ import "./index.css";
 import { Layout } from "antd";
 
 import Landing from "./Landing";
-import Preferences from "./Preferences";
+import Preferences from "./Preferences/Preferences";
 import HeaderBar from "./HeaderBar";
 const Create = () => <h2>Create a new list</h2>;
 const ViewOneList = () => <h2>Here's your list</h2>;

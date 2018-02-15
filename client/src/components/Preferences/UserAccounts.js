@@ -16,7 +16,7 @@ class UserAccounts extends Component {
         // Primary Account
 
         <div className="preferencesContainer">
-          <Col xs={{ span: 20, offset: 2 }} sm={{ span: 22, offset: 1 }}>
+          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
             <PanelContainer bordered={true} defaultActiveKey={this.state.activePanelIsPrimary && ["1"]}>
               <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
                 <PanelBody>
@@ -46,7 +46,7 @@ class UserAccounts extends Component {
             </PanelContainer>
           </Col>
           {/* Secondary Account */}
-          <Col xs={{ span: 20, offset: 2 }} sm={{ span: 22, offset: 1 }}>
+          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
             <PanelContainer bordered={true} defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}>
               <PanelHeader header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
                 <PanelBody>
@@ -87,9 +87,9 @@ class UserAccounts extends Component {
                 <InfoTextType>EMAIL</InfoTextType>
               </InfoTextColumns>
             </InfoTextContainer>
-            <Col xs={{ span: 10, offset: 7 }} sm={{ span: 3, offset: 0 }}>
+            <Col xs={{ span: 6, offset: 9 }} sm={{ span: 3, offset: 0 }}>
               <ButtonColumns xs={{ span: 12 }} sm={{ span: 8, offset: 4 }}>
-                <Tooltip placement="top" title={<ToolText>MAKE PRIMARY</ToolText>}>
+                <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>MAKE PRIMARY</ToolText>}>
                   <SecondaryButtons size="small" type="primary" href="">
                     P
                   </SecondaryButtons>
@@ -97,7 +97,7 @@ class UserAccounts extends Component {
               </ButtonColumns>
 
               <ButtonColumns xs={{ span: 12 }} sm={{ span: 8 }}>
-                <Tooltip placement="top" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
+                <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
                   <SecondaryButtons size="small" type="primary" href="">
                     U
                   </SecondaryButtons>
@@ -190,6 +190,7 @@ const SecondaryButtons = styled(Button)`
   width: 26px !important;
   height: 26px !important;
   margin-top: 10px;
+  text-align: center
 
   &:hover {
     background-color: #6d5151 !important;
@@ -201,6 +202,10 @@ const ButtonColumns = styled(Col)`
   text-align: center;
   display: block;
   margin: 0 5px !important;
+
+  @media (max-width: 628px) {
+    margin-bottom: 5px !important;
+  }
 
   @media (max-width: 575px) {
     margin: 20px 0 0 0 !important;

@@ -64,13 +64,13 @@ class UserAccounts extends Component {
     for (let i = 0; i < keys.length; i++) {
       let acctObject = this.props.auth.authProviders[keys[i]];
       if (acctObject.isPrimary === "NO") {
-        rowsArray.push([
+        let newArray = [
           <AccountRows key={i}>
             <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
               <FontAwesome className="share-icon" size="2x" name={keys[i]} />
             </InfoTextContainer>
             {/* if acct info, display acct info otherwise display Connect Button */}
-            {acctObject.id ? (
+            {acctObject.Id ? (
               <div className="linkedAccountsContainer">
                 <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
                   <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
@@ -112,12 +112,15 @@ class UserAccounts extends Component {
                 </Col>
               </div>
             ) : (
+              /* no acct info, there display Connect Buttons */
               <div className="unlinkedAccountsContainer">
                 <span>connect account</span>
               </div>
             )}
           </AccountRows>
-        ]);
+        ];
+        // Logic to display Linked Accounts above Unlinked Accounts on page
+        acctObject.Id ? rowsArray.unshift(newArray) : rowsArray.push(newArray);
       }
     }
     return <div>{rowsArray}</div>;

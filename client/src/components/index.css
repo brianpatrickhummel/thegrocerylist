@@ -62,7 +62,12 @@
 
 /* = = = = = = Preferences = = = = = = */
 
-.ant-tooltip-inner {}
+/* center Letters in circular Button */
+
+a.ant-btn-sm {
+  line-height: 25px !important;
+  padding: 0 6px !important;
+}
 
 /* Shrink Hover CSS Animation Effect */
 

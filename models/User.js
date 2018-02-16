@@ -35,7 +35,8 @@ const UserSchema = new Schema({
       },
       Id: String,
       isPrimary: {
-        type: String
+        type: String,
+        default: "NO"
       }
     },
     facebook: {
@@ -51,7 +52,8 @@ const UserSchema = new Schema({
       },
       Id: String,
       isPrimary: {
-        type: String
+        type: String,
+        default: "NO"
       }
     },
     twitter: {
@@ -67,7 +69,8 @@ const UserSchema = new Schema({
       },
       Id: String,
       isPrimary: {
-        type: String
+        type: String,
+        default: "NO"
       }
     },
     github: {
@@ -83,7 +86,8 @@ const UserSchema = new Schema({
       },
       Id: String,
       isPrimary: {
-        type: String
+        type: String,
+        default: "NO"
       }
     }
   },

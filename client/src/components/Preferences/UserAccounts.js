@@ -49,9 +49,7 @@ class UserAccounts extends Component {
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
             <PanelContainer bordered={true} defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}>
               <PanelHeader header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
-                <PanelBody>
-                  {Object.keys(this.props.auth.authProviders).length > 1 ? this.renderSecondaryRows() : "this is it"}
-                </PanelBody>
+                <PanelBody>{this.renderLinkedAccounts()}</PanelBody>
               </PanelHeader>
             </PanelContainer>
           </Col>
@@ -60,7 +58,7 @@ class UserAccounts extends Component {
     );
   }
 
-  renderSecondaryRows() {
+  renderLinkedAccounts() {
     let rowsArray = [];
     var keys = Object.keys(this.props.auth.authProviders);
     for (let i = 0; i < keys.length; i++) {
@@ -71,45 +69,61 @@ class UserAccounts extends Component {
             <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
               <FontAwesome className="share-icon" size="2x" name={keys[i]} />
             </InfoTextContainer>
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
-              <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
-                <InfoText> {acctObject.DisplayName}</InfoText>
-              </InfoTextColumns>
-              <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
-                <InfoTextType>NAME</InfoTextType>
-              </InfoTextColumns>
-            </InfoTextContainer>
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
-              <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
-                <InfoText>{acctObject.Email}</InfoText>
-              </InfoTextColumns>
-              <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
-                <InfoTextType>EMAIL</InfoTextType>
-              </InfoTextColumns>
-            </InfoTextContainer>
-            <Col xs={{ span: 6, offset: 9 }} sm={{ span: 3, offset: 0 }}>
-              <ButtonColumns xs={{ span: 12 }} sm={{ span: 8, offset: 4 }}>
-                <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>MAKE PRIMARY</ToolText>}>
-                  <SecondaryButtons size="small" type="primary" href="">
-                    P
-                  </SecondaryButtons>
-                </Tooltip>
-              </ButtonColumns>
+            {/* if acct info, display acct info otherwise display Connect Button */}
+            {acctObject.id ? (
+              <div className="linkedAccountsContainer">
+                <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
+                  <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                    <InfoText> {acctObject.DisplayName}</InfoText>
+                  </InfoTextColumns>
+                  <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                    <InfoTextType>NAME</InfoTextType>
+                  </InfoTextColumns>
+                </InfoTextContainer>
+                <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
+                  <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                    <InfoText>{acctObject.Email}</InfoText>
+                  </InfoTextColumns>
+                  <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                    <InfoTextType>EMAIL</InfoTextType>
+                  </InfoTextColumns>
+                </InfoTextContainer>
+                <Col xs={{ span: 6, offset: 9 }} sm={{ span: 3, offset: 0 }}>
+                  <ButtonColumns xs={{ span: 12 }} sm={{ span: 8, offset: 4 }}>
+                    <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>MAKE PRIMARY</ToolText>}>
+                      <SecondaryButtons
+                        size="small"
+                        type="primary"
+                        href={`/api/setPrimary/${keys[i]}`}
+                        data-account={keys[i]}
+                      >
+                        P
+                      </SecondaryButtons>
+                    </Tooltip>
+                  </ButtonColumns>
 
-              <ButtonColumns xs={{ span: 12 }} sm={{ span: 8 }}>
-                <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
-                  <SecondaryButtons size="small" type="primary" href="">
-                    U
-                  </SecondaryButtons>
-                </Tooltip>
-              </ButtonColumns>
-            </Col>
+                  <ButtonColumns xs={{ span: 12 }} sm={{ span: 8 }}>
+                    <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
+                      <SecondaryButtons size="small" type="primary" href={`/unlink/${keys[i]}`} data-account={keys[i]}>
+                        U
+                      </SecondaryButtons>
+                    </Tooltip>
+                  </ButtonColumns>
+                </Col>
+              </div>
+            ) : (
+              <div className="unlinkedAccountsContainer">
+                <span>connect account</span>
+              </div>
+            )}
           </AccountRows>
         ]);
       }
     }
     return <div>{rowsArray}</div>;
   }
+
+  renderUnlinkedAccounts() {}
 
   render() {
     return <div>{this.renderContent()}</div>;

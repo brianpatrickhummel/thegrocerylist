@@ -50,7 +50,7 @@ passport.use(
               Id: profile.id,
               DisplayName: profile.displayName,
               Email: profile.emails[0].value,
-              isPrimary: "YES"
+              isPrimary: true
             }
           }
         }).save();
@@ -69,7 +69,7 @@ passport.use(
         (user.authProviders.google.Id = profile.id),
           (user.authProviders.google.DisplayName = profile.displayName),
           (user.authProviders.google.Email = profile.emails[0].value),
-          (user.authProviders.google.isPrimary = "NO");
+          (user.authProviders.google.isPrimary = false);
 
         // save the user
         user.save(function(err) {
@@ -109,7 +109,7 @@ passport.use(
               Id: profile.id,
               DisplayName: profile.displayName,
               Email: profile.emails[0].value,
-              isPrimary: "YES"
+              isPrimary: true
             }
           }
         }).save();
@@ -124,7 +124,7 @@ passport.use(
         (user.authProviders.facebook.Id = profile.id),
           (user.authProviders.facebook.DisplayName = profile.displayName),
           (user.authProviders.facebook.Email = profile.emails[0].value),
-          (user.authProviders.facebook.isPrimary = "NO");
+          (user.authProviders.facebook.isPrimary = false);
 
         // save the user
         user.save(function(err) {
@@ -164,7 +164,7 @@ passport.use(
               Id: profile.id,
               Email: profile.emails[0].value,
               DisplayName: profile.displayName,
-              isPrimary: "YES"
+              isPrimary: true
             }
           }
         }).save();
@@ -179,7 +179,7 @@ passport.use(
         (user.authProviders.twitter.Id = profile.id),
           (user.authProviders.twitter.DisplayName = profile.displayName),
           (user.authProviders.twitter.Email = profile.emails[0].value),
-          (user.authProviders.twitter.isPrimary = "NO");
+          (user.authProviders.twitter.isPrimary = false);
 
         // save the user
         user.save(function(err) {
@@ -219,7 +219,7 @@ passport.use(
               Id: profile.id,
               DisplayName: profile.displayName,
               Email: profile.emails[0].value,
-              isPrimary: "YES"
+              isPrimary: true
             }
           }
         }).save();
@@ -234,7 +234,7 @@ passport.use(
         (user.authProviders.github.Id = profile.id),
           (user.authProviders.github.DisplayName = profile.displayName),
           (user.authProviders.github.Email = profile.emails[0].value),
-          (user.authProviders.github.isPrimary = "NO");
+          (user.authProviders.github.isPrimary = false);
 
         // save the user
         user.save(function(err) {

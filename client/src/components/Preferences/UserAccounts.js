@@ -7,7 +7,7 @@ const FontAwesome = require("react-fontawesome");
 
 class UserAccounts extends Component {
   state = {
-    activePanelIsPrimary: true
+    activePanelIsPrimary: false
   };
 
   renderContent() {
@@ -17,29 +17,29 @@ class UserAccounts extends Component {
 
         <div className="preferencesContainer">
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
-            <PanelContainer bordered={true} defaultActiveKey={this.state.activePanelIsPrimary && ["1"]}>
+            <PanelContainer bordered={true} /*defaultActiveKey={this.state.activePanelIsPrimary && ["1"]}*/>
               <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
                 <PanelBody>
                   <Row type="flex" align="middle">
-                    <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
+                    <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
                       <FontAwesome className="share-icon" size="2x" name={this.props.auth.primaryAccount} />
-                    </InfoTextContainer>
-                    <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
-                      <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                    </InfoTextContainerCol>
+                    <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
+                      <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                         <InfoText> {this.props.auth.primaryDisplayName}</InfoText>
-                      </InfoTextColumns>
-                      <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                      </InfoTextCol>
+                      <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                         <InfoTextType>NAME</InfoTextType>
-                      </InfoTextColumns>
-                    </InfoTextContainer>
-                    <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
-                      <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                      </InfoTextCol>
+                    </InfoTextContainerCol>
+                    <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
+                      <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                         <InfoText>{this.props.auth.primaryEmail}</InfoText>
-                      </InfoTextColumns>
-                      <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                      </InfoTextCol>
+                      <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                         <InfoTextType>EMAIL</InfoTextType>
-                      </InfoTextColumns>
-                    </InfoTextContainer>
+                      </InfoTextCol>
+                    </InfoTextContainerCol>
                   </Row>
                 </PanelBody>
               </PanelHeader>
@@ -47,7 +47,7 @@ class UserAccounts extends Component {
           </Col>
           {/* Secondary Account */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
-            <PanelContainer bordered={true} defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}>
+            <PanelContainer bordered={true} /*defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}*/>
               <PanelHeader header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
                 <PanelBody>{this.renderLinkedAccounts()}</PanelBody>
               </PanelHeader>
@@ -63,33 +63,33 @@ class UserAccounts extends Component {
     var keys = Object.keys(this.props.auth.authProviders);
     for (let i = 0; i < keys.length; i++) {
       let acctObject = this.props.auth.authProviders[keys[i]];
-      if (acctObject.isPrimary === "NO") {
+      if (acctObject.isPrimary === false) {
         let newArray = [
           <AccountRows key={i}>
-            <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
+            <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
               <FontAwesome className="share-icon" size="2x" name={keys[i]} />
-            </InfoTextContainer>
+            </InfoTextContainerCol>
             {/* if acct info, display acct info otherwise display Connect Button */}
             {acctObject.Id ? (
               <div className="linkedAccountsContainer">
-                <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
-                  <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
+                  <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                     <InfoText> {acctObject.DisplayName}</InfoText>
-                  </InfoTextColumns>
-                  <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                  </InfoTextCol>
+                  <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                     <InfoTextType>NAME</InfoTextType>
-                  </InfoTextColumns>
-                </InfoTextContainer>
-                <InfoTextContainer xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
-                  <InfoTextColumns xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                  </InfoTextCol>
+                </InfoTextContainerCol>
+                <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
+                  <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
                     <InfoText>{acctObject.Email}</InfoText>
-                  </InfoTextColumns>
-                  <InfoTextColumns xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                  </InfoTextCol>
+                  <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                     <InfoTextType>EMAIL</InfoTextType>
-                  </InfoTextColumns>
-                </InfoTextContainer>
-                <Col xs={{ span: 6, offset: 9 }} sm={{ span: 3, offset: 0 }}>
-                  <ButtonColumns xs={{ span: 12 }} sm={{ span: 8, offset: 4 }}>
+                  </InfoTextCol>
+                </InfoTextContainerCol>
+                <Col xs={{ span: 16, offset: 4 }} sm={{ span: 3, offset: 0 }}>
+                  <ButtonColumns xs={{ span: 8, offset: 2 }} sm={{ span: 8, offset: 0 }}>
                     <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>MAKE PRIMARY</ToolText>}>
                       <SecondaryButtons
                         size="small"
@@ -97,15 +97,17 @@ class UserAccounts extends Component {
                         href={`/api/setPrimary/${keys[i]}`}
                         data-account={keys[i]}
                       >
-                        P
+                        <ButtonSpanLarge>P</ButtonSpanLarge>
+                        <ButtonSpanSmall>PRIMARY</ButtonSpanSmall>
                       </SecondaryButtons>
                     </Tooltip>
                   </ButtonColumns>
 
-                  <ButtonColumns xs={{ span: 12 }} sm={{ span: 8 }}>
+                  <ButtonColumns xs={{ span: 8, offset: 4 }} sm={{ span: 8, offset: 4 }}>
                     <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
                       <SecondaryButtons size="small" type="primary" href={`/unlink/${keys[i]}`} data-account={keys[i]}>
-                        U
+                        <ButtonSpanLarge>U</ButtonSpanLarge>
+                        <ButtonSpanSmall>UNLINK</ButtonSpanSmall>
                       </SecondaryButtons>
                     </Tooltip>
                   </ButtonColumns>
@@ -126,8 +128,6 @@ class UserAccounts extends Component {
     return <div>{rowsArray}</div>;
   }
 
-  renderUnlinkedAccounts() {}
-
   render() {
     return <div>{this.renderContent()}</div>;
   }
@@ -140,6 +140,7 @@ function mapStateToProps({ auth }) {
 export default connect(mapStateToProps)(UserAccounts);
 
 // = = = = = = CSS = = = = = = = = = = = = = = = = = = = = =
+
 const PanelContainer = styled(Collapse)`
   margin-top: 25px !important;
 `;
@@ -150,7 +151,7 @@ const PanelBody = styled.div`
   // margin: 15px 20px !important;
 `;
 
-const InfoTextContainer = styled(Col)`
+const InfoTextContainerCol = styled(Col)`
   text-align: center;
 
   @media (max-width: 768px) {
@@ -173,7 +174,7 @@ const InfoTextType = styled.span`
 `;
 
 const InfoText = styled.span`
-  font-size: 16px;
+  font-size: 12px;
   margin: 0px 0px;
   color: rgba(66, 43, 44, 0.9);
   letter-spacing: 0.01em;
@@ -187,8 +188,9 @@ const InfoText = styled.span`
   }
 `;
 
-const InfoTextColumns = styled(Col)`
+const InfoTextCol = styled(Col)`
   display: block;
+  overflow: scroll;
 
   @media (max-width: 768px) {
     display: inline;
@@ -207,7 +209,13 @@ const SecondaryButtons = styled(Button)`
   width: 26px !important;
   height: 26px !important;
   margin-top: 10px;
-  text-align: center
+  text-align: center;
+
+  @media (max-width: 575px) {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 5px !important;
+  }
 
   &:hover {
     background-color: #6d5151 !important;
@@ -218,17 +226,31 @@ const SecondaryButtons = styled(Button)`
 const ButtonColumns = styled(Col)`
   text-align: center;
   display: block;
-  margin: 0 5px !important;
+  margin: 0 0 0 5px;
 
   @media (max-width: 628px) {
     margin-bottom: 5px !important;
   }
 
   @media (max-width: 575px) {
-    margin: 20px 0 0 0 !important;
+    margin-top: 15px !important;
   }
 `;
 
 const ToolText = styled.span`
   font-size: 10px;
+`;
+
+const ButtonSpanLarge = styled.span`
+  @media (max-width: 575px) {
+    display: none;
+  }
+`;
+
+const ButtonSpanSmall = styled.span`
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  @media (min-width: 576px) {
+    display: none;
+  }
 `;

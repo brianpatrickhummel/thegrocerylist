@@ -14,87 +14,87 @@ const UserSchema = new Schema({
   primaryDisplayName: {
     type: String,
     trim: true,
-    lowercase: true
+    uppercase: true
   },
   primaryEmail: {
     type: String,
     trim: true,
-    lowercase: true
+    uppercase: true
   },
   authProviders: {
     google: {
       DisplayName: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Email: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: "NO"
+        type: Boolean,
+        default: false
       }
     },
     facebook: {
       DisplayName: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Email: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: "NO"
+        type: Boolean,
+        default: false
       }
     },
     twitter: {
       DisplayName: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Email: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: "NO"
+        type: Boolean,
+        default: false
       }
     },
     github: {
       DisplayName: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Email: {
         type: String,
         trim: true,
-        lowercase: true
+        uppercase: true
       },
       Id: String,
       isPrimary: {
-        type: String,
-        default: "NO"
+        type: Boolean,
+        default: false
       }
     }
   },
   altEmail: {
     type: String,
     trim: true,
-    lowercase: true
+    uppercase: true
   },
   userCreated: {
     type: Date,

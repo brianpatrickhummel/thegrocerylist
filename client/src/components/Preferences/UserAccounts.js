@@ -116,7 +116,7 @@ class UserAccounts extends Component {
             ) : (
               /* no acct info, there display Connect Buttons */
               <div className="unlinkedAccountsContainer">
-                <span>connect account</span>
+                <span> add options for connecting social media account</span>
               </div>
             )}
           </AccountRows>

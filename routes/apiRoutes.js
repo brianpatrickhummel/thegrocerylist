@@ -12,7 +12,9 @@
 //   });
 // });
 
-const passport = require("passport");
+const passport = require("passport"),
+  User = require("../models/User"),
+  ObjectID = require("mongodb").ObjectID;
 
 module.exports = app => {
   // GET CURRENT USER
@@ -30,5 +32,24 @@ module.exports = app => {
     // console.log("after LOGOUT req.user: ", req.user);
     // console.log("after LOGOUT session: ", req.session);
     res.redirect("/");
+  });
+
+  // Set social media account as primary
+  app.get("/api/setPrimary/:account", async (req, res) => {
+    let accountType = req.params.account,
+      o_id = new ObjectID(req.user._id),
+      query = { [`authProviders.${accountType}.isPrimary`]: "true" };
+    // enclosing the query in brackets tells Mongo that it's a path rather than literal
+
+    console.log("MongoDB query: ", query);
+    console.log("o_id: ", o_id);
+    let result = await User.findOneAndUpdate(
+      {
+        _id: o_id
+      },
+      { $set: query }
+    );
+    console.log("Found User: ", result);
+    res.redirect("/preferences");
   });
 };

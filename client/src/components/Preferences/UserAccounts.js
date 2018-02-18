@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Collapse, Row, Col, Button, Tooltip } from "antd";
 import { connect } from "react-redux";
+import { setPrimary } from "../../actions";
 const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
 
@@ -94,8 +95,10 @@ class UserAccounts extends Component {
                       <SecondaryButtons
                         size="small"
                         type="primary"
-                        href={`/api/setPrimary/${keys[i]}`}
                         data-account={keys[i]}
+                        onClick={() => {
+                          this.props.setPrimary(keys[i]);
+                        }}
                       >
                         <ButtonSpanLarge>P</ButtonSpanLarge>
                         <ButtonSpanSmall>PRIMARY</ButtonSpanSmall>
@@ -137,7 +140,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(UserAccounts);
+export default connect(mapStateToProps, { setPrimary })(UserAccounts);
 
 // = = = = = = CSS = = = = = = = = = = = = = = = = = = = = =
 

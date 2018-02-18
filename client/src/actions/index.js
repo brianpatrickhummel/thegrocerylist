@@ -7,3 +7,10 @@ export const fetchUser = () => async dispatch => {
   // Pass updated User Model to Redux Store
   dispatch({ type: FETCH_USER, payload: res.data }); // user profile info is stored in .data
 };
+
+// adjust primary account
+export const setPrimary = setPrimaryAccountType => async dispatch => {
+  const res = await axios.post(`/api/setPrimary/${setPrimaryAccountType}`);
+  // Pass updated User Model to Redux Store
+  dispatch({ type: FETCH_USER, payload: res.data }); // user profile info is stored in .data
+};

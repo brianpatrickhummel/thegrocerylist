@@ -35,21 +35,34 @@ module.exports = app => {
   });
 
   // Set social media account as primary
-  app.get("/api/setPrimary/:account", async (req, res) => {
+  app.post("/api/setPrimary/:account", async (req, res) => {
     let accountType = req.params.account,
+      currentPrimary = req.user.primaryAccount,
+      Id = req.user.authProviders[accountType].Id,
+      DisplayName = req.user.authProviders[accountType].DisplayName,
+      Email = req.user.authProviders[accountType].Email,
       o_id = new ObjectID(req.user._id),
-      query = { [`authProviders.${accountType}.isPrimary`]: "true" };
-    // enclosing the query in brackets tells Mongo that it's a path rather than literal
+      query = {
+        // unset current primary account
+        [`authProviders.${currentPrimary}.isPrimary`]: "false",
+        // set new primary account
+        primaryAccount: `${accountType}`,
+        primaryId: Id,
+        primaryDisplayName: DisplayName,
+        primaryEmail: Email,
+        [`authProviders.${accountType}.isPrimary`]: "true"
+      };
 
-    console.log("MongoDB query: ", query);
-    console.log("o_id: ", o_id);
-    let result = await User.findOneAndUpdate(
+    let user = await User.findOneAndUpdate(
       {
         _id: o_id
       },
-      { $set: query }
+      {
+        $set: query
+      },
+      { new: true }
     );
-    console.log("Found User: ", result);
-    res.redirect("/preferences");
+
+    res.send(user);
   });
 };

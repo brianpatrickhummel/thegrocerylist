@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Collapse, Row, Col, Button, Tooltip } from "antd";
 import { connect } from "react-redux";
 import { setPrimary } from "../../actions";
+import UnlinkModal from "./UnlinkModal";
 const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
 
@@ -10,6 +11,10 @@ class UserAccounts extends Component {
   state = {
     activePanelIsPrimary: false
   };
+
+  renderModal() {
+    this.refs.UnlinkModal.showModal();
+  }
 
   renderContent() {
     return (
@@ -108,7 +113,16 @@ class UserAccounts extends Component {
 
                   <ButtonColumns xs={{ span: 8, offset: 4 }} sm={{ span: 8, offset: 4 }}>
                     <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
-                      <SecondaryButtons size="small" type="primary" href={`/unlink/${keys[i]}`} data-account={keys[i]}>
+                      <SecondaryButtons
+                        size="small"
+                        type="primary"
+                        /* href={`/unlink/${keys[i]}`}  */
+                        data-account={keys[i]}
+                        onClick={() => {
+                          this.renderModal();
+                          /* this.props.unlinkAccount(keys[i]); */
+                        }}
+                      >
                         <ButtonSpanLarge>U</ButtonSpanLarge>
                         <ButtonSpanSmall>UNLINK</ButtonSpanSmall>
                       </SecondaryButtons>
@@ -132,7 +146,12 @@ class UserAccounts extends Component {
   }
 
   render() {
-    return <div>{this.renderContent()}</div>;
+    return (
+      <div>
+        {this.renderContent()}
+        <UnlinkModal ref="UnlinkModal" />
+      </div>
+    );
   }
 }
 
@@ -140,7 +159,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { setPrimary })(UserAccounts);
+export default connect(mapStateToProps, { setPrimary, unlinkAccount })(UserAccounts);
 
 // = = = = = = CSS = = = = = = = = = = = = = = = = = = = = =
 

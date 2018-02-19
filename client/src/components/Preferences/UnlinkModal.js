@@ -1,21 +1,26 @@
 import { Modal, Button } from "antd";
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { unlinkAccount } from "../../actions";
 
 class UnlinkModal extends Component {
   state = {
     loading: false,
-    visible: false
+    visible: false,
+    account: ""
   };
-  showModal = () => {
+  showModal = accountType => {
     this.setState({
-      visible: true
+      visible: true,
+      account: accountType
     });
   };
   handleOk = () => {
     this.setState({ loading: true });
+    this.props.unlinkAccount(this.state.account);
     setTimeout(() => {
       this.setState({ loading: false, visible: false });
-    }, 3000);
+    }, 2000);
   };
   handleCancel = () => {
     this.setState({ visible: false });
@@ -49,4 +54,4 @@ class UnlinkModal extends Component {
   }
 }
 
-export default UnlinkModal;
+export default connect(null, { unlinkAccount }, null, { withRef: true })(UnlinkModal);

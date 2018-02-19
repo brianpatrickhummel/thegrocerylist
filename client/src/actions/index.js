@@ -16,5 +16,6 @@ export const setPrimary = setPrimaryAccountType => async dispatch => {
 
 export const unlinkAccount = unlinkAccountType => async dispatch => {
   const res = await axios.post(`/unlink/${unlinkAccountType}`);
+  console.log("res.data in action creator response: ", res);
   dispatch({ type: FETCH_USER, payload: res.data });
 };

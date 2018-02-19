@@ -12,8 +12,9 @@ class UserAccounts extends Component {
     activePanelIsPrimary: false
   };
 
-  renderModal() {
-    this.refs.UnlinkModal.showModal();
+  renderModal(accountType) {
+    // calls the showModal method from child UnlinkModal component via react-redux Connect's getWrappedInstance
+    this.refs.UnlinkModal.getWrappedInstance().showModal(accountType);
   }
 
   renderContent() {
@@ -119,7 +120,7 @@ class UserAccounts extends Component {
                         /* href={`/unlink/${keys[i]}`}  */
                         data-account={keys[i]}
                         onClick={() => {
-                          this.renderModal();
+                          this.renderModal(keys[i]);
                           /* this.props.unlinkAccount(keys[i]); */
                         }}
                       >
@@ -159,7 +160,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { setPrimary, unlinkAccount })(UserAccounts);
+export default connect(mapStateToProps, { setPrimary })(UserAccounts);
 
 // = = = = = = CSS = = = = = = = = = = = = = = = = = = = = =
 

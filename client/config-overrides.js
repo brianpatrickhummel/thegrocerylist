@@ -1,4 +1,5 @@
-// Ant Designs configuration overrides
+// Ant Designs Configuration Overrides
+// customize build without ejecting create-react-app
 
 const { injectBabelPlugin } = require("react-app-rewired");
 const rewireLess = require("react-app-rewire-less");

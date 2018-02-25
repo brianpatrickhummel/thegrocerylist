@@ -20,9 +20,8 @@ class UserAccounts extends Component {
   renderContent() {
     return (
       this.props.auth && (
-        // Primary Account
-
         <div className="preferencesContainer">
+          {/* Primary Account */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
             <PanelContainer bordered={true} /*defaultActiveKey={this.state.activePanelIsPrimary && ["1"]}*/>
               <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
@@ -52,7 +51,7 @@ class UserAccounts extends Component {
               </PanelHeader>
             </PanelContainer>
           </Col>
-          {/* Secondary Account */}
+          {/* Secondary Accounts */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
             <PanelContainer bordered={true} /*defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}*/>
               <PanelHeader header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
@@ -132,7 +131,7 @@ class UserAccounts extends Component {
                 </Col>
               </div>
             ) : (
-              /* no acct info, there display Connect Buttons */
+              /* no acct info, display Connect Buttons */
               <div className="unlinkedAccountsContainer">
                 <span> add options for connecting social media account</span>
               </div>

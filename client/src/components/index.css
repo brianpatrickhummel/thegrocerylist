@@ -12,6 +12,17 @@
   font-family: futura !important;
 }
 
+.ant-btn:hover {
+  color: white !important;
+  background-color: #7a4d4e !important;
+  border-color: #7a4d4e !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: #c74145 !important;
+  border-color: #c74145 !important;
+}
+
 /* .ant-layout-header {
   background: #5d3c3d !important;
 } */
@@ -29,12 +40,12 @@
   height: 100%;
 }
 
-.ant-menu-horizontal>.ant-menu-item {
+.ant-menu-horizontal > .ant-menu-item {
   margin: 0 10px;
   display: inline;
 }
 
-.ant-menu-inline-collapsed>.ant-menu-item {
+.ant-menu-inline-collapsed > .ant-menu-item {
   padding: 0px !important;
   text-align: center;
 }
@@ -56,8 +67,8 @@
   text-align: center;
 }
 
-.ant-collapse>.ant-collapse-item>.ant-collapse-header:hover {
-  color: #4F778F;
+.ant-collapse > .ant-collapse-item > .ant-collapse-header:hover {
+  color: #4f778f;
 }
 
 /* = = = = = = Preferences = = = = = = */
@@ -92,24 +103,30 @@ a.ant-btn-sm {
 
 /* END Shrink Hover CSS Animation Effect */
 
+/* = = = = = = Unlink Modal = = = = = = */
+
+.unlinkModal {
+  text-align: center;
+}
+
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
 
 /* FOR HEADER COMPONENT */
 
 @media (max-width: 1127px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 10px;
   }
 }
 
 @media (max-width: 866px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 4px;
   }
 }
 
 @media (max-width: 700px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 2px;
   }
   .NavBar {
@@ -136,7 +153,7 @@ a.ant-btn-sm {
     min-width: 50px !important;
     width: 50px !important;
   }
-  .ant-layout-sider-collapsed>.ant-layout-sider-trigger {
+  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
     width: 50px !important;
   }
   .ant-layout-has-sider {

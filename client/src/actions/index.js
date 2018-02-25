@@ -8,14 +8,14 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data }); // user profile info is stored in .data
 };
 
-// adjust primary account
+// change primary social media account
 export const setPrimary = setPrimaryAccountType => async dispatch => {
   const res = await axios.post(`/api/setPrimary/${setPrimaryAccountType}`);
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
+// unlink social media account
 export const unlinkAccount = unlinkAccountType => async dispatch => {
   const res = await axios.post(`/unlink/${unlinkAccountType}`);
-  console.log("res.data in action creator response: ", res);
   dispatch({ type: FETCH_USER, payload: res.data });
 };

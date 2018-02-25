@@ -14,7 +14,7 @@ module.exports = app => {
   app.get(
     "/connect/google/callback",
     passport.authorize("google", {
-      successRedirect: "/dashboard",
+      successRedirect: "/preferences",
       failureRedirect: "/"
     })
   );
@@ -27,7 +27,7 @@ module.exports = app => {
   app.get(
     "/connect/facebook/callback",
     passport.authorize("facebook", {
-      successRedirect: "/dashboard",
+      successRedirect: "/preferences",
       failureRedirect: "/"
     })
   );
@@ -40,7 +40,7 @@ module.exports = app => {
   app.get(
     "/connect/twitter/callback",
     passport.authorize("twitter", {
-      successRedirect: "/dashboard",
+      successRedirect: "/preferences",
       failureRedirect: "/"
     })
   );
@@ -53,7 +53,7 @@ module.exports = app => {
   app.get(
     "/connect/github/callback",
     passport.authorize("github", {
-      successRedirect: "/dashboard",
+      successRedirect: "/preferences",
       failureRedirect: "/"
     })
   );

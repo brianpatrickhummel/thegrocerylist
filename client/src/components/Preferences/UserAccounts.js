@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Collapse, Row, Col, Button, Tooltip } from "antd";
 import { connect } from "react-redux";
-import { setPrimary } from "../../actions";
+import { setPrimary, connectAccount } from "../../actions";
 import UnlinkModal from "./UnlinkModal";
 const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
@@ -96,7 +96,12 @@ class UserAccounts extends Component {
                 </InfoTextContainerCol>
                 <Col xs={{ span: 16, offset: 4 }} sm={{ span: 3, offset: 0 }}>
                   <ButtonColumns xs={{ span: 8, offset: 2 }} sm={{ span: 8, offset: 0 }}>
-                    <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>MAKE PRIMARY</ToolText>}>
+                    <Tooltip
+                      trigger="hover"
+                      arrowPointAtCenter
+                      placement="topRight"
+                      title={<ToolText>MAKE PRIMARY</ToolText>}
+                    >
                       <SecondaryButtons
                         size="small"
                         type="primary"
@@ -112,7 +117,12 @@ class UserAccounts extends Component {
                   </ButtonColumns>
 
                   <ButtonColumns xs={{ span: 8, offset: 4 }} sm={{ span: 8, offset: 4 }}>
-                    <Tooltip arrowPointAtCenter placement="topRight" title={<ToolText>UNLINK ACCOUNT</ToolText>}>
+                    <Tooltip
+                      trigger="hover"
+                      arrowPointAtCenter
+                      placement="topRight"
+                      title={<ToolText>UNLINK ACCOUNT</ToolText>}
+                    >
                       <SecondaryButtons
                         size="small"
                         type="primary"
@@ -132,9 +142,11 @@ class UserAccounts extends Component {
               </div>
             ) : (
               /* no acct info, display Connect Buttons */
-              <div className="unlinkedAccountsContainer">
-                <span> add options for connecting social media account</span>
-              </div>
+              <UnlinkedAccountsContainer>
+                <UnlinkedButton size="small" type="primary" data-account={keys[i]} href={`/connect/${keys[i]}`}>
+                  <span>CONNECT {keys[i].toUpperCase()}</span>
+                </UnlinkedButton>
+              </UnlinkedAccountsContainer>
             )}
           </AccountRows>
         ];
@@ -159,7 +171,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { setPrimary })(UserAccounts);
+export default connect(mapStateToProps, { setPrimary, connectAccount })(UserAccounts);
 
 // = = = = = = CSS = = = = = = = = = = = = = = = = = = = = =
 
@@ -255,7 +267,7 @@ const ButtonColumns = styled(Col)`
   }
 
   @media (max-width: 575px) {
-    margin-top: 15px !important;
+    margin-top: 10px !important;
   }
 `;
 
@@ -272,7 +284,25 @@ const ButtonSpanLarge = styled.span`
 const ButtonSpanSmall = styled.span`
   font-size: 9px;
   letter-spacing: 0.05em;
+  padding-bottom: 2px !important;
   @media (min-width: 576px) {
     display: none;
+  }
+`;
+
+const UnlinkedAccountsContainer = styled.div`
+  text-align: center;
+`;
+
+const UnlinkedButton = styled(Button)`
+  font-size: 10px;
+
+  @media (max-width: 575px) {
+    margin-top: 10px !important;
+  }
+
+  &:hover {
+    background-color: #6d5151 !important;
+    border-color: #6d5151 !important;
   }
 `;

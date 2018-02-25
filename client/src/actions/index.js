@@ -15,6 +15,12 @@ export const setPrimary = setPrimaryAccountType => async dispatch => {
 };
 
 // unlink social media account
+export const connectAccount = connectAccountType => async dispatch => {
+  const res = await axios.get(`/connect/${connectAccountType}`);
+  dispatch({ type: FETCH_USER, payload: res.data });
+};
+
+// unlink social media account
 export const unlinkAccount = unlinkAccountType => async dispatch => {
   const res = await axios.post(`/unlink/${unlinkAccountType}`);
   dispatch({ type: FETCH_USER, payload: res.data });

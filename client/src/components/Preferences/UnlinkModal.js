@@ -23,7 +23,7 @@ class UnlinkModal extends Component {
     this.props.unlinkAccount(this.state.account);
     setTimeout(() => {
       this.setState({ loading: false, visible: false });
-    }, 2000);
+    }, 0);
   };
 
   handleCancel = () => {
@@ -37,7 +37,7 @@ class UnlinkModal extends Component {
         <Modal
           visible={visible}
           wrapClassName="unlinkModal"
-          title={[<Icon type="question-circle-o" />, ` UNLINK ${this.state.account.toUpperCase()} ACCOUNT`]}
+          title={[<Icon key={1} type="question-circle-o" />, ` UNLINK ${this.state.account.toUpperCase()} ACCOUNT`]}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={[

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Collapse, Row, Col, Button, Tooltip } from "antd";
 import { connect } from "react-redux";
-import { setPrimary, connectAccount } from "../../actions";
+import { setPrimary, connectAccount } from "../../../actions";
 import UnlinkModal from "./UnlinkModal";
 const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
@@ -99,7 +99,7 @@ class UserAccounts extends Component {
                     <Tooltip
                       trigger="hover"
                       arrowPointAtCenter
-                      placement="topRight"
+                      placement="top"
                       title={<ToolText>MAKE PRIMARY</ToolText>}
                     >
                       <SecondaryButtons
@@ -120,7 +120,7 @@ class UserAccounts extends Component {
                     <Tooltip
                       trigger="hover"
                       arrowPointAtCenter
-                      placement="topRight"
+                      placement="top"
                       title={<ToolText>UNLINK ACCOUNT</ToolText>}
                     >
                       <SecondaryButtons
@@ -170,8 +170,6 @@ function mapStateToProps({ auth }) {
 }
 
 export default connect(mapStateToProps, { setPrimary, connectAccount })(UserAccounts);
-
-// = = = = = = CSS = = = = = = = = = = = = = = = = = = = = =
 
 const PanelContainer = styled(Collapse)`
   margin-top: 25px !important;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Icon, Row, Layout, Menu } from "antd";
+import menudata from "./menudata";
 import "./index.css";
 const { Header, Sider } = Layout;
 
@@ -16,6 +17,34 @@ class HeaderBar extends Component {
     this.setState({ collapsed });
   };
 
+  // render Header Menu.Item by mapping through objects in menudata array
+  renderMenuItems(classNames) {
+    return menudata.map(({ link, image, text }, index) => {
+      return (
+        <Menu.Item key={index + 1}>
+          <div className={classNames}>
+            {/* logic to render last index (logout)as an <a> rather than react-router <Link> */}
+            {index !== 6 ? (
+              <LinkAnchor to={link}>
+                <Icon>
+                  <LinkImage src={image} alt="" />
+                </Icon>
+                <LinkText>{text}</LinkText>
+              </LinkAnchor>
+            ) : (
+              <LinkAnchor2 href={link}>
+                <Icon>
+                  <LinkImage src={image} alt="" />
+                </Icon>
+                <LinkText>{text}</LinkText>
+              </LinkAnchor2>
+            )}
+          </div>
+        </Menu.Item>
+      );
+    });
+  }
+
   render() {
     return (
       <div>
@@ -23,62 +52,8 @@ class HeaderBar extends Component {
         <Header style={{ textAlign: "center" }}>
           <Row type="flex" justify="center">
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-              <Menu.Item key="1">
-                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor to="/create">
-                    <LinkImage src={require("../images/CreateList.svg")} alt="" />
-                    <LinkText>CREATE LIST</LinkText>
-                  </LinkAnchor>
-                </div>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor to="/preferences">
-                    <LinkImage src={require("../images/Prefs.svg")} alt="" />
-                    <LinkText>PREFERENCES</LinkText>
-                  </LinkAnchor>
-                </div>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor to="/saved">
-                    <LinkImage src={require("../images/Database.svg")} alt="" />
-                    <LinkText>MY RECIPES</LinkText>
-                  </LinkAnchor>
-                </div>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor to="/favorites">
-                    <LinkImage src={require("../images/Favorites.svg")} alt="" />
-                    <LinkText>FAVORITES</LinkText>
-                  </LinkAnchor>
-                </div>
-              </Menu.Item>
-              <Menu.Item key="5">
-                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor to="/lists">
-                    <LinkImage src={require("../images/List.svg")} alt="" />
-                    <LinkText>MY LISTS</LinkText>
-                  </LinkAnchor>
-                </div>
-              </Menu.Item>
-              <Menu.Item key="6">
-                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor to="/search">
-                    <LinkImage src={require("../images/Search.svg")} alt="" />
-                    <LinkText>RECIPE SEARCH</LinkText>
-                  </LinkAnchor>
-                </div>
-              </Menu.Item>
-              <Menu.Item key="7">
-                <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
-                  <LinkAnchor2 href="/api/logout">
-                    <LinkImage src={require("../images/Logout.svg")} alt="" />
-                    <LinkText>LOGOUT</LinkText>
-                  </LinkAnchor2>
-                </div>
-              </Menu.Item>
+              {/* call render function passing in class names specific only to menu bar (not sidebar) */}
+              {this.renderMenuItems("hvr-shrink NavBar")}
             </Menu>
           </Row>
         </Header>
@@ -87,62 +62,8 @@ class HeaderBar extends Component {
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{ color: "white" }}>
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={[""]} mode="inline">
-              <Menu.Item key="1">
-                <LinkAnchor to="/create">
-                  <Icon>
-                    <LinkImage src={require("../images/CreateList.svg")} alt="" />
-                  </Icon>
-                  <LinkText>CREATE LIST</LinkText>
-                </LinkAnchor>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <LinkAnchor to="/preferences">
-                  <Icon>
-                    <LinkImage src={require("../images/Prefs.svg")} alt="" />
-                  </Icon>
-                  <LinkText>PREFERENCES</LinkText>
-                </LinkAnchor>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <LinkAnchor to="/saved">
-                  <Icon>
-                    <LinkImage src={require("../images/Database.svg")} alt="" />
-                  </Icon>
-                  <LinkText>MY RECIPES</LinkText>
-                </LinkAnchor>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <LinkAnchor to="/favorites">
-                  <Icon>
-                    <LinkImage src={require("../images/Favorites.svg")} alt="" />
-                  </Icon>
-                  <LinkText>FAVORITES</LinkText>
-                </LinkAnchor>
-              </Menu.Item>
-              <Menu.Item key="5">
-                <LinkAnchor to="/lists">
-                  <Icon>
-                    <LinkImage src={require("../images/List.svg")} alt="" />
-                  </Icon>
-                  <LinkText>MY LISTS</LinkText>
-                </LinkAnchor>
-              </Menu.Item>
-              <Menu.Item key="6">
-                <LinkAnchor to="/search">
-                  <Icon>
-                    <LinkImage src={require("../images/Search.svg")} alt="" />
-                  </Icon>
-                  <LinkText>RECIPE SEARCH</LinkText>
-                </LinkAnchor>
-              </Menu.Item>
-              <Menu.Item key="7">
-                <LinkAnchor2 href="/api/logout">
-                  <Icon>
-                    <LinkImage src={require("../images/Logout.svg")} alt="" />
-                  </Icon>
-                  <LinkText>LOGOUT</LinkText>
-                </LinkAnchor2>
-              </Menu.Item>
+              {/* call render function passing in no class names*/}
+              {this.renderMenuItems()}
             </Menu>
           </Sider>
         </Layout>

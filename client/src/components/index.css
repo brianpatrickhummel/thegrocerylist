@@ -40,12 +40,12 @@
   height: 100%;
 }
 
-.ant-menu-horizontal > .ant-menu-item {
+.ant-menu-horizontal>.ant-menu-item {
   margin: 0 10px;
   display: inline;
 }
 
-.ant-menu-inline-collapsed > .ant-menu-item {
+.ant-menu-inline-collapsed>.ant-menu-item {
   padding: 0px !important;
   text-align: center;
 }
@@ -60,18 +60,20 @@
   color: white !important;
 }
 
-/* = = = = = = Dashboard = = = = = = */
+.NavBar {
+  margin: 25px 0;
+}
+
+/* = = = = = = Preferences = = = = = = */
 
 .ant-collapse-header {
   padding: 10px !important;
   text-align: center;
 }
 
-.ant-collapse > .ant-collapse-item > .ant-collapse-header:hover {
+.ant-collapse>.ant-collapse-item>.ant-collapse-header:hover {
   color: #4f778f;
 }
-
-/* = = = = = = Preferences = = = = = = */
 
 /* center Letters in circular Button */
 
@@ -144,7 +146,7 @@ a.ant-btn-sm {
   text-align: center;
 }
 
-.ant-modal-body > p {
+.ant-modal-body>p {
   color: #b82933 !important;
   margin-top: 10px;
 }
@@ -162,19 +164,19 @@ a.ant-btn-sm {
 /*  HEADER COMPONENT MQs */
 
 @media (max-width: 1127px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 10px;
   }
 }
 
 @media (max-width: 866px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 4px;
   }
 }
 
 @media (max-width: 700px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 2px;
   }
   .NavBar {
@@ -201,7 +203,7 @@ a.ant-btn-sm {
     min-width: 50px !important;
     width: 50px !important;
   }
-  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
+  .ant-layout-sider-collapsed>.ant-layout-sider-trigger {
     width: 50px !important;
   }
   .ant-layout-has-sider {
@@ -242,7 +244,6 @@ a.ant-btn-sm {
     margin-right: 0px !important;
     padding: 8px 10px !important;
   }
-
   .ant-tabs-top .ant-tabs-ink-bar-animated,
   .ant-tabs-bottom .ant-tabs-ink-bar-animated {
     transform: translate3d(207.828px, 0px, 0px);
@@ -254,7 +255,6 @@ a.ant-btn-sm {
     padding: 10px 0px 4px 0px !important;
     margin: 5px 10px 0 10px !important;
   }
-
   .ant-tabs-nav-container {
     font-size: 12px !important;
   }

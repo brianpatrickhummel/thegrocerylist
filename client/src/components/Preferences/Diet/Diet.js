@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Row, Col, Button } from "antd";
 import { connect } from "react-redux";
-import { setPrimary, connectAccount } from "../../actions";
-import UnlinkModal from "./UnlinkModal";
+import { setPrimary, connectAccount } from "../../../actions";
+const FontAwesome = require("react-fontawesome");
 
 const dietTypes = [
   "lactovegetarian",
@@ -17,9 +17,11 @@ const dietTypes = [
   "whole30"
 ];
 
-const FontAwesome = require("react-fontawesome");
-
 class UserAccounts extends Component {
+  // componentDidMount() {
+  //   this.props.fetchPrefs();
+  // }
+
   render() {
     return (
       <DietContainer xs={{ span: 22, offset: 1 }}>

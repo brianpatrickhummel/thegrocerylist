@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import UserAccounts from "./UserAccounts";
+import UserAccounts from "./User/UserAccounts";
 import { Tabs } from "antd";
 import styled from "styled-components";
-import Diet from "./Diet";
+import Diet from "./Diet/Diet";
 const TabPane = Tabs.TabPane;
 
 function callback(key) {

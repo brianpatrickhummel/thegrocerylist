@@ -1,8 +1,8 @@
 import { Modal, Button, Icon } from "antd";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { unlinkAccount } from "../../actions";
-import "../index.css";
+import { unlinkAccount } from "../../../actions";
+import "../../index.css";
 import styled from "styled-components";
 const FontAwesome = require("react-fontawesome");
 

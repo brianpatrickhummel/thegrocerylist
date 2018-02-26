@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import UserAccounts from "./UserAccounts";
 import { Tabs } from "antd";
 import styled from "styled-components";
+import Diet from "./Diet";
 const TabPane = Tabs.TabPane;
 
 function callback(key) {
@@ -18,7 +19,7 @@ class Preferences extends Component {
             <UserAccounts />
           </TabPane>
           <TabPane tab={<span>DIET</span>} key="2">
-            List of diet types
+            <Diet />
           </TabPane>
           <TabPane tab={<span>INTOLERANCES</span>} key="3">
             List of food allergy types

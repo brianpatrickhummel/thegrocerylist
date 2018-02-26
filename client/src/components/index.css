@@ -229,15 +229,18 @@ a.ant-btn-sm {
 
 /* END HEADER COMPONENT MQs */
 
-/*  HEADER COMPONENT MQs */
+/*  PREFS COMPONENT MQs */
+
+@media (max-width: 866px) {
+  .ant-tabs-nav-container {
+    font-size: 12px !important;
+  }
+}
+
 @media (max-width: 650px) {
   .ant-tabs-tab {
     margin-right: 0px !important;
     padding: 8px 10px !important;
-  }
-
-  .ant-tabs-nav-container {
-    font-size: 12px !important;
   }
 
   .ant-tabs-top .ant-tabs-ink-bar-animated,
@@ -257,4 +260,4 @@ a.ant-btn-sm {
   }
 }
 
-/*  END HEADER COMPONENT MQs */
+/*  END PREFS COMPONENT MQs */

@@ -9,7 +9,7 @@ const FontAwesome = require("react-fontawesome");
 
 class UserAccounts extends Component {
   state = {
-    activePanelIsPrimary: false
+    activePanelIsPrimary: true
   };
 
   renderModal(accountType) {
@@ -23,7 +23,7 @@ class UserAccounts extends Component {
         <div className="preferencesContainer">
           {/* Primary Account */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
-            <PanelContainer bordered={true} /*defaultActiveKey={this.state.activePanelIsPrimary && ["1"]}*/>
+            <PanelContainer bordered={true} defaultActiveKey={this.state.activePanelIsPrimary && ["1"]}>
               <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
                 <PanelBody>
                   <Row type="flex" align="middle">
@@ -53,7 +53,7 @@ class UserAccounts extends Component {
           </Col>
           {/* Secondary Accounts */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
-            <PanelContainer bordered={true} /*defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}*/>
+            <PanelContainer bordered={true} defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}>
               <PanelHeader header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
                 <PanelBody>{this.renderLinkedAccounts()}</PanelBody>
               </PanelHeader>
@@ -140,7 +140,7 @@ class UserAccounts extends Component {
               </div>
             ) : (
               /* no acct info, display Connect Buttons */
-              <UnlinkedAccountsContainer>
+              <UnlinkedAccountsContainer xs={{ span: 22, offset: 1 }} sm={{ span: 20, offset: 0 }}>
                 <UnlinkedButton size="small" type="primary" data-account={keys[i]} href={`/connect/${keys[i]}`}>
                   <span>CONNECT {keys[i].toUpperCase()}</span>
                 </UnlinkedButton>
@@ -288,7 +288,7 @@ const ButtonSpanSmall = styled.span`
   }
 `;
 
-const UnlinkedAccountsContainer = styled.div`
+const UnlinkedAccountsContainer = styled(Col)`
   text-align: center;
 `;
 

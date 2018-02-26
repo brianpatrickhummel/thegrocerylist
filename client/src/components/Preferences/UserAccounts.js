@@ -126,11 +126,9 @@ class UserAccounts extends Component {
                       <SecondaryButtons
                         size="small"
                         type="primary"
-                        /* href={`/unlink/${keys[i]}`}  */
                         data-account={keys[i]}
                         onClick={() => {
                           this.renderModal(keys[i]);
-                          /* this.props.unlinkAccount(keys[i]); */
                         }}
                       >
                         <ButtonSpanLarge>U</ButtonSpanLarge>

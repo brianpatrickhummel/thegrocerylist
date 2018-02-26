@@ -102,7 +102,7 @@ a.ant-btn-sm {
 }
 
 .ant-tabs-bar {
-  border-bottom: none !important;
+  border-bottom: 1px solid rgba(98, 71, 71, 0.1) !important;
 }
 
 .anticon {
@@ -127,6 +127,34 @@ a.ant-btn-sm {
 
 .unlinkModal {
   text-align: center;
+}
+
+.unlinkModal:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.unlinkModal .ant-modal {
+  display: inline-block;
+  vertical-align: middle;
+  top: 0;
+  text-align: center;
+}
+
+.ant-modal-body > p {
+  color: #b82933 !important;
+  margin-top: 10px;
+}
+
+.ant-modal-footer {
+  text-align: center !important;
+}
+
+.ant-modal-title {
+  color: rgba(15, 6, 6, 1) !important;
 }
 
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
@@ -221,11 +249,11 @@ a.ant-btn-sm {
 @media (max-width: 380px) {
   .ant-tabs-tab {
     padding: 10px 0px 4px 0px !important;
-    margin: 10px 4px 0 4px !important;
+    margin: 5px 10px 0 10px !important;
   }
 
   .ant-tabs-nav-container {
-    font-size: 11px !important;
+    font-size: 12px !important;
   }
 }
 

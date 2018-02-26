@@ -22,7 +22,7 @@ class HeaderBar extends Component {
         {/* Header Nav - visibility controlled by Media Queries */}
         <Header style={{ textAlign: "center" }}>
           <Row type="flex" justify="center">
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[""]}>
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
               <Menu.Item key="1">
                 <div className="hvr-shrink NavBar" style={{ margin: "25px 0" }}>
                   <LinkAnchor to="/create">

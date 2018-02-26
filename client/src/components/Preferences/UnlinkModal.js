@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { unlinkAccount } from "../../actions";
 import "../index.css";
+import styled from "styled-components";
+const FontAwesome = require("react-fontawesome");
 
 class UnlinkModal extends Component {
   state = {
@@ -37,20 +39,22 @@ class UnlinkModal extends Component {
         <Modal
           visible={visible}
           wrapClassName="unlinkModal"
-          title={[<Icon key={1} type="question-circle-o" />, ` UNLINK ${this.state.account.toUpperCase()} ACCOUNT`]}
+          title={[<Icon key={1} type="question-circle-o" />, ` UNLINK ${this.state.account.toUpperCase()} ACCOUNT `]}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          maskStyle={{ background: "rgba(28,9,9,0.9)" }}
           footer={[
-            <Button key="back" onClick={this.handleCancel}>
+            <ModalButton key="back" onClick={this.handleCancel}>
               NO, CANCEL
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+            </ModalButton>,
+            <ModalButton key="submit" type="primary" loading={loading} onClick={this.handleOk}>
               YES, UNLINK
-            </Button>
+            </ModalButton>
           ]}
         >
-          <p>{`Are you sure that you want to unlink your ${this.state.account.charAt(0).toUpperCase() +
-            this.state.account.slice(1)} account ?`}</p>
+          <FontAwesome className="share-icon" style={{ color: "#b82933" }} size="2x" name={this.state.account} />
+          <ModalBodyText>{`Are you sure that you want to unlink your ${this.state.account.charAt(0).toUpperCase() +
+            this.state.account.slice(1)} account ?`}</ModalBodyText>
         </Modal>
       </div>
     );
@@ -58,3 +62,11 @@ class UnlinkModal extends Component {
 }
 
 export default connect(null, { unlinkAccount }, null, { withRef: true })(UnlinkModal);
+
+const ModalButton = styled(Button)`
+  font-size: 11px !important;
+`;
+
+const ModalBodyText = styled.p`
+  font-size: 17px !important;
+`;

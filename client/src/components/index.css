@@ -101,6 +101,26 @@ a.ant-btn-sm {
   transform: scale(0.93);
 }
 
+.ant-tabs-bar {
+  border-bottom: none !important;
+}
+
+.anticon {
+  margin-right: 4px !important;
+}
+
+.ant-tabs-nav .ant-tabs-tab-active {
+  color: #6c2328 !important;
+}
+
+.ant-tabs-ink-bar {
+  background-color: #6c2328 !important;
+}
+
+.ant-tabs-nav .ant-tabs-tab:hover {
+  color: rgba(108, 35, 40, 0.5) !important;
+}
+
 /* END Shrink Hover CSS Animation Effect */
 
 /* = = = = = = Unlink Modal = = = = = = */
@@ -111,7 +131,7 @@ a.ant-btn-sm {
 
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
 
-/* FOR HEADER COMPONENT */
+/*  HEADER COMPONENT MQs */
 
 @media (max-width: 1127px) {
   .ant-menu-horizontal > .ant-menu-item {
@@ -179,4 +199,34 @@ a.ant-btn-sm {
   }
 }
 
-/* END HEADER COMPONENT */
+/* END HEADER COMPONENT MQs */
+
+/*  HEADER COMPONENT MQs */
+@media (max-width: 650px) {
+  .ant-tabs-tab {
+    margin-right: 0px !important;
+    padding: 8px 10px !important;
+  }
+
+  .ant-tabs-nav-container {
+    font-size: 12px !important;
+  }
+
+  .ant-tabs-top .ant-tabs-ink-bar-animated,
+  .ant-tabs-bottom .ant-tabs-ink-bar-animated {
+    transform: translate3d(207.828px, 0px, 0px);
+  }
+}
+
+@media (max-width: 380px) {
+  .ant-tabs-tab {
+    padding: 10px 0px 4px 0px !important;
+    margin: 10px 4px 0 4px !important;
+  }
+
+  .ant-tabs-nav-container {
+    font-size: 11px !important;
+  }
+}
+
+/*  END HEADER COMPONENT MQs */

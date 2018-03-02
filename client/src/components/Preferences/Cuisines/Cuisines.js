@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 let defaultCheckedList = {};
 
-class Diet extends Component {
+class Cuisines extends Component {
   state = {
     checkedList: defaultCheckedList,
     showButtons: false
@@ -21,8 +21,8 @@ class Diet extends Component {
   setDefaultChecked() {
     // will only run once, if the defaultCheckedList has not been assigned values from the auth object in redux store
     if (!Object.keys(defaultCheckedList).length) {
-      for (let key in this.props.auth.preferences.dietTypes) {
-        defaultCheckedList[key] = this.props.auth.preferences.dietTypes[key];
+      for (let key in this.props.auth.preferences.cuisines) {
+        defaultCheckedList[key] = this.props.auth.preferences.cuisines[key];
       }
     }
   }
@@ -51,10 +51,10 @@ class Diet extends Component {
       // once auth is loaded from redux, then set the initial state by assigning values to defaultCheckedList
       this.setDefaultChecked();
       let content = [];
-      let objectpath = this.props.auth.preferences.dietTypes;
+      let objectpath = this.props.auth.preferences.cuisines;
       for (let key in objectpath) {
         content.push(
-          <CheckBoxColumn xs={{ span: 18, offset: 2 }} sm={{ span: 7, offset: 1 }} key={key}>
+          <CheckBoxColumn xs={{ span: 12 }} sm={{ span: 7, offset: 1 }} key={key}>
             <Checkbox checked={this.state.checkedList[key]} onChange={this.onChange} value={key}>
               {key.toUpperCase()}
             </Checkbox>
@@ -67,7 +67,7 @@ class Diet extends Component {
 
   render() {
     return (
-      <CheckBoxContainer xs={{ span: 18, offset: 3 }} sm={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }}>
+      <CheckBoxContainer xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }}>
         <CheckBoxRow type="flex" justify="center">
           {this.renderContent()}
         </CheckBoxRow>
@@ -91,7 +91,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Diet);
+export default connect(mapStateToProps)(Cuisines);
 
 const CheckBoxContainer = styled(Col)`
   background: #fafafa;
@@ -104,6 +104,10 @@ const CheckBoxContainer = styled(Col)`
 const CheckBoxRow = styled(Row)`
   text-align: left;
   margin: 20px;
+
+  @media (max-width: 380px) {
+    margin: 10px;
+  }
 `;
 
 const CheckBoxColumn = styled(Col)`

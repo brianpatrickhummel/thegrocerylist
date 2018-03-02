@@ -55,8 +55,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ auth, prefs }) {
+  return { auth, prefs };
 }
 
 // pass all of our action creators to mapDispatchToProps

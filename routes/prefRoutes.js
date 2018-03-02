@@ -4,7 +4,7 @@ const Prefs = mongoose.model("prefs");
 
 module.exports = app => {
   // GET CURRENT USERS PREFERENCES
-  app.get("/api/prefs", async (req, res) => {
+  app.get("/api/prefs", requireLogin, async (req, res) => {
     const prefs = await Prefs.find({ _user: req.user.id });
     // .select({ recipients: false })
     // .sort({ dateSent: "desc" });

@@ -148,7 +148,7 @@ passport.use(
     },
     async (req, token, tokenSecret, profile, done) => {
       if (!req.user) {
-        console.log("Twitter profile: ", profile);
+        // console.log("Twitter profile: ", profile);
         const existingUser = await User.findOne({ "authProviders.twitter.Id": profile.id });
         if (existingUser) {
           return done(null, existingUser);
@@ -202,7 +202,7 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, cb) => {
       if (!req.user) {
-        console.log("Github profile: ", profile);
+        // console.log("Github profile: ", profile);
         const existingUser = await User.findOne({ "authProviders.github.Id": profile.id });
 
         if (existingUser) {

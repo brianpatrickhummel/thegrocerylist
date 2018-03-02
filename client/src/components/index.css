@@ -23,10 +23,6 @@
   border-color: #c74145 !important;
 }
 
-/* .ant-layout-header {
-  background: #5d3c3d !important;
-} */
-
 /* Ant Layout */
 
 .layout,
@@ -38,6 +34,7 @@
 
 .ant-layout-header {
   height: 100%;
+  padding: 0 40px !important;
 }
 
 .ant-menu-horizontal>.ant-menu-item {
@@ -64,7 +61,19 @@
   margin: 25px 0;
 }
 
-/* = = = = = = Preferences = = = = = = */
+.ant-menu-dark.ant-menu-horizontal {
+  border-bottom: none !important;
+}
+
+.ant-layout-header {
+  border-bottom: 1px solid #694345;
+}
+
+/* = = = = = = = = = = = = = Preferences  = = = = = = = == = = = = = */
+
+.ant-collapse-item>div {
+  /* background-color: rgba(255, 255, 255, 0.9) !important; */
+}
 
 .ant-collapse-header {
   padding: 10px !important;
@@ -103,9 +112,9 @@ a.ant-btn-sm {
   transform: scale(0.93);
 }
 
-.ant-tabs-bar {
-  border-bottom: 1px solid rgba(98, 71, 71, 0.1) !important;
-}
+/* END Shrink Hover CSS Animation Effect */
+
+/* = = = = = = = = Prefs Menu Bar  = = = = = = = = = */
 
 .anticon {
   margin-right: 4px !important;
@@ -123,7 +132,17 @@ a.ant-btn-sm {
   color: rgba(108, 35, 40, 0.5) !important;
 }
 
-/* END Shrink Hover CSS Animation Effect */
+.ant-tabs-nav-wrap {
+  background: rgba(98, 71, 71, 0.1);
+}
+
+.ant-tabs-bar {
+  border-bottom: 1px solid rgba(98, 71, 71, 0.02) !important;
+}
+
+.ant-tabs-nav-container {
+  font-size: 18px !important;
+}
 
 /* = = = = = = Unlink Modal = = = = = = */
 
@@ -157,6 +176,14 @@ a.ant-btn-sm {
 
 .ant-modal-title {
   color: rgba(15, 6, 6, 1) !important;
+}
+
+/* = = = = = = Diet.js = = = = = = */
+
+.ant-checkbox-checked .ant-checkbox-inner,
+.ant-checkbox-indeterminate .ant-checkbox-inner {
+  background-color: rgba(1, 1, 1, 0.6) !important;
+  border-color: rgba(1, 1, 1, 0.8) !important;
 }
 
 /* = = = = = = = = = Media Queries = = = = = = = = = = */
@@ -229,6 +256,12 @@ a.ant-btn-sm {
   }
 }
 
+@media (max-width: 480) {
+  .ant-menu-item {
+    padding-left: 0px !important;
+  }
+}
+
 /* END HEADER COMPONENT MQs */
 
 /*  PREFS COMPONENT MQs */
@@ -237,7 +270,13 @@ a.ant-btn-sm {
   .ant-tabs-nav-container {
     font-size: 12px !important;
   }
+  /* checkbox label text */
+  .ant-checkbox-wrapper {
+    font-size: 12px !important;
+  }
 }
+
+@media (max-width: 768px) {}
 
 @media (max-width: 650px) {
   .ant-tabs-tab {
@@ -248,12 +287,23 @@ a.ant-btn-sm {
   .ant-tabs-bottom .ant-tabs-ink-bar-animated {
     transform: translate3d(207.828px, 0px, 0px);
   }
+  /* checkbox label text */
+  .ant-checkbox-wrapper {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* checkbox label text */
+  .ant-checkbox-wrapper {
+    font-size: 10px !important;
+  }
 }
 
 @media (max-width: 380px) {
   .ant-tabs-tab {
     padding: 10px 0px 4px 0px !important;
-    margin: 5px 10px 0 10px !important;
+    margin: 5px 8px !important;
   }
   .ant-tabs-nav-container {
     font-size: 12px !important;

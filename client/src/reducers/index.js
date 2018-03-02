@@ -5,7 +5,7 @@ import authReducer from "./authReducer";
 
 export default combineReducers({
   auth: authReducer
-  // prefs: prefsReducer,
+  // prefs: prefsReducer
   // saved: savedRecipesReducer,
   // favorites: favoritesReducer,
   // lists: listsReducer

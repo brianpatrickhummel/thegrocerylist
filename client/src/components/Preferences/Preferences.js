@@ -14,17 +14,17 @@ class Preferences extends Component {
   render() {
     return (
       <TabContainer>
-        <Tabs defaultActiveKey="1" onChange={callback}>
-          <TabPane tab={<span>ACCOUNTS</span>} key="1">
+        <Tabs defaultActiveKey="2" onChange={callback}>
+          <TabPane tab={<SpanText>ACCOUNTS</SpanText>} key="1">
             <UserAccounts />
           </TabPane>
-          <TabPane tab={<span>DIET</span>} key="2">
+          <TabPane tab={<SpanText>DIET</SpanText>} key="2">
             <Diet />
           </TabPane>
-          <TabPane tab={<span>INTOLERANCES</span>} key="3">
+          <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="3">
             List of food allergy types
           </TabPane>
-          <TabPane tab={<span>CUISINES</span>} key="4">
+          <TabPane tab={<SpanText>CUISINES</SpanText>} key="4">
             List of Optional Cusines
           </TabPane>
         </Tabs>
@@ -41,4 +41,8 @@ export default connect(mapStateToProps)(Preferences);
 
 const TabContainer = styled.div`
   text-align: center;
+`;
+
+const SpanText = styled.span`
+  font-weight: bold;
 `;

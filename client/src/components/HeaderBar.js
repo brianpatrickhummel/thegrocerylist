@@ -17,29 +17,29 @@ class HeaderBar extends Component {
     this.setState({ collapsed });
   };
 
-  // render Header Menu.Item by mapping through objects in menudata array
+  // render 6 Header Menu.Items by mapping through objects in menudata array
   renderMenuItems(classNames) {
     return menudata.map(({ link, image, text }, index) => {
       return (
         <Menu.Item key={index + 1}>
-          <div className={classNames}>
-            {/* logic to render last index (logout)as an <a> rather than react-router <Link> */}
-            {index !== 6 ? (
-              <LinkAnchor to={link}>
+          {/* logic to render last index (logout) as an <a> rather than react-router <Link> */}
+          {index !== 6 ? (
+            <LinkAnchor to={link} className={classNames}>
+              <div className="hvr-shrink">
                 <Icon>
                   <LinkImage src={image} alt="" />
                 </Icon>
                 <LinkText>{text}</LinkText>
-              </LinkAnchor>
-            ) : (
-              <LinkAnchor2 href={link}>
-                <Icon>
-                  <LinkImage src={image} alt="" />
-                </Icon>
-                <LinkText>{text}</LinkText>
-              </LinkAnchor2>
-            )}
-          </div>
+              </div>
+            </LinkAnchor>
+          ) : (
+            <LinkAnchor2 href={link} className={classNames}>
+              <Icon>
+                <LinkImage src={image} alt="" />
+              </Icon>
+              <LinkText>{text}</LinkText>
+            </LinkAnchor2>
+          )}
         </Menu.Item>
       );
     });
@@ -53,7 +53,7 @@ class HeaderBar extends Component {
           <Row type="flex" justify="center">
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
               {/* call render function passing in class names specific only to menu bar (not sidebar) */}
-              {this.renderMenuItems("hvr-shrink NavBar")}
+              {this.renderMenuItems("NavBar")}
             </Menu>
           </Row>
         </Header>

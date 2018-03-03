@@ -12,6 +12,7 @@ class Diet extends Component {
   };
 
   componentWillMount() {
+    // reset unsaved changes to checkboxes if user leaves component and returns without a re-render
     defaultCheckedList = {};
     this.setState({
       checkedList: defaultCheckedList
@@ -54,7 +55,7 @@ class Diet extends Component {
       let objectpath = this.props.auth.preferences.dietTypes;
       for (let key in objectpath) {
         content.push(
-          <CheckBoxColumn xs={{ span: 18, offset: 2 }} sm={{ span: 7, offset: 1 }} key={key}>
+          <CheckBoxColumn xs={{ span: 16, offset: 2 }} sm={{ span: 7, offset: 1 }} key={key}>
             <Checkbox checked={this.state.checkedList[key]} onChange={this.onChange} value={key}>
               {key.toUpperCase()}
             </Checkbox>
@@ -107,9 +108,11 @@ const CheckBoxRow = styled(Row)`
 `;
 
 const CheckBoxColumn = styled(Col)`
-  margin: 10px 0 !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
   @media (max-width: 480px) {
-    margin: 9px 0 !important;
+    margin-top: 9px !important;
+    margin-bottom: 9px !important;
   }
 `;
 

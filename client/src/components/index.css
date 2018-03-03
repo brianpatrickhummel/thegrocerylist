@@ -256,6 +256,12 @@ a.ant-btn-sm {
   }
 }
 
+@media (max-width: 627px) {
+  .ant-tabs-nav-container {
+    line-height: 3.5 !important;
+  }
+}
+
 @media (max-width: 480) {
   .ant-menu-item {
     padding-left: 0px !important;
@@ -268,7 +274,7 @@ a.ant-btn-sm {
 
 @media (max-width: 866px) {
   .ant-tabs-nav-container {
-    font-size: 12px !important;
+    font-size: 16px !important;
   }
   /* checkbox label text */
   .ant-checkbox-wrapper {
@@ -276,13 +282,13 @@ a.ant-btn-sm {
   }
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+  .ant-tabs-tab {
+    padding: 12px 16px !important;
+  }
+}
 
 @media (max-width: 650px) {
-  .ant-tabs-tab {
-    margin-right: 0px !important;
-    padding: 8px 10px !important;
-  }
   .ant-tabs-top .ant-tabs-ink-bar-animated,
   .ant-tabs-bottom .ant-tabs-ink-bar-animated {
     transform: translate3d(207.828px, 0px, 0px);
@@ -293,10 +299,30 @@ a.ant-btn-sm {
   }
 }
 
+@media (max-width: 627px) {
+  .ant-tabs-tab {
+    padding: 8px 12px 0px 16px !important;
+    margin-right: 0px !important;
+  }
+}
+
+@media (max-width: 510px) {
+  .ant-tabs-tab {
+    padding: 8px 10px 0px 10px !important;
+  }
+}
+
 @media (max-width: 480px) {
   /* checkbox label text */
   .ant-checkbox-wrapper {
     font-size: 10px !important;
+  }
+  .ant-tabs-tab {
+    padding: 8px 9px 4px 9px !important;
+    margin-right: 0px !important;
+  }
+  .ant-tabs-nav-container {
+    font-size: 12px !important;
   }
 }
 
@@ -307,6 +333,7 @@ a.ant-btn-sm {
   }
   .ant-tabs-nav-container {
     font-size: 12px !important;
+    line-height: 1.5 !important;
   }
 }
 

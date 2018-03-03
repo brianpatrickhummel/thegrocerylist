@@ -22,11 +22,11 @@ class Preferences extends Component {
           <TabPane tab={<SpanText>DIET</SpanText>} key="2">
             <Diet />
           </TabPane>
-          <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="3">
-            List of food allergy types
-          </TabPane>
           <TabPane tab={<SpanText>CUISINES</SpanText>} key="4">
             <Cuisines />
+          </TabPane>
+          <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="3">
+            List of food allergy types
           </TabPane>
         </Tabs>
       </TabContainer>

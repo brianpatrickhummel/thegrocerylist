@@ -1,55 +1,64 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Row, Col, Checkbox, Button } from "antd";
+import { Row, Col, Checkbox, Button, message } from "antd";
 import { connect } from "react-redux";
+import { updatePrefs } from "../../../actions";
 
-let defaultCheckedList = {};
+let checkedList = {};
+
+const success = () => {
+  message.config({
+    top: "25%",
+    duration: 1.3
+  });
+  message.success(" DIET TYPES SUCCESSFULLY UPDATED !");
+};
 
 class Diet extends Component {
   state = {
-    checkedList: defaultCheckedList,
+    checkedList: checkedList,
     showButtons: false
   };
 
   componentWillMount() {
     // reset unsaved changes to checkboxes if user leaves component and returns without a re-render
-    defaultCheckedList = {};
+    checkedList = {};
     this.setState({
-      checkedList: defaultCheckedList
+      checkedList: checkedList
     });
   }
 
   setDefaultChecked() {
-    // will only run once, if the defaultCheckedList has not been assigned values from the auth object in redux store
-    if (!Object.keys(defaultCheckedList).length) {
+    // will only run once, if the checkedList has not been assigned values from the auth object in redux store
+    if (!Object.keys(checkedList).length) {
       for (let key in this.props.auth.preferences.dietTypes) {
-        defaultCheckedList[key] = this.props.auth.preferences.dietTypes[key];
+        checkedList[key] = this.props.auth.preferences.dietTypes[key];
       }
     }
   }
 
   // when checkbox is clicked, cance/save buttons will render and state will be updated with new "checked" value
   onChange = e => {
-    defaultCheckedList[e.target.value] = e.target.checked;
+    checkedList[e.target.value] = e.target.checked;
     this.setState({
-      checkedList: defaultCheckedList,
+      checkedList: checkedList,
       showButtons: true
     });
   };
 
   // cancel button will reset to default checkboxes and remove cancel/save buttons
   onCancel = () => {
-    console.log("ran onCancel");
-    defaultCheckedList = {};
+    // clear changes to checkboxes
+    checkedList = {};
     this.setState({
-      checkedList: defaultCheckedList,
+      checkedList: checkedList,
       showButtons: false
     });
   };
 
   renderContent() {
     if (this.props.auth) {
-      // once auth is loaded from redux, then set the initial state by assigning values to defaultCheckedList
+      // once auth is loaded from redux, then set the initial state by assigning values to checkedList
       this.setDefaultChecked();
       let content = [];
       let objectpath = this.props.auth.preferences.dietTypes;
@@ -79,7 +88,20 @@ class Diet extends Component {
               <Button onClick={this.onCancel}>Cancel</Button>
             </Col>
             <Col xs={{ span: 10 }} sm={{ span: 4 }}>
-              <Button onClick={() => console.log(defaultCheckedList)}>Save</Button>
+              <Button
+                onClick={() => {
+                  // call action creator to update MongoDB
+                  this.props.updatePrefs(checkedList, "dietTypes");
+                  // reset local component display
+                  this.setState({
+                    checkedList: checkedList,
+                    showButtons: false
+                  });
+                  success();
+                }}
+              >
+                Save
+              </Button>
             </Col>
           </ButtonRow>
         )}
@@ -92,14 +114,18 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Diet);
+export default connect(mapStateToProps, { updatePrefs })(Diet);
 
 const CheckBoxContainer = styled(Col)`
   background: #fafafa;
   text-align: center;
   margin: 0 auto;
   border-radius: 4px;
-  margin-top: 25px !important;
+  margin-top: 15px !important;
+
+  @media (max-width: 628px) {
+    margin-top: 0px !important;
+  }
 `;
 
 const CheckBoxRow = styled(Row)`

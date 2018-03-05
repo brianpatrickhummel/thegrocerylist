@@ -25,3 +25,9 @@ export const unlinkAccount = unlinkAccountType => async dispatch => {
   const res = await axios.post(`/unlink/${unlinkAccountType}`);
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
+// updating preferences for Diet, Cuisine and Intolerances (dictate by "prefType" parameter)
+export const updatePrefs = (checkedList, prefType) => async dispatch => {
+  const res = await axios.post(`/api/updatePrefs/${prefType}`, checkedList);
+  dispatch({ type: FETCH_USER, payload: res.data });
+};

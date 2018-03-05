@@ -144,6 +144,17 @@ a.ant-btn-sm {
   font-size: 18px !important;
 }
 
+.ant-message-notice-content {
+  background: rgba(1, 1, 1, 0.95) !important;
+}
+
+.ant-message {
+  color: white !important;
+  letter-spacing: 0.1em !important;
+  font-weight: bold;
+  line-height: 2.5 !important;
+}
+
 /* = = = = = = Unlink Modal = = = = = = */
 
 .unlinkModal {

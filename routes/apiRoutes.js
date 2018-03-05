@@ -2,16 +2,6 @@
 ///////////////////////////        API ROUTES                   //////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-// ** add routes for unlinking social media accounts
-// google ---------------------------------
-// app.get('/api/unlink/google', function(req, res) {
-//   var user          = req.user;
-//   user.google.token = undefined;
-//   user.save(function(err) {
-//     res.redirect('/profile');
-//   });
-// });
-
 const passport = require("passport"),
   User = require("../models/User"),
   ObjectID = require("mongodb").ObjectID;

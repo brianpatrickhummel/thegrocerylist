@@ -48,7 +48,7 @@ class Intolerances extends Component {
 
   // cancel button will reset to default checkboxes and remove cancel/save buttons
   onCancel = () => {
-    console.log("ran onCancel");
+    // clear changes to checkboxes
     checkedList = {};
     this.setState({
       checkedList: checkedList,

@@ -20,7 +20,7 @@ const PreferencesSchema = new Schema({
     treenut: { type: Boolean, default: false },
     wheat: { type: Boolean, default: false }
   },
-  dietTypes: {
+  diet: {
     lactovegetarian: { type: Boolean, default: false },
     ovovegetarian: { type: Boolean, default: false },
     paleo: { type: Boolean, default: false },

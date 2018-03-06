@@ -28,7 +28,7 @@ module.exports = app => {
   });
 
   app.post("/api/prefs", async (req, res) => {
-    const { intolerances, dietTypes, cuisines, id } = req.body;
+    const { intolerances, diet, cuisines, id } = req.body;
 
     const existingPrefs = await Prefs.findOne({ _user: id });
     if (existingPrefs) {
@@ -37,7 +37,7 @@ module.exports = app => {
     } else {
       const prefs = await new Prefs({
         intolerances,
-        dietTypes,
+        diet,
         cuisines,
         _user: id
       }).save();

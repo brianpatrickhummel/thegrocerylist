@@ -6,15 +6,7 @@ import { updatePrefs } from "../../../actions";
 
 let checkedList = {};
 
-const success = () => {
-  message.config({
-    top: "25%",
-    duration: 1.3
-  });
-  message.success(" INTOLERANCES SUCCESSFULLY UPDATED !");
-};
-
-class Intolerances extends Component {
+class PrefBox extends Component {
   state = {
     checkedList: checkedList,
     showButtons: false
@@ -31,10 +23,18 @@ class Intolerances extends Component {
   setDefaultChecked() {
     // will only run once, if the checkedList has not been assigned values from the auth object in redux store
     if (!Object.keys(checkedList).length) {
-      for (let key in this.props.auth.preferences.intolerances) {
-        checkedList[key] = this.props.auth.preferences.intolerances[key];
+      for (let key in this.props.auth.preferences[this.props.prefType]) {
+        checkedList[key] = this.props.auth.preferences[this.props.prefType][key];
       }
     }
+  }
+
+  success() {
+    message.config({
+      top: "25%",
+      duration: 1.3
+    });
+    message.success(` ${this.props.prefType.toUpperCase()} SUCCESSFULLY UPDATED !`);
   }
 
   // when checkbox is clicked, cance/save buttons will render and state will be updated with new "checked" value
@@ -61,10 +61,10 @@ class Intolerances extends Component {
       // once auth is loaded from redux, then set the initial state by assigning values to checkedList
       this.setDefaultChecked();
       let content = [];
-      let objectpath = this.props.auth.preferences.intolerances;
+      let objectpath = this.props.auth.preferences[this.props.prefType];
       for (let key in objectpath) {
         content.push(
-          <CheckBoxColumn xs={{ span: 10, offset: 2 }} sm={{ span: 6, offset: 2 }} key={key}>
+          <CheckBoxColumn xs={this.props.styling.CheckBoxColumn.xs} sm={this.props.styling.CheckBoxColumn.sm} key={key}>
             <Checkbox checked={this.state.checkedList[key]} onChange={this.onChange} value={key}>
               {key.toUpperCase()}
             </Checkbox>
@@ -77,8 +77,12 @@ class Intolerances extends Component {
 
   render() {
     return (
-      <CheckBoxContainer xs={{ span: 18, offset: 3 }} sm={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }}>
-        <CheckBoxRow type="flex" justify="">
+      <CheckBoxContainer
+        xs={this.props.styling.CheckBoxContainer.xs}
+        sm={this.props.styling.CheckBoxContainer.sm}
+        md={this.props.styling.CheckBoxContainer.md}
+      >
+        <CheckBoxRow type="flex" justify="center">
           {this.renderContent()}
         </CheckBoxRow>
         {/* if user clicks any checkbox, these buttons will render  */}
@@ -91,13 +95,13 @@ class Intolerances extends Component {
               <Button
                 onClick={() => {
                   // call action creator to update MongoDB
-                  this.props.updatePrefs(checkedList, "intolerances");
+                  this.props.updatePrefs(checkedList, `${this.props.prefType}`);
                   // reset local component display
                   this.setState({
                     checkedList: checkedList,
                     showButtons: false
                   });
-                  success();
+                  this.success();
                 }}
               >
                 Save
@@ -114,7 +118,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { updatePrefs })(Intolerances);
+export default connect(mapStateToProps, { updatePrefs })(PrefBox);
 
 const CheckBoxContainer = styled(Col)`
   background: #fafafa;
@@ -131,6 +135,10 @@ const CheckBoxContainer = styled(Col)`
 const CheckBoxRow = styled(Row)`
   text-align: left;
   margin: 20px;
+
+  @media (max-width: 380px) {
+    margin: 10px;
+  }
 `;
 
 const CheckBoxColumn = styled(Col)`

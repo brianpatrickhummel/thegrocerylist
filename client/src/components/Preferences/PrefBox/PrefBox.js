@@ -6,15 +6,7 @@ import { updatePrefs } from "../../../actions";
 
 let checkedList = {};
 
-const success = () => {
-  message.config({
-    top: "25%",
-    duration: 1.3
-  });
-  message.success(" CUISINES SUCCESSFULLY UPDATED !");
-};
-
-class Cuisines extends Component {
+class PrefBox extends Component {
   state = {
     checkedList: checkedList,
     showButtons: false
@@ -31,10 +23,18 @@ class Cuisines extends Component {
   setDefaultChecked() {
     // will only run once, if the checkedList has not been assigned values from the auth object in redux store
     if (!Object.keys(checkedList).length) {
-      for (let key in this.props.auth.preferences.cuisines) {
-        checkedList[key] = this.props.auth.preferences.cuisines[key];
+      for (let key in this.props.auth.preferences[this.props.prefType]) {
+        checkedList[key] = this.props.auth.preferences[this.props.prefType][key];
       }
     }
+  }
+
+  success() {
+    message.config({
+      top: "25%",
+      duration: 1.3
+    });
+    message.success(` ${this.props.prefType.toUpperCase()} SUCCESSFULLY UPDATED !`);
   }
 
   // when checkbox is clicked, cance/save buttons will render and state will be updated with new "checked" value
@@ -48,7 +48,7 @@ class Cuisines extends Component {
 
   // cancel button will reset to default checkboxes and remove cancel/save buttons
   onCancel = () => {
-    console.log("ran onCancel");
+    // clear changes to checkboxes
     checkedList = {};
     this.setState({
       checkedList: checkedList,
@@ -61,10 +61,10 @@ class Cuisines extends Component {
       // once auth is loaded from redux, then set the initial state by assigning values to checkedList
       this.setDefaultChecked();
       let content = [];
-      let objectpath = this.props.auth.preferences.cuisines;
+      let objectpath = this.props.auth.preferences[this.props.prefType];
       for (let key in objectpath) {
         content.push(
-          <CheckBoxColumn xs={{ span: 12 }} sm={{ span: 7, offset: 1 }} key={key}>
+          <CheckBoxColumn xs={this.props.styling.CheckBoxColumn.xs} sm={this.props.styling.CheckBoxColumn.sm} key={key}>
             <Checkbox checked={this.state.checkedList[key]} onChange={this.onChange} value={key}>
               {key.toUpperCase()}
             </Checkbox>
@@ -77,7 +77,11 @@ class Cuisines extends Component {
 
   render() {
     return (
-      <CheckBoxContainer xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }}>
+      <CheckBoxContainer
+        xs={this.props.styling.CheckBoxContainer.xs}
+        sm={this.props.styling.CheckBoxContainer.sm}
+        md={this.props.styling.CheckBoxContainer.md}
+      >
         <CheckBoxRow type="flex" justify="center">
           {this.renderContent()}
         </CheckBoxRow>
@@ -91,13 +95,13 @@ class Cuisines extends Component {
               <Button
                 onClick={() => {
                   // call action creator to update MongoDB
-                  this.props.updatePrefs(checkedList, "cuisines");
+                  this.props.updatePrefs(checkedList, `${this.props.prefType}`);
                   // reset local component display
                   this.setState({
                     checkedList: checkedList,
                     showButtons: false
                   });
-                  success();
+                  this.success();
                 }}
               >
                 Save
@@ -114,7 +118,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { updatePrefs })(Cuisines);
+export default connect(mapStateToProps, { updatePrefs })(PrefBox);
 
 const CheckBoxContainer = styled(Col)`
   background: #fafafa;
@@ -138,9 +142,11 @@ const CheckBoxRow = styled(Row)`
 `;
 
 const CheckBoxColumn = styled(Col)`
-  margin: 10px 0 !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
   @media (max-width: 480px) {
-    margin: 9px 0 !important;
+    margin-top: 9px !important;
+    margin-bottom: 9px !important;
   }
 `;
 

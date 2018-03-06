@@ -64,7 +64,7 @@ class Intolerances extends Component {
       let objectpath = this.props.auth.preferences.intolerances;
       for (let key in objectpath) {
         content.push(
-          <CheckBoxColumn xs={{ span: 10, offset: 2 }} sm={{ span: 7, offset: 1 }} key={key}>
+          <CheckBoxColumn xs={{ span: 10, offset: 2 }} sm={{ span: 6, offset: 2 }} key={key}>
             <Checkbox checked={this.state.checkedList[key]} onChange={this.onChange} value={key}>
               {key.toUpperCase()}
             </Checkbox>
@@ -78,7 +78,7 @@ class Intolerances extends Component {
   render() {
     return (
       <CheckBoxContainer xs={{ span: 18, offset: 3 }} sm={{ span: 22, offset: 1 }} md={{ span: 20, offset: 2 }}>
-        <CheckBoxRow type="flex" justify="center">
+        <CheckBoxRow type="flex" justify="">
           {this.renderContent()}
         </CheckBoxRow>
         {/* if user clicks any checkbox, these buttons will render  */}

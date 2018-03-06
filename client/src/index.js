@@ -10,9 +10,10 @@ import logger from "redux-logger";
 import App from "./components/App";
 import reducers from "./reducers";
 
-let middleware = [reduxThunk, logger];
+let middleware = [reduxThunk];
+// while in Development, pass in Redux Logger as a middleware
 if (process.env.NODE_ENV !== "production") {
-  middleware = [...middleware];
+  middleware = [...middleware, logger];
 }
 
 // Create Redux Store, pass in reducers, empty state object and the applyMiddleware method

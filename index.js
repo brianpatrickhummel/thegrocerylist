@@ -14,6 +14,7 @@ require("./models/Prefs.js");
 // Create Instance of Express
 const app = express();
 
+//
 // MIDDLEWARES
 // Run Morgan for Logging
 app.use(logger("dev"));
@@ -24,20 +25,20 @@ app.use(
     extended: true
   })
 );
-// stores session data within cookie on client-side
-// also extracts data out of cookie and assigns it to req.session property
+// Stores session data within cookie on client-side
+// Also extracts data out of cookie and assigns it to req.session property
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: [keys.cookieKey]
   })
 );
-// express loads the session data, passport.initialize accesses req.session.passport.user
+// Express loads the session data, passport.initialize accesses req.session.passport.user
 app.use(passport.initialize());
-// passport.session detects a serialized user, calls the deserializeUser() method
-// which attaches user to req.user
+// Passport.session detects a serialized user, calls the deserializeUser() method which attaches user to req.user
 app.use(passport.session());
 
+//
 // MONGOOSE
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;

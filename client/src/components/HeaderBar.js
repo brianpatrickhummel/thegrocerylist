@@ -59,7 +59,7 @@ class HeaderBar extends Component {
         </Header>
         {/* Sidebar Nav- visibility controlled by Media Queries */}
         <Layout style={{ minHeight: "100vh" }}>
-          <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{ color: "white" }}>
+          <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={[""]} mode="inline">
               {/* call render function passing in no class names*/}
@@ -153,9 +153,12 @@ const LinkText = styled.span`
     font-size: 8px;
   }
 
-  @media (max-width: 628px) {
+  @media (max-width: 627px) {
     display: inline;
     font-size: 11px;
     padding-top: 1px;
+    color: #fff;
+    font-weight: lighter;
+    letter-spacing: 0.08em;
   }
 `;

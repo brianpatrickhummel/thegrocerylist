@@ -52,11 +52,6 @@
   background-color: #6d5151 !important;
 }
 
-.ant-menu-item-active,
-.ant-tooltip-open {
-  color: white !important;
-}
-
 .NavBar {
   margin: 25px 0;
 }
@@ -189,7 +184,7 @@ a.ant-btn-sm {
   color: rgba(15, 6, 6, 1) !important;
 }
 
-/* = = = = = = Diet.js = = = = = = */
+/* = = = = = = PrefBox.js = = = = = = */
 
 .ant-checkbox-checked .ant-checkbox-inner,
 .ant-checkbox-indeterminate .ant-checkbox-inner {

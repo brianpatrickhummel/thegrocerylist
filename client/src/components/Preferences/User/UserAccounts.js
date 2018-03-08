@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Collapse, Row, Col, Button, Tooltip } from "antd";
+import { Collapse, Row, Col, Button, Tooltip, message } from "antd";
 import { connect } from "react-redux";
 import { setPrimary, connectAccount } from "../../../actions";
 import UnlinkModal from "./UnlinkModal";
@@ -8,31 +8,36 @@ const Panel = Collapse.Panel;
 const FontAwesome = require("react-fontawesome");
 
 class UserAccounts extends Component {
-  state = {
-    activePanelIsPrimary: true
-  };
-
   renderModal(accountType) {
     // calls the showModal method from child UnlinkModal component via react-redux Connect's getWrappedInstance
-    this.refs.UnlinkModal.getWrappedInstance().showModal(accountType);
+    this.refs.UnlinkModal.getWrappedInstance().showModal(accountType, this.success);
   }
 
-  renderContent() {
+  // Message to display when primary account or unlink features are executed
+  success(text) {
+    message.config({
+      top: "25%",
+      duration: 1.3
+    });
+    message.success(text);
+  }
+
+  renderContent(auth) {
     return (
       this.props.auth && (
         <div className="preferencesContainer">
           {/* Primary Account */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
-            <PanelContainer bordered={true} defaultActiveKey={this.state.activePanelIsPrimary && ["1"]}>
+            <PanelContainer bordered={true} defaultActiveKey={"1"}>
               <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
                 <PanelBody>
                   <Row type="flex" align="middle">
                     <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
-                      <FontAwesome className="share-icon" size="2x" name={this.props.auth.primaryAccount} />
+                      <FontAwesome className="share-icon" size="2x" name={auth.primaryAccount} />
                     </InfoTextContainerCol>
                     <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
                       <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
-                        <InfoText> {this.props.auth.primaryDisplayName}</InfoText>
+                        <InfoText> {auth.primaryDisplayName}</InfoText>
                       </InfoTextCol>
                       <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                         <InfoTextType>NAME</InfoTextType>
@@ -40,7 +45,7 @@ class UserAccounts extends Component {
                     </InfoTextContainerCol>
                     <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
                       <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
-                        <InfoText>{this.props.auth.primaryEmail}</InfoText>
+                        <InfoText>{auth.primaryEmail}</InfoText>
                       </InfoTextCol>
                       <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
                         <InfoTextType>EMAIL</InfoTextType>
@@ -53,9 +58,9 @@ class UserAccounts extends Component {
           </Col>
           {/* Secondary Accounts */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
-            <PanelContainer bordered={true} defaultActiveKey={!this.state.activePanelIsPrimary && ["2"]}>
+            <PanelContainer bordered={true}>
               <PanelHeader header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
-                <PanelBody>{this.renderLinkedAccounts()}</PanelBody>
+                <PanelBody>{this.renderLinkedAccounts(auth)}</PanelBody>
               </PanelHeader>
             </PanelContainer>
           </Col>
@@ -64,11 +69,11 @@ class UserAccounts extends Component {
     );
   }
 
-  renderLinkedAccounts() {
+  renderLinkedAccounts(auth) {
     let rowsArray = [];
-    var keys = Object.keys(this.props.auth.authProviders);
+    var keys = Object.keys(auth.authProviders);
     for (let i = 0; i < keys.length; i++) {
-      let acctObject = this.props.auth.authProviders[keys[i]];
+      let acctObject = auth.authProviders[keys[i]];
       if (acctObject.isPrimary === false) {
         let newArray = [
           <AccountRows key={i}>
@@ -108,6 +113,7 @@ class UserAccounts extends Component {
                         data-account={keys[i]}
                         onClick={() => {
                           this.props.setPrimary(keys[i]);
+                          this.success(`YOUR ${keys[i].toUpperCase()} ACCOUNT HAS BEEN SET AS PRIMARY`);
                         }}
                       >
                         <ButtonSpanLarge>P</ButtonSpanLarge>
@@ -156,10 +162,11 @@ class UserAccounts extends Component {
   }
 
   render() {
+    const { auth } = this.props;
     return (
       <div>
-        {this.renderContent()}
-        <UnlinkModal ref="UnlinkModal" />
+        {this.renderContent(auth)}
+        <UnlinkModal ref="UnlinkModal" success={this.success} />
       </div>
     );
   }

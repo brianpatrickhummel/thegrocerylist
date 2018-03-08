@@ -20,28 +20,28 @@ module.exports = app => {
   });
 
   // GET CURRENT USERS PREFERENCES
-  app.get("/api/prefs", requireLogin, async (req, res) => {
-    const prefs = await Prefs.find({ _user: req.user.id });
-    // .select({ recipients: false })
-    // .sort({ dateSent: "desc" });
-    res.send(prefs);
-  });
+  // app.get("/api/prefs", requireLogin, async (req, res) => {
+  //   const prefs = await Prefs.find({ _user: req.user.id });
+  //   .select({ recipients: false })
+  //   .sort({ dateSent: "desc" });
+  //   res.send(prefs);
+  // });
 
-  app.post("/api/prefs", async (req, res) => {
-    const { intolerances, diet, cuisines, id } = req.body;
+  // app.post("/api/prefs", async (req, res) => {
+  //   const { intolerances, diet, cuisines, id } = req.body;
 
-    const existingPrefs = await Prefs.findOne({ _user: id });
-    if (existingPrefs) {
-      console.log("user has existing preferences");
-      res.send(existingPrefs);
-    } else {
-      const prefs = await new Prefs({
-        intolerances,
-        diet,
-        cuisines,
-        _user: id
-      }).save();
-      res.send(prefs);
-    }
-  });
+  //   const existingPrefs = await Prefs.findOne({ _user: id });
+  //   if (existingPrefs) {
+  //     console.log("user has existing preferences");
+  //     res.send(existingPrefs);
+  //   } else {
+  //     const prefs = await new Prefs({
+  //       intolerances,
+  //       diet,
+  //       cuisines,
+  //       _user: id
+  //     }).save();
+  //     res.send(prefs);
+  //   }
+  // });
 };

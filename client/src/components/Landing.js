@@ -5,33 +5,24 @@ const FontAwesome = require("react-fontawesome");
 
 class Landing extends Component {
   renderGooeyButton() {
+    let acctTypes = ["facebook", "twitter", "google", "github"];
+    let menuList = [];
+    //render 4 Social Media Account login buttons
+    for (let acct of acctTypes) {
+      menuList.push(
+        <li className="share-item">
+          <a href={`/auth/${acct}`} className="share-button">
+            <FontAwesome className="share-icon" name={acct} />
+          </a>
+        </li>
+      );
+    }
     return (
       <div className="share">
         <button className="share-toggle-button">
           <FontAwesome className="share-icon" name="user-circle-o" size="2x" />
         </button>
-        <ul className="share-items">
-          <li className="share-item">
-            <a href="/auth/facebook" className="share-button">
-              <FontAwesome className="share-icon" name="facebook" />
-            </a>
-          </li>
-          <li className="share-item">
-            <a href="/auth/twitter" className="share-button">
-              <FontAwesome className="share-icon" name="twitter" />
-            </a>
-          </li>
-          <li className="share-item">
-            <a href="/auth/google" className="share-button">
-              <FontAwesome className="share-icon" name="google" />
-            </a>
-          </li>
-          <li className="share-item">
-            <a href="/auth/github" className="share-button">
-              <FontAwesome className="share-icon" name="github" />
-            </a>
-          </li>
-        </ul>
+        <ul className="share-items">{menuList}</ul>
       </div>
     );
   }
@@ -47,19 +38,6 @@ class Landing extends Component {
           <SilverWareIcon src={require("../images/SilverWareIcon.svg")} />
         </ImageContainer>
         <br />
-        {/* <Button
-          style={{
-            marginTop: "50px",
-            letterSpacing: "0.1em",
-            wordSpacing: ".4em",
-            color: "rgba(255,255,255,0.7)"
-          }}
-          size="large"
-          type="primary"
-          href="/auth/google"
-        >
-          LOGIN WITH GOOGLE
-        </Button> */}
         {this.renderGooeyButton()}
       </Wrapper>
     );

@@ -15,7 +15,7 @@ module.exports = (config, env) => {
       "@btn-primary-bg": "#2e0f10",
       "@layout-header-background": "#694345",
       "@layout-body-background": "#bdb6b6",
-      "@tooltip-bg": "#6d5151",
+      "@tooltip-bg": "#6E4648",
       "@tooltip-color": "white",
       "@menu-collapsed-width": "50px"
     }

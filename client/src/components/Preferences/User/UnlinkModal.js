@@ -23,6 +23,7 @@ class UnlinkModal extends Component {
   handleOk = () => {
     this.setState({ loading: true });
     this.props.unlinkAccount(this.state.account);
+    this.props.success(`YOUR ${this.state.account.toUpperCase()} HAS BEEN SUCCESSFULLY UNLINKED !`);
     setTimeout(() => {
       this.setState({ loading: false, visible: false });
     }, 0);

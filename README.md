@@ -5,7 +5,7 @@
 * [ ] = incomplete
 * [x] = complete
 
-# [x] EPIC 1. CORE APP DESIGN, USER AUTHENTICATION, PREFERENCES
+## [x] EPIC 1. CORE APP DESIGN, USER AUTHENTICATION, PREFERENCES
 
 ## [x] CORE APPLICATION SETUP
 
@@ -58,7 +58,7 @@ User can declare known food allergies for use as filter when searching for recip
 
 User can choose desired cuisines for use as filter when searching for recipes
 
-# [ ] EPIC 2. INTEGRATION WITH SPOONACULAR API AND CORE RECIPE UI FEATURES
+## [ ] EPIC 2. INTEGRATION WITH SPOONACULAR API AND CORE RECIPE UI FEATURES
 
 ## [ ] SPOONACULAR API CONFIGURATION / NODE ENDPOINT TESTING
 

@@ -20,21 +20,22 @@ class PrefBox extends Component {
     });
   }
 
-  setDefaultChecked() {
+  setDefaultChecked(prefType) {
     // will only run once, if the checkedList has not been assigned values from the auth object in redux store
     if (!Object.keys(checkedList).length) {
-      for (let key in this.props.auth.preferences[this.props.prefType]) {
-        checkedList[key] = this.props.auth.preferences[this.props.prefType][key];
+      for (let key in this.props.auth.preferences[prefType]) {
+        checkedList[key] = this.props.auth.preferences[prefType][key];
       }
     }
   }
 
-  success() {
+  // Message to display when preferences are modified and saved by user
+  success(prefType) {
     message.config({
       top: "25%",
       duration: 1.3
     });
-    message.success(` ${this.props.prefType.toUpperCase()} SUCCESSFULLY UPDATED !`);
+    message.success(` ${prefType.toUpperCase()} SUCCESSFULLY UPDATED !`);
   }
 
   // when checkbox is clicked, cance/save buttons will render and state will be updated with new "checked" value
@@ -56,15 +57,15 @@ class PrefBox extends Component {
     });
   };
 
-  renderContent() {
+  renderContent(prefType, styling) {
     if (this.props.auth) {
       // once auth is loaded from redux, then set the initial state by assigning values to checkedList
-      this.setDefaultChecked();
+      this.setDefaultChecked(prefType);
       let content = [];
-      let objectpath = this.props.auth.preferences[this.props.prefType];
+      let objectpath = this.props.auth.preferences[prefType];
       for (let key in objectpath) {
         content.push(
-          <CheckBoxColumn xs={this.props.styling.CheckBoxColumn.xs} sm={this.props.styling.CheckBoxColumn.sm} key={key}>
+          <CheckBoxColumn xs={styling.CheckBoxColumn.xs} sm={styling.CheckBoxColumn.sm} key={key}>
             <Checkbox checked={this.state.checkedList[key]} onChange={this.onChange} value={key}>
               {key.toUpperCase()}
             </Checkbox>
@@ -76,14 +77,16 @@ class PrefBox extends Component {
   }
 
   render() {
+    const { prefType, styling } = this.props;
+
     return (
       <CheckBoxContainer
-        xs={this.props.styling.CheckBoxContainer.xs}
-        sm={this.props.styling.CheckBoxContainer.sm}
-        md={this.props.styling.CheckBoxContainer.md}
+        xs={styling.CheckBoxContainer.xs}
+        sm={styling.CheckBoxContainer.sm}
+        md={styling.CheckBoxContainer.md}
       >
-        <CheckBoxRow type="flex" justify="center">
-          {this.renderContent()}
+        <CheckBoxRow type="flex" justify="start">
+          {this.renderContent(prefType, styling)}
         </CheckBoxRow>
         {/* if user clicks any checkbox, these buttons will render  */}
         {this.state.showButtons && (
@@ -95,13 +98,13 @@ class PrefBox extends Component {
               <Button
                 onClick={() => {
                   // call action creator to update MongoDB
-                  this.props.updatePrefs(checkedList, `${this.props.prefType}`);
+                  this.props.updatePrefs(checkedList, `${prefType}`);
                   // reset local component display
                   this.setState({
                     checkedList: checkedList,
                     showButtons: false
                   });
-                  this.success();
+                  this.success(prefType);
                 }}
               >
                 Save

@@ -1,54 +1,32 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import UserAccounts from "./User/UserAccounts";
-import { fetchUser } from "../../actions";
 import { Tabs } from "antd";
 import styled from "styled-components";
 import PrefBox from "./PrefBox/PrefBox";
 const TabPane = Tabs.TabPane;
 
-class Preferences extends Component {
-  componentDidMount() {
-    this.props.fetchUser();
-  }
+const Preferences = () => {
+  return (
+    <div style={{ textAlign: "center" }}>
+      <Tabs defaultActiveKey={""}>
+        <TabPane tab={<SpanText>ACCOUNTS</SpanText>} key="1">
+          <UserAccounts />
+        </TabPane>
+        <TabPane tab={<SpanText>DIET</SpanText>} key="2">
+          <PrefBox prefType={"diet"} styling={dietAndIntolerances} />
+        </TabPane>
+        <TabPane tab={<SpanText>CUISINES</SpanText>} key="4">
+          <PrefBox prefType={"cuisines"} styling={cuisines} />
+        </TabPane>
+        <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="3">
+          <PrefBox prefType={"intolerances"} styling={dietAndIntolerances} />
+        </TabPane>
+      </Tabs>
+    </div>
+  );
+};
 
-  callback(key) {
-    this.setState({
-      defaultActiveKey: key
-    });
-  }
-
-  render() {
-    return (
-      <TabContainer>
-        <Tabs defaultActiveKey={""} onChange={this.callback.bind(this)}>
-          <TabPane tab={<SpanText>ACCOUNTS</SpanText>} key="1">
-            <UserAccounts />
-          </TabPane>
-          <TabPane tab={<SpanText>DIET</SpanText>} key="2">
-            <PrefBox prefType={"diet"} styling={dietAndIntolerances} />
-          </TabPane>
-          <TabPane tab={<SpanText>CUISINES</SpanText>} key="4">
-            <PrefBox prefType={"cuisines"} styling={cuisines} />
-          </TabPane>
-          <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="3">
-            <PrefBox prefType={"intolerances"} styling={dietAndIntolerances} />
-          </TabPane>
-        </Tabs>
-      </TabContainer>
-    );
-  }
-}
-
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-export default connect(mapStateToProps, { fetchUser })(Preferences);
-
-const TabContainer = styled.div`
-  text-align: center;
-`;
+export default Preferences;
 
 const SpanText = styled.span`
   font-weight: bold;
@@ -57,7 +35,7 @@ const SpanText = styled.span`
 // styling variations for the three versions of the PrefBox components
 let dietAndIntolerances = {
   CheckBoxColumn: {
-    xs: { span: 16, offset: 2 },
+    xs: { span: 14, offset: 7 },
     sm: { span: 7, offset: 1 }
   },
   CheckBoxContainer: {
@@ -69,7 +47,7 @@ let dietAndIntolerances = {
 
 let cuisines = {
   CheckBoxColumn: {
-    xs: { span: 12 },
+    xs: { span: 11, offset: 1 },
     sm: { span: 7, offset: 1 }
   },
   CheckBoxContainer: {

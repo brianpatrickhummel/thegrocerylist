@@ -11,7 +11,7 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-// cookie req.session.passport.user id is converted back into a mongoose user model instance (req.user)
+// Cookie req.session.passport.user id is converted back into a mongoose user model instance (req.user)
 passport.deserializeUser((id, done) => {
   User.findById(id).then(user => {
     done(null, user);
@@ -36,7 +36,6 @@ passport.use(
         // All database queries are asynchronous, results are returned via a promise
         const existingUser = await User.findOne({ "authProviders.google.Id": profile.id });
         if (existingUser) {
-          console.log("FOUND EXISTING USER");
           return done(null, existingUser);
         }
         // Create a new instance/document of the User Model
@@ -54,7 +53,6 @@ passport.use(
             }
           }
         }).save();
-        console.log("COULD NOT FIND EXISTING USER, CREATED NEW USER");
         // Call done, back to passport.authenticate which calls req.login/serializeUser();
         done(null, user);
 

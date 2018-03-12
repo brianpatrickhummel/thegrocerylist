@@ -7,8 +7,8 @@ const TabPane = Tabs.TabPane;
 
 const Preferences = () => {
   return (
-    <div style={{ textAlign: "center" }}>
-      <Tabs defaultActiveKey={""}>
+    <div className="preferencesContainer" style={{ textAlign: "center" }}>
+      <Tabs defaultActiveKey={"1"}>
         <TabPane tab={<SpanText>ACCOUNTS</SpanText>} key="1">
           <UserAccounts />
         </TabPane>

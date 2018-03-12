@@ -28,6 +28,7 @@
 .layout,
 .ant-layout {
   height: 100vh;
+  overflow: scroll;
 }
 
 /* = = = = = = HeaderBar = = = = = = = */
@@ -40,6 +41,7 @@
 .ant-menu-horizontal>.ant-menu-item {
   margin: 0 10px;
   display: inline;
+  text-align: center;
 }
 
 .ant-menu-inline-collapsed>.ant-menu-item {
@@ -112,7 +114,7 @@ a.ant-btn-sm {
 /* = = = = = = = = Prefs Menu Bar  = = = = = = = = = */
 
 .anticon {
-  margin-right: 4px !important;
+  margin-right: 0px !important;
 }
 
 .ant-tabs-nav .ant-tabs-tab-active {
@@ -133,6 +135,7 @@ a.ant-btn-sm {
 
 .ant-tabs-bar {
   border-bottom: 1px solid rgba(98, 71, 71, 0.02) !important;
+  margin-bottom: 25px !important;
 }
 
 .ant-tabs-nav-container {
@@ -268,9 +271,12 @@ a.ant-btn-sm {
   }
 }
 
-@media (max-width: 480) {
+@media (max-width: 480px) {
   .ant-menu-item {
     padding-left: 0px !important;
+  }
+  .ant-tabs-bar {
+    margin-bottom: 15px !important;
   }
 }
 

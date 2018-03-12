@@ -25,43 +25,41 @@ class UserAccounts extends Component {
   renderContent(auth) {
     return (
       this.props.auth && (
-        <div className="preferencesContainer">
+        <div className="userAccountsContainer">
           {/* Primary Account */}
-          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
+          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} xl={{ span: 18, offset: 3 }}>
             <PanelContainer bordered={true} defaultActiveKey={"1"}>
-              <PanelHeader header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
-                <PanelBody>
-                  <Row type="flex" align="middle">
-                    <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
-                      <FontAwesome className="share-icon" size="2x" name={auth.primaryAccount} />
-                    </InfoTextContainerCol>
-                    <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
-                      <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
-                        <InfoText> {auth.primaryDisplayName}</InfoText>
-                      </InfoTextCol>
-                      <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
-                        <InfoTextType>NAME</InfoTextType>
-                      </InfoTextCol>
-                    </InfoTextContainerCol>
-                    <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
-                      <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
-                        <InfoText>{auth.primaryEmail}</InfoText>
-                      </InfoTextCol>
-                      <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
-                        <InfoTextType>EMAIL</InfoTextType>
-                      </InfoTextCol>
-                    </InfoTextContainerCol>
-                  </Row>
-                </PanelBody>
-              </PanelHeader>
+              <Panel header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
+                <Row type="flex" align="middle">
+                  <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
+                    <FontAwesome className="share-icon" size="2x" name={auth.primaryAccount} />
+                  </InfoTextContainerCol>
+                  <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 7, offset: 0 }}>
+                    <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                      <InfoText> {auth.primaryDisplayName}</InfoText>
+                    </InfoTextCol>
+                    <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                      <InfoTextType>NAME</InfoTextType>
+                    </InfoTextCol>
+                  </InfoTextContainerCol>
+                  <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 11, offset: 0 }}>
+                    <InfoTextCol xs={{ span: 18, push: 3 }} sm={{ span: 24, push: 0 }}>
+                      <InfoText>{auth.primaryEmail}</InfoText>
+                    </InfoTextCol>
+                    <InfoTextCol xs={{ span: 3, pull: 18 }} sm={{ span: 24, pull: 0 }}>
+                      <InfoTextType>EMAIL</InfoTextType>
+                    </InfoTextCol>
+                  </InfoTextContainerCol>
+                </Row>
+              </Panel>
             </PanelContainer>
           </Col>
           {/* Secondary Accounts */}
-          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }}>
+          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} xl={{ span: 18, offset: 3 }}>
             <PanelContainer bordered={true}>
-              <PanelHeader header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
-                <PanelBody>{this.renderLinkedAccounts(auth)}</PanelBody>
-              </PanelHeader>
+              <Panel header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
+                {this.renderLinkedAccounts(auth)}
+              </Panel>
             </PanelContainer>
           </Col>
         </div>
@@ -71,14 +69,13 @@ class UserAccounts extends Component {
 
   renderLinkedAccounts(auth) {
     let rowsArray = [];
-    var keys = Object.keys(auth.authProviders);
-    for (let i = 0; i < keys.length; i++) {
-      let acctObject = auth.authProviders[keys[i]];
+    Object.keys(auth.authProviders).forEach((key, i) => {
+      let acctObject = auth.authProviders[key];
       if (acctObject.isPrimary === false) {
         let newArray = [
           <AccountRows key={i}>
             <InfoTextContainerCol xs={{ span: 22, offset: 1 }} sm={{ span: 2, offset: 0 }}>
-              <FontAwesome className="share-icon" size="2x" name={keys[i]} />
+              <FontAwesome className="share-icon" size="2x" name={key} />
             </InfoTextContainerCol>
             {/* if acct info, display acct info otherwise display Connect Button */}
             {acctObject.Id ? (
@@ -110,10 +107,10 @@ class UserAccounts extends Component {
                       <SecondaryButtons
                         size="small"
                         type="primary"
-                        data-account={keys[i]}
+                        data-account={key}
                         onClick={() => {
-                          this.props.setPrimary(keys[i]);
-                          this.success(`YOUR ${keys[i].toUpperCase()} ACCOUNT HAS BEEN SET AS PRIMARY`);
+                          this.props.setPrimary(key);
+                          this.success(`YOUR ${key.toUpperCase()} ACCOUNT HAS BEEN SET AS PRIMARY`);
                         }}
                       >
                         <ButtonSpanLarge>P</ButtonSpanLarge>
@@ -132,9 +129,9 @@ class UserAccounts extends Component {
                       <SecondaryButtons
                         size="small"
                         type="primary"
-                        data-account={keys[i]}
+                        data-account={key}
                         onClick={() => {
-                          this.renderModal(keys[i]);
+                          this.renderModal(key);
                         }}
                       >
                         <ButtonSpanLarge>U</ButtonSpanLarge>
@@ -147,8 +144,8 @@ class UserAccounts extends Component {
             ) : (
               /* no acct info, display Connect Buttons */
               <UnlinkedAccountsContainer xs={{ span: 22, offset: 1 }} sm={{ span: 20, offset: 0 }}>
-                <UnlinkedButton size="small" type="primary" data-account={keys[i]} href={`/connect/${keys[i]}`}>
-                  <span>CONNECT {keys[i].toUpperCase()}</span>
+                <UnlinkedButton size="small" type="primary" data-account={key} href={`/connect/${key}`}>
+                  <span>CONNECT {key.toUpperCase()}</span>
                 </UnlinkedButton>
               </UnlinkedAccountsContainer>
             )}
@@ -157,14 +154,14 @@ class UserAccounts extends Component {
         // Logic to display Linked Accounts above Unlinked Accounts on page
         acctObject.Id ? rowsArray.unshift(newArray) : rowsArray.push(newArray);
       }
-    }
+    });
     return <div>{rowsArray}</div>;
   }
 
   render() {
     const { auth } = this.props;
     return (
-      <div>
+      <div className="userAccountsComponent">
         {this.renderContent(auth)}
         <UnlinkModal ref="UnlinkModal" success={this.success} />
       </div>
@@ -179,13 +176,11 @@ function mapStateToProps({ auth }) {
 export default connect(mapStateToProps, { setPrimary, connectAccount })(UserAccounts);
 
 const PanelContainer = styled(Collapse)`
-  margin-top: 25px !important;
-`;
+  margin: 25px 0 !important;
 
-const PanelHeader = styled(Panel)``;
-
-const PanelBody = styled.div`
-  // margin: 15px 20px !important;
+  @media (max-width: 480px) {
+    margin: 15px 0 !important;
+  }
 `;
 
 const InfoTextContainerCol = styled(Col)`

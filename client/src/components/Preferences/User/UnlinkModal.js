@@ -69,5 +69,5 @@ const ModalButton = styled(Button)`
 `;
 
 const ModalBodyText = styled.p`
-  font-size: 17px !important;
+  font-size: 16px !important;
 `;

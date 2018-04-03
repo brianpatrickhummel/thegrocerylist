@@ -58,6 +58,7 @@ require("./routes/connectRoutes")(app);
 require("./routes/apiRoutes")(app);
 require("./routes/prefRoutes")(app);
 require("./routes/unlinkRoutes")(app);
+require("./routes/recipeRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function() {

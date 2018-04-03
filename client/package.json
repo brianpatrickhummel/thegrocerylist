@@ -36,6 +36,9 @@
     },
     "/unlink/*": {
       "target": "http://localhost:5000"
+    },
+    "/recipe/*": {
+      "target": "http://localhost:5000"
     }
   },
   "devDependencies": {

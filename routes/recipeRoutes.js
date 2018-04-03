@@ -1,7 +1,9 @@
 const axios = require("axios");
 const requireLogin = require("../middlewares/requireLogin");
+const keys = require("../config/keys");
 
 module.exports = app => {
+  // ===============  SEARCH FOR RECIPE BY CUISINE ==================
   app.get("/recipe/search/:queryCuisine", requireLogin, async (req, res) => {
     let { queryCuisine } = req.params;
     let { intolerances, diet } = req.user.preferences;
@@ -21,7 +23,7 @@ module.exports = app => {
     let queryIntolerances = makeString(intolerances);
     let queryDiet = makeString(diet);
 
-    let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=false&intolerances=${queryIntolerances}&limitLicense=false&number=10&offset=0&query=burger`;
+    let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=10&offset=0&query=burger`;
 
     console.log(`query: ${query}`);
 
@@ -29,10 +31,30 @@ module.exports = app => {
       method: "get",
       url: query,
       headers: {
-        "X-Mashape-Key": "o1NvBRr6qmmshZawYHoVx0fF2PTtp19Vq5sjsnklJyGTT9rXYo",
-        "Content-Type": "text/html"
+        "X-Mashape-Key": keys.spoonacularKey
       }
     });
+
+    // Send Data back to Client to display, paginate
+    res.json(results.data);
+  });
+
+  // ===============  USER SAVES / RETRIEVE RECIPES DETAILS  ==================
+  app.get("/recipe/save/:recipeId", requireLogin, async (req, res) => {
+    let { recipeId } = req.params;
+
+    let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=false`;
+
+    let results = await axios({
+      method: "get",
+      url: query,
+      headers: {
+        "X-Mashape-Key": keys.spoonacularKey
+      }
+    });
+
+    // Save Recipe to MongoDB
+
     res.json(results.data);
   });
 };

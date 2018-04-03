@@ -5,9 +5,9 @@
 * [ ] = incomplete
 * [x] = complete
 
-## [x] EPIC 1. CORE APP DESIGN, USER AUTHENTICATION, PREFERENCES
+##[x] EPIC 1. CORE APP DESIGN, USER AUTHENTICATION, PREFERENCES
 
-## [x] CORE APPLICATION SETUP
+##[x] CORE APPLICATION SETUP
 
 ### BACK-END
 
@@ -23,7 +23,7 @@ UI = Ant Design, fontawesome and styled-components
 
 Fully-responsive and mobile-friendly
 
-## [x] USER LOGIN
+##[x] USER LOGIN
 
 Login to create primary GroceryList account
 
@@ -33,7 +33,7 @@ Login to create primary GroceryList account
 
 * User stored in MongoDB
 
-## [x] USER PREFERENCES
+##[x] USER PREFERENCES
 
 ### **ACCOUNT**
 

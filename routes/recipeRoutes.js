@@ -1,9 +1,10 @@
 const axios = require("axios");
 const requireLogin = require("../middlewares/requireLogin");
 const keys = require("../config/keys");
+const Recipe = require("../models/Recipe");
 
 module.exports = app => {
-  // ===============  SEARCH FOR RECIPE BY CUISINE ==================
+  // Search For Recipes By Cuisine
   app.get("/recipe/search/:queryCuisine", requireLogin, async (req, res) => {
     let { queryCuisine } = req.params;
     let { intolerances, diet } = req.user.preferences;
@@ -23,7 +24,7 @@ module.exports = app => {
     let queryIntolerances = makeString(intolerances);
     let queryDiet = makeString(diet);
 
-    let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=10&offset=0&query=burger`;
+    let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=10&offset=0&query=*`;
 
     console.log(`query: ${query}`);
 
@@ -31,7 +32,8 @@ module.exports = app => {
       method: "get",
       url: query,
       headers: {
-        "X-Mashape-Key": keys.spoonacularKey
+        "X-Mashape-Key": keys.spoonacularKey,
+        Accept: "application/json"
       }
     });
 
@@ -39,7 +41,7 @@ module.exports = app => {
     res.json(results.data);
   });
 
-  // ===============  USER SAVES / RETRIEVE RECIPES DETAILS  ==================
+  // User Saves a Recipe to MongoDB
   app.get("/recipe/save/:recipeId", requireLogin, async (req, res) => {
     let { recipeId } = req.params;
 
@@ -49,12 +51,45 @@ module.exports = app => {
       method: "get",
       url: query,
       headers: {
-        "X-Mashape-Key": keys.spoonacularKey
+        "X-Mashape-Key": keys.spoonacularKey,
+        Accept: "application/json"
       }
     });
 
     // Save Recipe to MongoDB
+    const existingRecipe = await Recipe.findOne({ id: results.data.id });
+    if (existingRecipe) {
+      console.log("Recipe already exists in MongoDB");
+      return res.json(existingRecipe);
+    }
 
-    res.json(results.data);
+    // Create a new instance/document of the User Model
+
+    const {
+      servings,
+      preparationMinutes,
+      cookingMinutes,
+      extendedIngredients,
+      id,
+      sourceUrl,
+      title,
+      image,
+      analyzedInstructions
+    } = results.data;
+    console.log(results.data);
+    const recipe = await new Recipe({
+      _user: req.user.id,
+      servings,
+      preparationMinutes,
+      cookingMinutes,
+      extendedIngredients,
+      id,
+      sourceUrl,
+      title,
+      image,
+      analyzedInstructions
+    }).save();
+
+    res.json(recipe);
   });
 };

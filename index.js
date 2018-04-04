@@ -9,7 +9,7 @@ const cookieSession = require("cookie-session");
 require("./services/passport");
 // Require Mongoose Schemas
 require("./models/User.js");
-require("./models/Prefs.js");
+require("./models/Recipe.js");
 
 // Create Instance of Express
 const app = express();
@@ -56,8 +56,9 @@ db.once("open", function() {
 require("./routes/authRoutes")(app);
 require("./routes/connectRoutes")(app);
 require("./routes/apiRoutes")(app);
-require("./routes/prefRoutes")(app);
 require("./routes/unlinkRoutes")(app);
+require("./routes/recipeRoutes")(app);
+require("./routes/prefRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function() {

@@ -1,10 +1,6 @@
-// Dependency
 const mongoose = require("mongoose");
-
-// Create the Schema class
 const { Schema } = mongoose;
 
-// Instantiate a userSchema object with the Schema class we just made
 const UserSchema = new Schema({
   primaryId: String,
   primaryAccount: {

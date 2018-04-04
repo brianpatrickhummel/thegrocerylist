@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/brianpatrickhummel/thegrocerylist#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.0",
     "cookie-session": "^2.0.0-beta.3",

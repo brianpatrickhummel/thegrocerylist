@@ -62,8 +62,8 @@ class PrefBox extends Component {
       // once auth is loaded from redux, then set the initial state by assigning values to checkedList
       this.setDefaultChecked(prefType, auth);
       let content = [];
-      let objectpath = auth.preferences[prefType];
-      for (let key in objectpath) {
+      let objectpath = Object.keys(auth.preferences[prefType]);
+      for (let key of objectpath.sort()) {
         content.push(
           <CheckBoxColumn xs={styling.CheckBoxColumn.xs} sm={styling.CheckBoxColumn.sm} key={key}>
             <Checkbox checked={this.state.checkedList[key]} onChange={this.onChange} value={key}>

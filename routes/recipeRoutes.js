@@ -42,7 +42,7 @@ module.exports = app => {
     ////////////////////////////////////////////////////////////////////////
 
     // Send Data back to Client to display, paginate
-    res.json(results.data);
+    res.send(results.data);
   });
 
   // User Saves a Recipe to MongoDB

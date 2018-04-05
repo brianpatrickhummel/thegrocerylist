@@ -10,7 +10,7 @@ module.exports = (config, env) => {
   config = rewireLess.withLoaderOptions({
     modifyVars: {
       "@font-family": "Futura",
-      "@body-background": "#694345",
+      "@body-background": "#bdb6b6",
       "@btn-primary-color": "#FFF",
       "@btn-primary-bg": "#2e0f10",
       "@layout-header-background": "#694345",

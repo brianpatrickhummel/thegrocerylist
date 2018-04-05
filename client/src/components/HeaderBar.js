@@ -156,9 +156,9 @@ const LinkText = styled.span`
   @media (max-width: 627px) {
     display: inline;
     font-size: 11px;
-    padding-top: 1px;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.5);
     font-weight: lighter;
     letter-spacing: 0.08em;
+    margin-left: 8px;
   }
 `;

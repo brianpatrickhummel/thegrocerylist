@@ -27,8 +27,8 @@
 
 .layout,
 .ant-layout {
-  height: 100vh;
-  overflow: scroll;
+  /* height: 100vh;
+  overflow: scroll; */
 }
 
 /* = = = = = = HeaderBar = = = = = = = */
@@ -195,7 +195,24 @@ a.ant-btn-sm {
   border-color: rgba(1, 1, 1, 0.8) !important;
 }
 
-/* = = = = = = = = = Media Queries = = = = = = = = = = */
+/* = = = = = = Search.js = = = = = = */
+.ant-dropdown-menu-item:hover,
+.ant-dropdown-menu-submenu-title:hover {
+  background-color: rgba(110, 67, 69, 0.4) !important;
+}
+
+.ant-dropdown-menu {
+  text-align: center !important;
+  max-height: 53vh;
+  overflow: scroll;
+  margin: 75px 0 !important;
+}
+
+/* = = = = = = SearchResults.js = = = = = = */
+
+/* = = = = = = = = == = = = = = = = == = = = = = = = =
+= = = = = = = = = = Media Queries = = = = = = = = = = =
+= = = = = = = = == = = = = = = = == = = = = = = = == = */
 
 /*  HEADER COMPONENT MQs */
 
@@ -244,6 +261,7 @@ a.ant-btn-sm {
   }
   .ant-layout-has-sider {
     float: left;
+    height: 120vh;
   }
   .ant-layout-sider {
     flex: 0 0 175px !important;
@@ -251,6 +269,7 @@ a.ant-btn-sm {
     min-width: 175px !important;
     width: 175px !important;
   }
+
   .ant-layout-sider-trigger {
     width: 175px !important;
   }
@@ -335,6 +354,10 @@ a.ant-btn-sm {
   }
   .ant-tabs-nav-container {
     font-size: 12px !important;
+  }
+
+  .ant-dropdown-menu {
+    margin: 65px 0 !important;
   }
 }
 

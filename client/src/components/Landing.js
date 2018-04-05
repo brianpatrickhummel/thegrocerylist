@@ -48,7 +48,7 @@ export default Landing;
 
 const Wrapper = styled.div`
   text-align: center;
-  min-height: 100vh;
+  // min-height: 100vh;
 `;
 
 const ImageContainer = styled.div`

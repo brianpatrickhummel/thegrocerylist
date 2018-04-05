@@ -47,7 +47,7 @@ let dietAndIntolerances = {
 
 let cuisines = {
   CheckBoxColumn: {
-    xs: { span: 11, offset: 1 },
+    xs: { span: 12, offset: 0 },
     sm: { span: 7, offset: 1 }
   },
   CheckBoxContainer: {

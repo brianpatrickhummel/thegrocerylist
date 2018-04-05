@@ -209,6 +209,10 @@ a.ant-btn-sm {
 }
 
 /* = = = = = = SearchResults.js = = = = = = */
+.ant-spin {
+  color: #5e3d3e !important;
+  text-align: center;
+}
 
 /* = = = = = = = = == = = = = = = = == = = = = = = = =
 = = = = = = = = = = Media Queries = = = = = = = = = = =

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Menu, Dropdown, Icon, Col, Progress } from "antd";
+import { Menu, Dropdown, Icon, Col, Spin } from "antd";
 import styled from "styled-components";
 import SearchResults from "./SearchResults";
 import axios from "axios";
@@ -30,25 +30,31 @@ class Search extends Component {
   }
 
   async getRecipes(key) {
+    this.setState({ loading: true });
     let result = await axios.get(`/recipe/search/${key}`);
     for (let obj of result.data.results) {
       this.state.data.push(obj);
+      this.setState({ loading: false });
     }
     console.log("state: ", this.state);
   }
 
   render() {
     let { auth } = this.props;
+    let { data, loading, cuisine } = this.state;
+
     const menu = (
       <Menu
         onClick={({ key }) => {
-          this.setState({ cuisine: key });
+          this.setState({ cuisine: key, data: [] });
           this.getRecipes(key);
         }}
       >
         {this.renderFields(auth)}
       </Menu>
     );
+
+    const antIcon = <Icon type="loading" style={{ fontSize: 80 }} spin />;
 
     return (
       auth && (
@@ -60,11 +66,14 @@ class Search extends Component {
               </Anchor>
             </Dropdown>
           </Column>
-          {this.state.loading ? (
-            <Progress percent={30} status="active" />
-          ) : (
-            <SearchResults data={this.state.data} cuisine={this.state.cuisine} />
-          )}
+          {loading ? (
+            <SpinColumn xs={{ span: 8, offset: 8 }}>
+              <Spin indicator={antIcon} />
+            </SpinColumn>
+          ) : // only render SearchResults if state data has length
+          data.length ? (
+            <SearchResults data={data} cuisine={cuisine} />
+          ) : null}
         </div>
       )
     );
@@ -89,4 +98,9 @@ const Anchor = styled.a`
 const Column = styled(Col)`
   text-align: center;
   margin-top: 20px;
+`;
+
+const SpinColumn = styled(Col)`
+  text-align: center;
+  margin-top: 30%;
 `;

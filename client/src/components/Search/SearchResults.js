@@ -5,9 +5,22 @@ import styled from "styled-components";
 
 export default ({ cuisine, data }) => {
   const renderContent = data => {
-    return data.results ? <h1>{JSON.stringify(data)}</h1> : null;
+    if (data.length) {
+      let content = [];
+      for (let item of data) {
+        let imgsrc = `https://spoonacular.com/recipeImages/${item.image}`;
+        content.push(
+          <div>
+            <p id={item.id} key={item.id}>
+              {item.title}
+            </p>
+            <img src={imgsrc} alt="" />
+          </div>
+        );
+      }
+      return content;
+    } else return null;
   };
-
   return (
     <div>
       <Header>{cuisine}</Header>

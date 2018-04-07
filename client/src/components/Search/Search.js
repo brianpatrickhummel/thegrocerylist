@@ -32,7 +32,8 @@ class Search extends Component {
   async getRecipes(key) {
     this.setState({ loading: true });
     let result = await axios.get(`/recipe/search/${key}`);
-    for (let obj of result.data.results) {
+    console.log("result: ", result);
+    for (let obj of result.data) {
       this.state.data.push(obj);
       this.setState({ loading: false });
     }
@@ -102,5 +103,5 @@ const Column = styled(Col)`
 
 const SpinColumn = styled(Col)`
   text-align: center;
-  margin-top: 30%;
+  margin-top: 20%;
 `;

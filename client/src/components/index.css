@@ -282,7 +282,7 @@ a.ant-btn-sm {
   }
 }
 
-@media (min-width: 628px) {
+@media (min-width: 629px) {
   .ant-layout-has-sider {
     display: none;
   }

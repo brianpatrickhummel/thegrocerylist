@@ -47,9 +47,10 @@ const Header = styled.h1`
 const Column = styled(Col)`
   text-align: center;
   margin: 8px 0 35px 0;
-  border: 1px solid rgba(104, 67, 69, 0.2);
+  border: 1px solid rgba(104, 67, 69, 0.05);
+  border-radius: 2px;
   padding: 10px 5px 20px 5px;
-  background-color: rgba(104, 67, 69, 0.3);
+  background-color: rgba(104, 67, 69, 0.1);
 `;
 
 const Image = styled.img`
@@ -60,7 +61,7 @@ const Image = styled.img`
   }
 
   @media (max-width: 768px) {
-    max-width: 300px;
+    max-width: 30px;
   }
 
   @media (max-width: 628px) {
@@ -73,9 +74,18 @@ const Image = styled.img`
 `;
 
 const RecipeTitle = styled.p`
-  color: #684345;
+  color: rgba(89, 57, 59, 0.9);
+  font-size: 16px;
+
+  @media (max-width: 992px) {
+    font-size: 14px;
+  }
 
   @media (max-width: 768px) {
     font-size: 12px;
+  }
+
+  @media (max-width: 480px) {
+    font-weight: bolder;
   }
 `;

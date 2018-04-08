@@ -10,7 +10,7 @@ class Landing extends Component {
     //render 4 Social Media Account login buttons
     for (let acct of acctTypes) {
       menuList.push(
-        <li className="share-item">
+        <li key={acct} className="share-item">
           <a href={`/auth/${acct}`} className="share-button">
             <FontAwesome className="share-icon" name={acct} />
           </a>
@@ -48,7 +48,6 @@ export default Landing;
 
 const Wrapper = styled.div`
   text-align: center;
-  // min-height: 100vh;
 `;
 
 const ImageContainer = styled.div`

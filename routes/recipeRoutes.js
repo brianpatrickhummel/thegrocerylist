@@ -397,6 +397,7 @@ module.exports = app => {
     //     Accept: "application/json"
     //   }
     // });
+    // if (!results.data.results.length) return res.send([{id: 0, title: "No Recipes Found" }]);
 
     // // Store each recipe id in results_recipeIds array
     // for (let item of results.data.results) {
@@ -405,20 +406,22 @@ module.exports = app => {
 
     // // Query for recipe info by id in results_recipeIds array
     // // Store in results_recipeInf array
-    // for (let id of results_recipeIds) {
-    //   let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${id}/information?includeNutrition=false`;
+    // const start = Date.now();
+    // let queryIds = results_recipeIds.join("%2C");
+    // let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
+    // console.log("query2: ", query2);
+    // // Query list of recipes
+    // let results2 = await axios({
+    //   method: "get",
+    //   url: query2,
+    //   headers: {
+    //     "X-Mashape-Key": keys.spoonacularKey,
+    //     Accept: "application/json"
+    //   }
+    // });
+    // results_recipeInfo = results2.data;
 
-    //   //   // Query list of recipes
-    //   let results = await axios({
-    //     method: "get",
-    //     url: query2,
-    //     headers: {
-    //       "X-Mashape-Key": keys.spoonacularKey,
-    //       Accept: "application/json"
-    //     }
-    //   });
-    //   results_recipeInfo.push(results.data);
-    // }
+    // console.log("This query process took: ", Date.now() - start);
 
     ////////////////////////////////////////////////////////////////////////
     ////// logic for removing saved recipes from search results

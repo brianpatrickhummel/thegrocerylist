@@ -105,8 +105,8 @@ a.ant-btn-sm {
 .hvr-shrink:hover,
 .hvr-shrink:focus,
 .hvr-shrink:active {
-  -webkit-transform: scale(0.93);
-  transform: scale(0.93);
+  -webkit-transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 /* END Shrink Hover CSS Animation Effect */
@@ -265,7 +265,7 @@ a.ant-btn-sm {
   }
   .ant-layout-has-sider {
     float: left;
-    height: 120vh;
+    /* height: 120vh; */
   }
   .ant-layout-sider {
     flex: 0 0 175px !important;

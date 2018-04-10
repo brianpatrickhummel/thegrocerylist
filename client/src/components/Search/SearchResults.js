@@ -1,9 +1,10 @@
 import React from "react";
 // import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 
-export default ({ cuisine, data }) => {
+const SearchResults = ({ cuisine, data }) => {
   const renderContent = data => {
     if (data.length) {
       let content = [];
@@ -14,7 +15,9 @@ export default ({ cuisine, data }) => {
               <RecipeTitle id={item.id}>{item.title.toUpperCase()}</RecipeTitle>
             </Row>
             <Row>
-              <Image src={item.image} alt="" />
+              <p>
+                <Image src={item.image} alt="" />
+              </p>
             </Row>
             {/* <a href={item.sourceUrl} target="_blank">
               Read Here
@@ -33,6 +36,8 @@ export default ({ cuisine, data }) => {
   );
 };
 
+export default withRouter(SearchResults);
+
 const Header = styled.h1`
   color: #2e3539;
   text-align: center;
@@ -46,7 +51,7 @@ const Header = styled.h1`
 `;
 const Column = styled(Col)`
   text-align: center;
-  margin: 8px 0 35px 0;
+  margin: 8px 0 15px 0;
   border: 1px solid rgba(104, 67, 69, 0.05);
   border-radius: 2px;
   padding: 10px 5px 20px 5px;

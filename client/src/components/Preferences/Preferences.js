@@ -5,10 +5,11 @@ import styled from "styled-components";
 import PrefBox from "./PrefBox/PrefBox";
 const TabPane = Tabs.TabPane;
 
-const Preferences = () => {
+const Preferences = ({ match }) => {
+  console.log("prefs default key: ", match.params);
   return (
     <div className="preferencesContainer" style={{ textAlign: "center" }}>
-      <Tabs defaultActiveKey={"1"}>
+      <Tabs defaultActiveKey={match.params.defaultKey}>
         <TabPane tab={<SpanText>ACCOUNTS</SpanText>} key="1">
           <UserAccounts />
         </TabPane>

@@ -119,7 +119,6 @@ class PrefBox extends Component {
 }
 
 function mapStateToProps({ auth }) {
-  console.log(`Prefbox = ${auth}`);
   return { auth };
 }
 

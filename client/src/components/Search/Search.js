@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Menu, Dropdown, Icon, Col, Spin } from "antd";
 import styled from "styled-components";
 import SearchResults from "./SearchResults";
@@ -12,6 +13,7 @@ class Search extends Component {
     cuisine: ""
   };
 
+  // Render DropDown menu fields from user's Cuisines Prefs
   renderFields(auth) {
     return (
       auth &&
@@ -29,10 +31,12 @@ class Search extends Component {
     );
   }
 
+  // HTTP request to Spoonacular API, triggered when user makes a DropDown menu selection
   async getRecipes(key) {
     this.setState({ loading: true });
     let result = await axios.get(`/recipe/search/${key}`);
     console.log("result: ", result);
+    // Store results of Axios query in local state, disable Loading Spinner
     for (let obj of result.data) {
       this.state.data.push(obj);
       this.setState({ loading: false });
@@ -58,7 +62,13 @@ class Search extends Component {
     const antIcon = <Icon type="loading" style={{ fontSize: 80 }} spin />;
 
     return (
-      auth && (
+      // If auth data is loaded and user has set Cuisines in Prefs, render DropDown Menu
+      auth && Object.keys(auth.preferences.cuisines).every(i => !auth.preferences.cuisines[i]) ? (
+        <Link to={"/Preferences/4"}>
+          Please Set Cuisines<Icon type="rollback" />
+        </Link>
+      ) : // If auth data is loaded, but user has not set any Cuisines in Prefs, render reminder
+      auth ? (
         <div>
           <Column xs={{ span: 20, offset: 2 }}>
             <Dropdown overlay={menu} trigger={["click"]} ref="dropdown">
@@ -67,16 +77,17 @@ class Search extends Component {
               </Anchor>
             </Dropdown>
           </Column>
+          {/*  User clicks option, show loading spinner until Axios request completes */}
           {loading ? (
             <SpinColumn xs={{ span: 8, offset: 8 }}>
               <Spin indicator={antIcon} />
             </SpinColumn>
-          ) : // only render SearchResults if state data has length
+          ) : // Only render SearchResults if state data has length
           data.length ? (
             <SearchResults data={data} cuisine={cuisine} />
           ) : null}
         </div>
-      )
+      ) : null
     );
   }
 }

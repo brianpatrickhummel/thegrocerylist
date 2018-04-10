@@ -34,10 +34,12 @@ class HeaderBar extends Component {
             </LinkAnchor>
           ) : (
             <LinkAnchor2 href={link} className={classNames}>
-              <Icon>
-                <LinkImage src={image} alt="" />
-              </Icon>
-              <LinkText>{text}</LinkText>
+              <div className="hvr-shrink">
+                <Icon>
+                  <LinkImage src={image} alt="" />
+                </Icon>
+                <LinkText>{text}</LinkText>
+              </div>
             </LinkAnchor2>
           )}
         </Menu.Item>

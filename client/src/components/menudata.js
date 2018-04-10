@@ -13,7 +13,7 @@ export default [
     text: "CREATE LIST"
   },
   {
-    link: "/preferences",
+    link: "/preferences/1",
     image: Prefs,
     text: "PREFERENCES"
   },

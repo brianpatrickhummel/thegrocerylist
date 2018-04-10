@@ -27,24 +27,23 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Wrapper>
-            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences" />)} />
+            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences/1" />)} />
             <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
             <Route
               path="*"
               render={props =>
                 props.location.pathname !== "/" && (
-                  <Layout className="layout">
+                  <AntLayout className="AntLayout">
                     <Switch>
-                      <Route path="/preferences" component={Preferences} />
+                      <Route path="/preferences/:defaultKey" component={Preferences} />
                       <Route exact path="/create" component={Create} />
                       <Route path="/lists" component={MyGroceryLists} />
                       <Route path="/viewonelist/:listid" component={ViewOneList} />
                       <Route path="/saved" component={SavedRecipes} />
                       <Route path="/favorites" component={Favorites} />
-                      <Route path="/search" component={Search} />
-                      {/* <Redirect from="*" to="/" /> */}
+                      <Route exact path="/search" component={Search} />
                     </Switch>
-                  </Layout>
+                  </AntLayout>
                 )
               }
             />
@@ -64,4 +63,12 @@ export default connect(mapStateToProps, actions)(App);
 
 const Wrapper = styled.div`
   font-family: "Futura";
+`;
+
+const AntLayout = styled(Layout)`
+  overflow: scroll;
+  height: 83vh;
+  @media (max-width: 628px) {
+    height: 100vh;
+  }
 `;

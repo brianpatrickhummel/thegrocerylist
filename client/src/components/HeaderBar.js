@@ -34,10 +34,12 @@ class HeaderBar extends Component {
             </LinkAnchor>
           ) : (
             <LinkAnchor2 href={link} className={classNames}>
-              <Icon>
-                <LinkImage src={image} alt="" />
-              </Icon>
-              <LinkText>{text}</LinkText>
+              <div className="hvr-shrink">
+                <Icon>
+                  <LinkImage src={image} alt="" />
+                </Icon>
+                <LinkText>{text}</LinkText>
+              </div>
             </LinkAnchor2>
           )}
         </Menu.Item>
@@ -46,6 +48,7 @@ class HeaderBar extends Component {
   }
 
   render() {
+    console.log("match: ", this.props);
     return (
       <div>
         {/* Header Nav - visibility controlled by Media Queries */}
@@ -72,7 +75,7 @@ class HeaderBar extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
+function mapStateToProps({ auth }, ownProps) {
   return { auth };
 }
 

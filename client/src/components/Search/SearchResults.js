@@ -1,9 +1,11 @@
 import React from "react";
-// import { connect } from "react-redux";
+import SearchResultsSingle from "./SearchResultsSingle";
+import { saveRecipe } from "../../actions";
+import { connect } from "react-redux";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 
-export default ({ cuisine, data }) => {
+const SearchResults = ({ cuisine, data, history }) => {
   const renderContent = data => {
     if (data.length) {
       let content = [];
@@ -33,6 +35,8 @@ export default ({ cuisine, data }) => {
   );
 };
 
+export default connect(null, { saveRecipe })(SearchResults);
+
 const Header = styled.h1`
   color: #2e3539;
   text-align: center;
@@ -46,7 +50,7 @@ const Header = styled.h1`
 `;
 const Column = styled(Col)`
   text-align: center;
-  margin: 8px 0 35px 0;
+  margin: 8px 0 15px 0;
   border: 1px solid rgba(104, 67, 69, 0.05);
   border-radius: 2px;
   padding: 10px 5px 20px 5px;
@@ -61,7 +65,7 @@ const Image = styled.img`
   }
 
   @media (max-width: 768px) {
-    max-width: 30px;
+    max-width: 300px;
   }
 
   @media (max-width: 628px) {

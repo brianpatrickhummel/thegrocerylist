@@ -431,23 +431,27 @@ module.exports = app => {
     res.send(results_recipeInfo);
   });
 
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
   // User Saves a Recipe to MongoDB
   app.get("/recipe/save/:recipeId", requireLogin, async (req, res) => {
     let { recipeId } = req.params;
 
-    let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=false`;
+    // let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=false`;
 
-    let results = await axios({
-      method: "get",
-      url: query,
-      headers: {
-        "X-Mashape-Key": keys.spoonacularKey,
-        Accept: "application/json"
-      }
-    });
+    // let results = await axios({
+    //   method: "get",
+    //   url: query,
+    //   headers: {
+    //     "X-Mashape-Key": keys.spoonacularKey,
+    //     Accept: "application/json"
+    //   }
+    // });
+
+    console.log("request body: ", req.body);
 
     // Save Recipe to MongoDB
-    const existingRecipe = await Recipe.findOne({ id: results.data.id });
+    const existingRecipe = await Recipe.findOne({ id: recipeId });
     if (existingRecipe) {
       console.log("Recipe already exists in MongoDB");
       return res.json(existingRecipe);
@@ -455,35 +459,36 @@ module.exports = app => {
 
     // Create a new instance/document of the User Model
 
-    const {
-      servings,
-      preparationMinutes,
-      cookingMinutes,
-      extendedIngredients,
-      instructions,
-      id,
-      sourceUrl,
-      title,
-      image,
-      analyzedInstructions
-    } = results.data;
+    // const {
+    //   servings,
+    //   preparationMinutes,
+    //   cookingMinutes,
+    //   extendedIngredients,
+    //   instructions,
+    //   id,
+    //   sourceUrl,
+    //   title,
+    //   image,
+    //   analyzedInstructions
+    // } = req.body.data;
 
-    console.log(results.data);
+    // console.log(results.data);
 
-    const recipe = await new Recipe({
-      _user: req.user.id,
-      servings,
-      preparationMinutes,
-      cookingMinutes,
-      extendedIngredients,
-      instructions,
-      id,
-      sourceUrl,
-      title,
-      image,
-      analyzedInstructions
-    }).save();
+    // const recipe = await new Recipe({
+    //   _user: req.user.id,
+    //   servings,
+    //   preparationMinutes,
+    //   cookingMinutes,
+    //   extendedIngredients,
+    //   instructions,
+    //   id,
+    //   sourceUrl,
+    //   title,
+    //   image,
+    //   analyzedInstructions
+    // }).save();
 
-    res.json(recipe);
+    // res.json(recipe);
+    res.send("finished");
   });
 };

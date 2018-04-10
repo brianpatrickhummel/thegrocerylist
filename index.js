@@ -43,7 +43,8 @@ app.use(passport.session());
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
 // MongoDB Configuration configuration
-mongoose.connect(keys.mongoURI, { useMongoClient: true });
+var DB = keys.mongoURI || "mongodb://localhost/GroceryListDevLocal";
+mongoose.connect(DB, { useMongoClient: true });
 const db = mongoose.connection;
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);

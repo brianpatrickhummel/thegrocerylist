@@ -41,3 +41,9 @@ export const updatePrefs = (checkedList, prefType) => async dispatch => {
   const res = await axios.post(`/api/updatePrefs/${prefType}`, checkedList);
   dispatch({ type: FETCH_USER, payload: res.data });
 };
+
+// Save Single Recipe
+export const saveRecipe = (recipeId, data) => async dispatch => {
+  const res = await axios.post(`/recipe/save/${recipeId}`, data);
+  dispatch({ type: FETCH_USER, payload: res.data });
+};

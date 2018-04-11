@@ -66,11 +66,14 @@
   border-bottom: 1px solid #694345;
 }
 
-/* = = = = = = = = = = = = = Preferences  = = = = = = = == = = = = = */
-
-.ant-collapse-item > div {
-  /* background-color: rgba(255, 255, 255, 0.9) !important; */
+/* = = = = = = = = = = = = = UserAccounts / = = = = = = = = = = = = = */
+@media (max-width: 576px) {
+  .ant-tooltip {
+    display: none !important;
+  }
 }
+
+/* = = = = = = = = = = = = = Preferences  = = = = = = = == = = = = = */
 
 .ant-collapse-header {
   padding: 10px !important;

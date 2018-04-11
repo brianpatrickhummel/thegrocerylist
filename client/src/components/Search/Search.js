@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Menu, Dropdown, Icon, Col, Spin } from "antd";
+import { Menu, Dropdown, Icon, Row, Col, Spin } from "antd";
 import styled from "styled-components";
 import SearchResults from "./SearchResults";
 import axios from "axios";
@@ -64,9 +64,17 @@ class Search extends Component {
     return (
       // If auth data is loaded and user has set Cuisines in Prefs, render DropDown Menu
       auth && Object.keys(auth.preferences.cuisines).every(i => !auth.preferences.cuisines[i]) ? (
-        <Link to={"/Preferences/4"}>
-          Please Set Cuisines<Icon type="rollback" />
-        </Link>
+        <SetCuisinesMessage xs={{ span: 22, offset: 1 }} md={{ span: 16, offset: 4 }}>
+          <Icon type="exclamation-circle" style={{ fontSize: 22, color: "#fff" }} />
+          <Row>
+            <Col xs={{ span: 18, offset: 3 }}>
+              <MessageH3>NO CUISINES SELECTED</MessageH3>
+            </Col>
+          </Row>
+          <CuisineLink to={"/Preferences/4"}>
+            PLEASE SET CUISINES PREFERENCES <Icon type="rollback" style={{ fontSize: 16 }} />
+          </CuisineLink>
+        </SetCuisinesMessage>
       ) : // If auth data is loaded, but user has not set any Cuisines in Prefs, render reminder
       auth ? (
         <div>
@@ -115,4 +123,26 @@ const Column = styled(Col)`
 const SpinColumn = styled(Col)`
   text-align: center;
   margin-top: 20%;
+`;
+
+const SetCuisinesMessage = styled(Col)`
+  text-align: center;
+  background-color: rgba(104, 67, 69, 0.8);
+  border-radius: 2px;
+  margin-top: 35px;
+  padding: 8px;
+`;
+
+const CuisineLink = styled(Link)`
+  color: white !important;
+  &:hover {
+    color: red !important;
+  }
+`;
+
+const MessageH3 = styled.h3`
+  font-weight: bolder;
+  margin-top: 8px;
+  color: rgba(1, 1, 1, 1);
+  border: 1px solid white;
 `;

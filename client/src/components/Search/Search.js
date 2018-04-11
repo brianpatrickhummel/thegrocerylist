@@ -48,30 +48,42 @@ class Search extends Component {
     let { auth } = this.props;
     let { data, loading, cuisine } = this.state;
 
+    // Ant Design Drop-Down Menu Component
     const menu = (
       <Menu
         onClick={({ key }) => {
+          // Reset local state
           this.setState({ cuisine: key, data: [] });
+          // Initialize Axios req to Spoonacular API
           this.getRecipes(key);
         }}
       >
+        {/* Call fn To Render Drop-Down Menu Items */}
         {this.renderFields(auth)}
       </Menu>
     );
 
+    // Ant Design Loading Spinner Component
     const antIcon = <Icon type="loading" style={{ fontSize: 80 }} spin />;
 
     return (
       // If auth data is loaded and user has set Cuisines in Prefs, render DropDown Menu
       auth && Object.keys(auth.preferences.cuisines).every(i => !auth.preferences.cuisines[i]) ? (
-        <SetCuisinesMessage xs={{ span: 22, offset: 1 }} md={{ span: 16, offset: 4 }}>
-          <Icon type="exclamation-circle" style={{ fontSize: 22, color: "#fff" }} />
+        <SetCuisinesMessage
+          xs={{ span: 22, offset: 1 }}
+          sm={{ span: 16, offset: 4 }}
+          md={{ span: 12, offset: 6 }}
+          lg={{ span: 10, offset: 7 }}
+        >
+          <Exclaim type="exclamation-circle" />
+          <Horizontal />
           <Row>
             <Col xs={{ span: 18, offset: 3 }}>
               <MessageH3>NO CUISINES SELECTED</MessageH3>
             </Col>
           </Row>
-          <CuisineLink to={"/Preferences/4"}>
+          {/* forceUpdate so that Ant Menu selected item changes without having clicked it */}
+          <CuisineLink onClick={this.forceUpdate} to={"/Preferences/4"}>
             PLEASE SET CUISINES PREFERENCES <Icon type="rollback" style={{ fontSize: 16 }} />
           </CuisineLink>
         </SetCuisinesMessage>
@@ -106,6 +118,12 @@ function mapStateToProps({ auth }) {
 
 export default connect(mapStateToProps)(Search);
 
+const Exclaim = styled(Icon)`
+  font-size: 22px;
+  color: #b62b37;
+  margin-bottom: 10px;
+`;
+
 const Anchor = styled.a`
   color: #684345 !important;
   font-size: 16px;
@@ -127,22 +145,29 @@ const SpinColumn = styled(Col)`
 
 const SetCuisinesMessage = styled(Col)`
   text-align: center;
-  background-color: rgba(104, 67, 69, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 2px;
   margin-top: 35px;
-  padding: 8px;
+  padding: 20px 10px;
 `;
 
 const CuisineLink = styled(Link)`
-  color: white !important;
+  color: #b62b37 !important;
+  margin-top: 20px;
   &:hover {
-    color: red !important;
+    color: rgba(182, 43, 55, 0.5) !important;
   }
 `;
 
 const MessageH3 = styled.h3`
   font-weight: bolder;
   margin-top: 8px;
-  color: rgba(1, 1, 1, 1);
-  border: 1px solid white;
+  color: rgba(104, 67, 69, 0.7);
+  @media (min-width: 1200px) {
+    font-size: 22px;
+  }
+`;
+
+const Horizontal = styled.hr`
+  border-color: rgba(255, 255, 255, 0.2);
 `;

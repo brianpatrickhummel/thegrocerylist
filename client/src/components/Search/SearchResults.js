@@ -4,7 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 
-const SearchResults = ({ cuisine, data }) => {
+const SearchResults = ({ cuisine, data, history }) => {
   const renderContent = data => {
     if (data.length) {
       let content = [];
@@ -16,7 +16,9 @@ const SearchResults = ({ cuisine, data }) => {
             </Row>
             <Row>
               <p>
-                <Image src={item.image} alt="" />
+                <Link to="/search/single">
+                  <Image src={item.image} alt="" />
+                </Link>
               </p>
             </Row>
             {/* <a href={item.sourceUrl} target="_blank">
@@ -66,7 +68,7 @@ const Image = styled.img`
   }
 
   @media (max-width: 768px) {
-    max-width: 30px;
+    max-width: 300px;
   }
 
   @media (max-width: 628px) {

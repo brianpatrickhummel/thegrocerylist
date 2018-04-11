@@ -48,6 +48,7 @@ class HeaderBar extends Component {
   }
 
   render() {
+    console.log("match: ", this.props);
     return (
       <div>
         {/* Header Nav - visibility controlled by Media Queries */}
@@ -74,7 +75,7 @@ class HeaderBar extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
+function mapStateToProps({ auth }, ownProps) {
   return { auth };
 }
 

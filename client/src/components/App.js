@@ -28,11 +28,7 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Wrapper>
-            <Route
-              exact
-              path="/"
-              render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences/2/1" />)}
-            />
+            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences/1" />)} />
             <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
             <Route
               path="*"
@@ -46,8 +42,8 @@ class App extends Component {
                       <Route path="/viewonelist/:listid" component={ViewOneList} />
                       <Route path="/saved" component={SavedRecipes} />
                       <Route path="/favorites" component={Favorites} />
-                      <Route path="/search" component={Search} />
-                      <Route path="/search/single" component={Search} />
+                      <Route exact path="/search" component={Search} />
+                      <Route path="/search/single" component={SearchResultsSingle} />
                     </Switch>
                   </AntLayout>
                 )

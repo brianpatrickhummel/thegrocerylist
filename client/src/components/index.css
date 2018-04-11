@@ -23,14 +23,6 @@
   border-color: #c74145 !important;
 }
 
-/* Ant Layout */
-
-.layout,
-.ant-layout {
-  /* height: 100vh;
-  overflow: scroll; */
-}
-
 /* = = = = = = HeaderBar = = = = = = = */
 
 .ant-layout-header {
@@ -67,7 +59,7 @@
 }
 
 /* = = = = = = = = = = = = = UserAccounts / = = = = = = = = = = = = = */
-@media (max-width: 576px) {
+@media (max-width: 575px) {
   .ant-tooltip {
     display: none !important;
   }
@@ -138,7 +130,7 @@ a.ant-btn-sm {
 
 .ant-tabs-bar {
   border-bottom: 1px solid rgba(98, 71, 71, 0.02) !important;
-  margin-bottom: 25px !important;
+  margin-bottom: 10px !important;
 }
 
 .ant-tabs-nav-container {

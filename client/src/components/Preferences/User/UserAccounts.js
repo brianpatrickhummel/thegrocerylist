@@ -176,7 +176,7 @@ function mapStateToProps({ auth }) {
 export default connect(mapStateToProps, { setPrimary, connectAccount })(UserAccounts);
 
 const PanelContainer = styled(Collapse)`
-  margin: 25px 0 !important;
+  margin: 10px 0 !important;
 
   @media (max-width: 480px) {
     margin: 15px 0 !important;

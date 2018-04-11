@@ -7,7 +7,7 @@ const SearchResultsSingle = ({ history }) => {
   return (
     <RecipeColumn xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }}>
       <Card
-        style={{ width: 600 }}
+        style={{ width: "100%" }}
         cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
         actions={[
           <Icon type="arrow-left" onClick={() => console.log("Going back in history...")} />,

@@ -1,6 +1,7 @@
 import React from "react";
-// import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import SearchResultsSingle from "./SearchResultsSingle";
+import { saveRecipe } from "../../actions";
+import { connect } from "react-redux";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 
@@ -15,11 +16,7 @@ const SearchResults = ({ cuisine, data, history }) => {
               <RecipeTitle id={item.id}>{item.title.toUpperCase()}</RecipeTitle>
             </Row>
             <Row>
-              <p>
-                <Link to="/search/single">
-                  <Image src={item.image} alt="" />
-                </Link>
-              </p>
+              <Image src={item.image} alt="" />
             </Row>
             {/* <a href={item.sourceUrl} target="_blank">
               Read Here
@@ -38,7 +35,7 @@ const SearchResults = ({ cuisine, data, history }) => {
   );
 };
 
-export default withRouter(SearchResults);
+export default connect(null, { saveRecipe })(SearchResults);
 
 const Header = styled.h1`
   color: #2e3539;

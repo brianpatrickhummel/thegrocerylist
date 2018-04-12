@@ -30,13 +30,13 @@
   padding: 0 40px !important;
 }
 
-.ant-menu-horizontal > .ant-menu-item {
+.ant-menu-horizontal>.ant-menu-item {
   margin: 0 10px;
   display: inline;
   text-align: center;
 }
 
-.ant-menu-inline-collapsed > .ant-menu-item {
+.ant-menu-inline-collapsed>.ant-menu-item {
   padding: 0px !important;
   text-align: center;
 }
@@ -59,6 +59,7 @@
 }
 
 /* = = = = = = = = = = = = = UserAccounts / = = = = = = = = = = = = = */
+
 @media (max-width: 575px) {
   .ant-tooltip {
     display: none !important;
@@ -72,7 +73,7 @@
   text-align: center;
 }
 
-.ant-collapse > .ant-collapse-item > .ant-collapse-header:hover {
+.ant-collapse>.ant-collapse-item>.ant-collapse-header:hover {
   color: #4f778f;
 }
 
@@ -169,7 +170,7 @@ a.ant-btn-sm {
   text-align: center;
 }
 
-.ant-modal-body > p {
+.ant-modal-body>p {
   color: #b82933 !important;
   margin-top: 10px;
 }
@@ -191,6 +192,7 @@ a.ant-btn-sm {
 }
 
 /* = = = = = = Search.js = = = = = = */
+
 .ant-dropdown-menu-item:hover,
 .ant-dropdown-menu-submenu-title:hover {
   background-color: rgba(110, 67, 69, 0.4) !important;
@@ -204,31 +206,32 @@ a.ant-btn-sm {
 }
 
 /* = = = = = = SearchResults.js = = = = = = */
+
 .ant-spin {
   color: #5e3d3e !important;
   text-align: center;
 }
 
-/* = = = = = = = = == = = = = = = = == = = = = = = = =
+/* = = = = = = = = == = = = = = = = == = = = = = = = = =
 = = = = = = = = = = Media Queries = = = = = = = = = = =
 = = = = = = = = == = = = = = = = == = = = = = = = == = */
 
 /*  HEADER COMPONENT MQs */
 
 @media (max-width: 1127px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 10px;
   }
 }
 
 @media (max-width: 866px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 4px;
   }
 }
 
 @media (max-width: 700px) {
-  .ant-menu-horizontal > .ant-menu-item {
+  .ant-menu-horizontal>.ant-menu-item {
     padding: 0 2px;
   }
   .NavBar {
@@ -255,7 +258,7 @@ a.ant-btn-sm {
     min-width: 50px !important;
     width: 50px !important;
   }
-  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
+  .ant-layout-sider-collapsed>.ant-layout-sider-trigger {
     width: 50px !important;
   }
   .ant-layout-has-sider {
@@ -268,7 +271,6 @@ a.ant-btn-sm {
     min-width: 175px !important;
     width: 175px !important;
   }
-
   .ant-layout-sider-trigger {
     width: 175px !important;
   }
@@ -354,7 +356,6 @@ a.ant-btn-sm {
   .ant-tabs-nav-container {
     font-size: 12px !important;
   }
-
   .ant-dropdown-menu {
     margin: 65px 0 !important;
   }

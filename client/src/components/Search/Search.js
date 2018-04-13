@@ -35,13 +35,10 @@ class Search extends Component {
   async getRecipes(key) {
     this.setState({ loading: true });
     let result = await axios.get(`/recipe/search/${key}`);
-    console.log("result: ", result);
+
     // Store results of Axios query in local state, disable Loading Spinner
-    for (let obj of result.data) {
-      this.state.data.push(obj);
-      this.setState({ loading: false });
-    }
-    console.log("state: ", this.state);
+    this.state.data.push(...result.data);
+    this.setState({ loading: false });
   }
 
   render() {

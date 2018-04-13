@@ -1,16 +1,21 @@
+// Will mount on a new DOM Node as a child of SearchResults component
+// Using React16's Portal feature
+
 import React from "react";
 import styled from "styled-components";
-import { Col, Card, Icon } from "antd";
+import { Card, Icon } from "antd";
 const { Meta } = Card;
 
-const SearchResultsSingle = ({ history }) => {
+const SearchResultsSingle = props => {
+  let { goBack } = props;
+  console.log("single props goback: ", goBack);
   return (
-    <RecipeColumn xs={{ span: 22, offset: 1 }} sm={{ span: 12, offset: 6 }}>
+    <ModalContainer>
       <Card
-        style={{ width: "100%" }}
+        style={{ width: "90%" }}
         cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
         actions={[
-          <Icon type="arrow-left" onClick={() => console.log("Going back in history...")} />,
+          <Icon type="arrow-left" onClick={goBack} />,
           <Icon type="like" onClick={() => console.log("Clicked, Saving...")} />,
           <a href="https://www.google.com" target="about_blank">
             <Icon type="link" onClick={() => console.log("Loading webpage...")} />
@@ -22,12 +27,20 @@ const SearchResultsSingle = ({ history }) => {
           description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ex et rerum itaque ratione, corrupti explicabo cumque, eligendi non aspernatur ab alias aliquam accusamus magni! Debitis earum facere eveniet. Atque?"
         />
       </Card>
-    </RecipeColumn>
+    </ModalContainer>
   );
 };
 
 export default SearchResultsSingle;
 
-const RecipeColumn = styled(Col)`
-  margin-top: 25px;
+const ModalContainer = styled.div`
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

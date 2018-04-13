@@ -1,5 +1,14 @@
 /* CSS for Components - mostly for Ant Design overrides */
 
+/* #root {
+  overflow: hidden;
+}
+
+#recipe-info {
+  position: relative;
+  z-index: 999;
+} */
+
 /* ======== App.js ========== */
 
 * {
@@ -207,9 +216,8 @@ a.ant-btn-sm {
 
 /* = = = = = = SearchResults.js = = = = = = */
 
-.ant-spin {
-  color: #5e3d3e !important;
-  text-align: center;
+.ant-card {
+  width: 90% important;
 }
 
 /* = = = = = = = = == = = = = = = = == = = = = = = = = =

@@ -1,14 +1,24 @@
-import React from "react";
-import SearchResultsSingle from "./SearchResultsSingle";
+import React, { Component } from "react";
+import Portal from "./Portal";
 import { saveRecipe } from "../../actions";
 import { connect } from "react-redux";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 
-const SearchResults = ({ cuisine, data, history }) => {
-  const renderContent = data => {
+class SearchResults extends Component {
+  state = {
+    showPortal: false
+  };
+
+  componentDidMount() {
+    console.log("Mount Props: ", this.props);
+  }
+
+  renderContent(data, showPortal) {
     if (data.length) {
       let content = [];
+      console.log("search results data: ", data);
+
       for (let item of data) {
         content.push(
           <Column key={item.id} xs={{ offset: 2, span: 20 }} sm={{ offset: 3, span: 18 }} lg={{ offset: 4, span: 16 }}>
@@ -16,26 +26,41 @@ const SearchResults = ({ cuisine, data, history }) => {
               <RecipeTitle id={item.id}>{item.title.toUpperCase()}</RecipeTitle>
             </Row>
             <Row>
-              <Image src={item.image} alt="" />
+              <Image src={item.image} alt="" onClick={() => this.setState({ showPortal: !showPortal })} />
             </Row>
-            {/* <a href={item.sourceUrl} target="_blank">
-              Read Here
-            </a> */}
           </Column>
         );
       }
       return content;
     } else return null;
-  };
-  return (
-    <div>
-      <Header>{cuisine}</Header>
-      {renderContent(data)}
-    </div>
-  );
+  }
+
+  goBack() {
+    this.setState({
+      showPortal: false
+    });
+  }
+
+  render() {
+    let { cuisine, data } = this.props;
+    let { showPortal } = this.state;
+    return (
+      <div>
+        <Header>{cuisine}</Header>
+        {this.renderContent(data)}
+        {/* Mount SearchResultsSingle component via React Portal */}
+        {/* arrow fn in callback prop to bind this to context of component */}
+        {showPortal && <Portal open={showPortal} goBack={() => this.goBack()} />}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {};
 };
 
-export default connect(null, { saveRecipe })(SearchResults);
+export default connect(mapStateToProps, { saveRecipe })(SearchResults);
 
 const Header = styled.h1`
   color: #2e3539;

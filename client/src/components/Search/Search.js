@@ -129,7 +129,7 @@ const Header = styled.h1`
   text-align: center;
   margin-top: 58px;
   letter-spacing: 0.1em;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.1);
 
   @media (max-width: 480px) {
     font-size: 22px;

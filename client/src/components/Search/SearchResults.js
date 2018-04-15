@@ -8,7 +8,8 @@ import styled from "styled-components";
 class SearchResults extends Component {
   state = {
     showPortal: false,
-    clickedItemId: null
+    clickedItemId: null,
+    saveLoader: false
   };
 
   componentDidMount() {
@@ -53,6 +54,13 @@ class SearchResults extends Component {
     });
   }
 
+  showSaveLoader() {
+    console.log("child clicked save recipe");
+    this.setState({
+      saveLoader: true
+    });
+  }
+
   render() {
     let { cuisine, data } = this.props;
     let { showPortal, clickedItemId } = this.state;
@@ -68,6 +76,8 @@ class SearchResults extends Component {
             dataElement={data[clickedItemId]}
             saveRecipe={this.props.saveRecipe}
             goBack={() => this.goBack()}
+            showSaveLoader={() => this.showSaveLoader()}
+            saveLoader={this.state.saveLoader}
           />
         )}
       </div>

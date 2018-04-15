@@ -39,13 +39,13 @@
   padding: 0 40px !important;
 }
 
-.ant-menu-horizontal>.ant-menu-item {
+.ant-menu-horizontal > .ant-menu-item {
   margin: 0 10px;
   display: inline;
   text-align: center;
 }
 
-.ant-menu-inline-collapsed>.ant-menu-item {
+.ant-menu-inline-collapsed > .ant-menu-item {
   padding: 0px !important;
   text-align: center;
 }
@@ -67,6 +67,10 @@
   border-bottom: 1px solid #694345;
 }
 
+.ant-layout-sider-trigger {
+  z-index: 0 !important;
+}
+
 /* = = = = = = = = = = = = = UserAccounts / = = = = = = = = = = = = = */
 
 @media (max-width: 575px) {
@@ -82,7 +86,7 @@
   text-align: center;
 }
 
-.ant-collapse>.ant-collapse-item>.ant-collapse-header:hover {
+.ant-collapse > .ant-collapse-item > .ant-collapse-header:hover {
   color: #4f778f;
 }
 
@@ -179,7 +183,7 @@ a.ant-btn-sm {
   text-align: center;
 }
 
-.ant-modal-body>p {
+.ant-modal-body > p {
   color: #b82933 !important;
   margin-top: 10px;
 }
@@ -214,10 +218,14 @@ a.ant-btn-sm {
   margin: 75px 0 !important;
 }
 
-/* = = = = = = SearchResults.js = = = = = = */
+/* = = = = = = SearchResultsSingle.js = = = = = = */
+.ant-card-meta-title {
+  white-space: normal !important;
+}
 
-.ant-card {
-  width: 90% important;
+/* = = = = = = Ant Spinner = = = = = =   */
+.ant-spin {
+  color: #fff !important;
 }
 
 /* = = = = = = = = == = = = = = = = == = = = = = = = = =
@@ -227,19 +235,19 @@ a.ant-btn-sm {
 /*  HEADER COMPONENT MQs */
 
 @media (max-width: 1127px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 10px;
   }
 }
 
 @media (max-width: 866px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 4px;
   }
 }
 
 @media (max-width: 700px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 2px;
   }
   .NavBar {
@@ -266,7 +274,7 @@ a.ant-btn-sm {
     min-width: 50px !important;
     width: 50px !important;
   }
-  .ant-layout-sider-collapsed>.ant-layout-sider-trigger {
+  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
     width: 50px !important;
   }
   .ant-layout-has-sider {

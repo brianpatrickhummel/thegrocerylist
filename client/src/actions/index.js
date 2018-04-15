@@ -44,7 +44,6 @@ export const updatePrefs = (checkedList, prefType) => async dispatch => {
 
 // Save Single Recipe
 export const saveRecipe = (recipeId, dataElement) => async dispatch => {
-  console.log("saveRecipe Action dataElement", dataElement);
   const res = await axios.post(`/recipe/save/${recipeId}`, dataElement);
   dispatch({ type: FETCH_USER, payload: res.data });
 };

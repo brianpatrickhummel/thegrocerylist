@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Menu, Dropdown, Icon, Row, Col, Spin } from "antd";
+import { Menu, Dropdown, Icon, Row, Col } from "antd";
+import Spinner from "../Spinner";
 import styled from "styled-components";
 import SearchResults from "./SearchResults";
 import axios from "axios";
 
 class Search extends Component {
+  // Local State will store recipe results
   state = {
     loading: false,
     data: [],
@@ -31,7 +33,7 @@ class Search extends Component {
     );
   }
 
-  // HTTP request to Spoonacular API, triggered when user makes a DropDown menu selection
+  // DropDown menu selection initializes HTTP request to Spoonacular API
   async getRecipes(key) {
     this.setState({ loading: true });
     let result = await axios.get(`/recipe/search/${key}`);
@@ -39,6 +41,16 @@ class Search extends Component {
     // Store results of Axios query in local state, disable Loading Spinner
     this.state.data.push(...result.data);
     this.setState({ loading: false });
+  }
+
+  // If user saves a recipe, remove that recipe from state data array
+  removeSavedRecipe(recipeId) {
+    let data = this.state.data.filter(object => object.id !== recipeId);
+
+    this.setState({
+      data: data
+    });
+    console.log("after saving recipe, state: ", this.state);
   }
 
   render() {
@@ -60,11 +72,8 @@ class Search extends Component {
       </Menu>
     );
 
-    // Ant Design Loading Spinner Component
-    const antIcon = <Icon type="loading" style={{ fontSize: 80 }} spin />;
-
     return (
-      // If auth data is loaded and user has set Cuisines in Prefs, render DropDown Menu
+      // Auth loaded && user HAS set Cuisines in Prefs, render DropDown Menu
       auth && Object.keys(auth.preferences.cuisines).every(i => !auth.preferences.cuisines[i]) ? (
         <SetCuisinesMessage
           xs={{ span: 22, offset: 1 }}
@@ -84,7 +93,7 @@ class Search extends Component {
             PLEASE SET CUISINES PREFERENCES <Icon type="rollback" style={{ fontSize: 16 }} />
           </CuisineLink>
         </SetCuisinesMessage>
-      ) : // If auth data is loaded, but user has not set any Cuisines in Prefs, render reminder
+      ) : // Auth loaded but user HAS NOT set any Cuisines in Prefs, render reminder
       auth ? (
         <div>
           <Column xs={{ span: 20, offset: 2 }}>
@@ -94,14 +103,20 @@ class Search extends Component {
               </Anchor>
             </Dropdown>
           </Column>
+          {/* Placeholder Bar to match Bar on SearchResults component */}
+          {!data.length && <Header>.</Header>}
           {/*  User clicks option, show loading spinner until Axios request completes */}
           {loading ? (
             <SpinColumn xs={{ span: 8, offset: 8 }}>
-              <Spin indicator={antIcon} />
+              <Spinner />
             </SpinColumn>
           ) : // Only render SearchResults if state data has length
           data.length ? (
-            <SearchResults data={data} cuisine={cuisine} />
+            <SearchResults
+              data={data}
+              cuisine={cuisine}
+              removeSavedRecipe={recipeId => this.removeSavedRecipe(recipeId)}
+            />
           ) : null}
         </div>
       ) : null
@@ -119,6 +134,18 @@ const Exclaim = styled(Icon)`
   font-size: 22px;
   color: #b62b37;
   margin-bottom: 10px;
+`;
+
+const Header = styled.h1`
+  color: rgba(255, 255, 255, 0);
+  text-align: center;
+  margin-top: 58px;
+  letter-spacing: 0.1em;
+  background-color: rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 480px) {
+    font-size: 22px;
+  }
 `;
 
 const Anchor = styled.a`

@@ -2,10 +2,11 @@
 
 import { combineReducers } from "redux";
 import authReducer from "./authReducer";
+import loadingReducer from "./loadingReducer";
 
 export default combineReducers({
-  auth: authReducer
-  // saved: savedRecipesReducer,
+  auth: authReducer,
+  spinner: loadingReducer
   // favorites: favoritesReducer,
   // lists: listsReducer
 });

@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import Portal from "./Portal";
-import { saveRecipe } from "../../actions";
-import { connect } from "react-redux";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 
 class SearchResults extends Component {
   state = {
-    showPortal: false
+    showPortal: false,
+    clickedItemId: null
   };
 
   componentDidMount() {
@@ -17,16 +16,24 @@ class SearchResults extends Component {
   renderContent(data, showPortal) {
     if (data.length) {
       let content = [];
-      console.log("search results data: ", data);
-
-      for (let item of data) {
+      for (let i = 0; i < data.length; i++) {
         content.push(
-          <Column key={item.id} xs={{ offset: 2, span: 20 }} sm={{ offset: 3, span: 18 }} lg={{ offset: 4, span: 16 }}>
+          <Column key={i} xs={{ span: 20, offset: 2 }} sm={{ span: 18, offset: 3 }} lg={{ span: 16, offset: 4 }}>
             <Row>
-              <RecipeTitle id={item.id}>{item.title.toUpperCase()}</RecipeTitle>
+              <RecipeTitle id={data[i].id}>{data[i].title.toUpperCase()}</RecipeTitle>
             </Row>
             <Row>
-              <Image src={item.image} alt="" onClick={() => this.setState({ showPortal: !showPortal })} />
+              <Image
+                id={i}
+                src={data[i].image}
+                alt=""
+                onClick={e => {
+                  this.setState({
+                    clickedItemId: e.target.id,
+                    showPortal: !showPortal
+                  });
+                }}
+              />
             </Row>
           </Column>
         );
@@ -42,25 +49,29 @@ class SearchResults extends Component {
   }
 
   render() {
-    let { cuisine, data } = this.props;
-    let { showPortal } = this.state;
+    let { cuisine, data, removeSavedRecipe } = this.props;
+
+    let { showPortal, clickedItemId } = this.state;
+
     return (
-      <div>
+      <div className="searchResults">
         <Header>{cuisine}</Header>
         {this.renderContent(data)}
         {/* Mount SearchResultsSingle component via React Portal */}
-        {/* arrow fn in callback prop to bind this to context of component */}
-        {showPortal && <Portal open={showPortal} goBack={() => this.goBack()} />}
+        {showPortal && (
+          <Portal
+            open={showPortal}
+            dataElement={data[clickedItemId]}
+            goBack={() => this.goBack()}
+            removeSavedRecipe={removeSavedRecipe}
+          />
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
-export default connect(mapStateToProps, { saveRecipe })(SearchResults);
+export default SearchResults;
 
 const Header = styled.h1`
   color: #2e3539;
@@ -75,7 +86,8 @@ const Header = styled.h1`
 `;
 const Column = styled(Col)`
   text-align: center;
-  margin: 8px 0 15px 0;
+  margin-top: 8px;
+  margin-bottom: 15px;
   border: 1px solid rgba(104, 67, 69, 0.05);
   border-radius: 2px;
   padding: 10px 5px 20px 5px;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER } from "./types";
+import { FETCH_USER, IS_LOADING } from "./types";
 
 // Gather User Model from MongoDB (for credits/survey data)
 // redux-thunk allows us to return a function (with access to dispatch()) from action creator
@@ -43,7 +43,17 @@ export const updatePrefs = (checkedList, prefType) => async dispatch => {
 };
 
 // Save Single Recipe
-export const saveRecipe = (recipeId, data) => async dispatch => {
-  const res = await axios.post(`/recipe/save/${recipeId}`, data);
+export const saveRecipe = (recipeId, dataElement) => async dispatch => {
+  const res = await axios.post(`/recipe/save/${recipeId}`, dataElement);
+  dispatch({ type: IS_LOADING, payload: { isSpinning: false } });
   dispatch({ type: FETCH_USER, payload: res.data });
+  console.log("saveRecipe action finished");
+};
+
+export const showLoader = boolean => {
+  console.log(`showLoader action creator received boolean:  ${boolean}`);
+  return {
+    type: IS_LOADING,
+    payload: { isSpinning: boolean }
+  };
 };

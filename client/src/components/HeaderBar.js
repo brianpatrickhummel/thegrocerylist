@@ -48,7 +48,6 @@ class HeaderBar extends Component {
   }
 
   render() {
-    console.log("match: ", this.props);
     return (
       <div>
         {/* Header Nav - visibility controlled by Media Queries */}

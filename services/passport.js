@@ -62,7 +62,6 @@ passport.use(
         // pull the user out of the session
         console.log("REQ.USER ALREADY LOGGED IN, WILL AUTHORIZE AND CONNECT THIS ACCOUNT");
         var user = req.user;
-
         // update the current user's Google credentials
         (user.authProviders.google.Id = profile.id),
           (user.authProviders.google.DisplayName = profile.displayName),
@@ -117,7 +116,6 @@ passport.use(
         // user already exists and is logged in, we have to link accounts
         // pull the user out of the session
         var user = req.user;
-
         // update the current user's Facebook credentials
         (user.authProviders.facebook.Id = profile.id),
           (user.authProviders.facebook.DisplayName = profile.displayName),
@@ -172,7 +170,7 @@ passport.use(
         // user already exists and is logged in, we have to link accounts
         // pull the user out of the session
         var user = req.user;
-
+        console.log("twitter auth, user is : ", user);
         // update the current user's Twitter credentials
         (user.authProviders.twitter.Id = profile.id),
           (user.authProviders.twitter.DisplayName = profile.displayName),

@@ -9,19 +9,23 @@ const RecipesSchema = new Schema({
   servings: Number,
   preparationMinutes: Number,
   cookingMinutes: Number,
+  readyInMinutes: Number,
   extendedIngredients: [
     {
       id: Number,
       name: String,
       amount: Number,
-      originalString: String
+      originalString: String,
+      aisle: String,
+      unit: String
     }
   ],
-  id: Number,
+  instructions: String,
+  id: String,
+  sourceName: String,
   sourceUrl: String,
   title: String,
   image: String,
-  instructions: String,
   analyzedInstructions: [
     {
       steps: [

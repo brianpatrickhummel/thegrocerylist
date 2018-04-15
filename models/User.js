@@ -96,6 +96,7 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  savedRecipes: [String],
   preferences: {
     intolerances: {
       dairy: { type: Boolean, default: false },

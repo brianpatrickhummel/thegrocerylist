@@ -8,14 +8,14 @@ const create = require("../images/CreateList.svg"),
 
 export default [
   {
-    link: "/create",
-    image: create,
-    text: "CREATE LIST"
-  },
-  {
     link: "/preferences/1",
     image: Prefs,
     text: "PREFERENCES"
+  },
+  {
+    link: "/search",
+    image: Search,
+    text: "RECIPE SEARCH"
   },
   {
     link: "/saved",
@@ -28,14 +28,14 @@ export default [
     text: "FAVORITES"
   },
   {
+    link: "/create",
+    image: create,
+    text: "CREATE LIST"
+  },
+  {
     link: "/lists",
     image: List,
     text: "MY LISTS"
-  },
-  {
-    link: "/search",
-    image: Search,
-    text: "RECIPE SEARCH"
   },
   {
     link: "/api/logout",

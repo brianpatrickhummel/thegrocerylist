@@ -143,7 +143,85 @@ module.exports = app => {
         },
         instructions:
           "Heat olive oil in a large pot over low heat. Add the garlic and cook until golden, about 3 minutes. Stir in the basil and tomatoes. Bring to a boil and add the salt; reduce heat to low and simmer, stirring occasionally, until sauce has thickened, about 40-45 minutes. Stir in the balsamic vinegar. Thread 5-7 spaghetti strands through each slice of sausage. In a large pot of boiling salted water, cook pasta according to package instructions; drain well. Serve immediately with marinara sauce.",
-        analyzedInstructions: [{ name: "", steps: [] }],
+        analyzedInstructions: [
+          {
+            name: "",
+            steps: [
+              {
+                number: 1,
+                step: "Heat olive oil in a large pot over low heat.",
+                ingredients: [
+                  {
+                    id: 4053,
+                    name: "olive oil",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/olive-oil.jpg"
+                  }
+                ],
+                equipment: [
+                  {
+                    id: 404752,
+                    name: "pot",
+                    image: "https://spoonacular.com/cdn/equipment_100x100/stock-pot.jpg"
+                  }
+                ]
+              },
+              {
+                number: 2,
+                step:
+                  "Add the garlic and cook until golden, about 3 minutes. Stir in the basil and tomatoes. Bring to a boil and add the salt; reduce heat to low and simmer, stirring occasionally, until sauce has thickened, about 40-45 minutes. Stir in the balsamic vinegar. Thread 5-7 spaghetti strands through each slice of sausage. In a large pot of boiling salted water, cook pasta according to package instructions; drain well.",
+                ingredients: [
+                  {
+                    id: 2069,
+                    name: "balsamic vinegar",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/balsamic-vinegar.jpg"
+                  },
+                  {
+                    id: 11420420,
+                    name: "spaghetti",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/spaghetti.jpg"
+                  },
+                  {
+                    id: 11215,
+                    name: "garlic",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/garlic.jpg"
+                  },
+                  {
+                    id: 2044,
+                    name: "basil",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/basil.jpg"
+                  },
+                  {
+                    id: 20420,
+                    name: "pasta",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/fusilli.jpg"
+                  },
+                  {
+                    id: 2047,
+                    name: "salt",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/salt.jpg"
+                  }
+                ],
+                equipment: [
+                  {
+                    id: 404752,
+                    name: "pot",
+                    image: "https://spoonacular.com/cdn/equipment_100x100/stock-pot.jpg"
+                  }
+                ],
+                length: {
+                  number: 48,
+                  unit: "minutes"
+                }
+              },
+              {
+                number: 3,
+                step: "Serve immediately with marinara sauce.",
+                ingredients: [],
+                equipment: []
+              }
+            ]
+          }
+        ],
         creditsText: "Damn Delicious"
       },
       {
@@ -366,7 +444,75 @@ module.exports = app => {
         },
         instructions:
           "To make the dressing, combine all of the dressing ingredients together in a food processor or blender, and pulse until smooth. Chill the dressing while making the salad.To cook the shrimp, heat a large skillet over medium-high heat. Season the shrimp with salt and black pepper, to taste.Add the oil and the shrimp, cooking for about 30 seconds. Flip all the shrimp and cook an additional 30 seconds on the other side, until pink and set aside until ready to use. To assemble the salad, toss the lettuce, 2 tablespoons of the cheese, the tomatoes, pine nuts, cooked shrimp, and dressing all together.Sprinkle the top with the croutons and  cup Parmesan cheese.",
-        analyzedInstructions: [{ name: "", steps: [] }],
+        analyzedInstructions: [
+          {
+            name: "",
+            steps: [
+              {
+                number: 1,
+                step:
+                  "To make the dressing, combine all of the dressing ingredients together in a food processor or blender, and pulse until smooth. Chill the dressing while making the salad.To cook the shrimp, heat a large skillet over medium-high heat. Season the shrimp with salt and black pepper, to taste.",
+                ingredients: [
+                  {
+                    id: 1102047,
+                    name: "salt and pepper",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/salt-and-pepper.jpg"
+                  },
+                  {
+                    id: 15152,
+                    name: "shrimp",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/shrimp.jpg"
+                  }
+                ],
+                equipment: [
+                  {
+                    id: 404771,
+                    name: "food processor",
+                    image: "https://spoonacular.com/cdn/equipment_100x100/food-processor.png"
+                  },
+                  {
+                    id: 404726,
+                    name: "blender",
+                    image: "https://spoonacular.com/cdn/equipment_100x100/blender.png"
+                  },
+                  {
+                    id: 404645,
+                    name: "frying pan",
+                    image: "https://spoonacular.com/cdn/equipment_100x100/pan.png"
+                  }
+                ]
+              },
+              {
+                number: 2,
+                step:
+                  "Add the oil and the shrimp, cooking for about 30 seconds. Flip all the shrimp and cook an additional 30 seconds on the other side, until pink and set aside until ready to use. To assemble the salad, toss the lettuce, 2 tablespoons of the cheese, the tomatoes, pine nuts, cooked shrimp, and dressing all together.Sprinkle the top with the croutons and  cup Parmesan cheese.",
+                ingredients: [
+                  {
+                    id: 1033,
+                    name: "parmesan",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/parmesan.jpg"
+                  },
+                  {
+                    id: 12147,
+                    name: "pine nuts",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/pine-nuts.jpg"
+                  },
+                  {
+                    id: 18242,
+                    name: "croutons",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/croutons.jpg"
+                  },
+                  {
+                    id: 15152,
+                    name: "shrimp",
+                    image: "https://spoonacular.com/cdn/ingredients_100x100/shrimp.jpg"
+                  }
+                ],
+                equipment: []
+              }
+            ]
+          }
+        ],
         creditsText: "Skinny Mom"
       }
     ];
@@ -379,7 +525,7 @@ module.exports = app => {
     //       arr.push(key);
     //     }
     //   }
-    //   // join with url-encoding for comma-space
+    //   //      // join with url-encoding for comma-space
     //   return arr.join("%2C+");
     // }
 
@@ -388,7 +534,7 @@ module.exports = app => {
 
     // let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=10&offset=0&query=*`;
 
-    // // Query list of recipes
+    // //    // Query list of recipes
     // let results = await axios({
     //   method: "get",
     //   url: query,
@@ -397,11 +543,16 @@ module.exports = app => {
     //     Accept: "application/json"
     //   }
     // });
-    // if (!results.data.results.length) return res.send([{id: 0, title: "No Recipes Found" }]);
+    // if (!results.data.results.length) return res.send([{ id: 0, title: "No Recipes Found" }]);
 
-    // // Store each recipe id in results_recipeIds array
+    // //   // Store each recipe id in results_recipeIds array
     // for (let item of results.data.results) {
-    //   results_recipeIds.push(item.id);
+    //   // UNLESS Recipe Id is already stored in User Model's savedRecipe array
+    //   if (req.user.savedRecipes.indexOf(item.id) === -1) {
+    //     results_recipeIds.push(item.id);
+    //   } else {
+    //     console.log(`Recipe ${item.id} has already been saved by user`);
+    //   }
     // }
 
     // // Query for recipe info by id in results_recipeIds array
@@ -409,7 +560,7 @@ module.exports = app => {
     // const start = Date.now();
     // let queryIds = results_recipeIds.join("%2C");
     // let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
-    // console.log("query2: ", query2);
+    // // console.log("query2: ", query2);
     // // Query list of recipes
     // let results2 = await axios({
     //   method: "get",
@@ -423,10 +574,6 @@ module.exports = app => {
 
     // console.log("This query process took: ", Date.now() - start);
 
-    ////////////////////////////////////////////////////////////////////////
-    ////// logic for removing saved recipes from search results
-    ////////////////////////////////////////////////////////////////////////
-
     // Return results_recipeInf array to client
     res.send(results_recipeInfo);
   });
@@ -434,8 +581,10 @@ module.exports = app => {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   // User Saves a Recipe to MongoDB
-  app.get("/recipe/save/:recipeId", requireLogin, async (req, res) => {
+  app.post("/recipe/save/:recipeId", async (req, res) => {
     let { recipeId } = req.params;
+    // Save RecipeId to User Model for reference on Recipe Search Route
+    req.user.savedRecipes.push(recipeId);
 
     // let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeId}/information?includeNutrition=false`;
 
@@ -448,47 +597,50 @@ module.exports = app => {
     //   }
     // });
 
-    console.log("request body: ", req.body);
+    // console.log("request body: ", req.body);
 
     // Save Recipe to MongoDB
     const existingRecipe = await Recipe.findOne({ id: recipeId });
     if (existingRecipe) {
       console.log("Recipe already exists in MongoDB");
-      return res.json(existingRecipe);
+      return res.send(req.user);
     }
 
     // Create a new instance/document of the User Model
 
-    // const {
-    //   servings,
-    //   preparationMinutes,
-    //   cookingMinutes,
-    //   extendedIngredients,
-    //   instructions,
-    //   id,
-    //   sourceUrl,
-    //   title,
-    //   image,
-    //   analyzedInstructions
-    // } = req.body.data;
+    const {
+      servings,
+      preparationMinutes,
+      cookingMinutes,
+      readyInMinutes,
+      extendedIngredients,
+      instructions,
+      id,
+      sourceName,
+      sourceUrl,
+      title,
+      image,
+      analyzedInstructions
+    } = req.body;
 
-    // console.log(results.data);
+    const recipe = await new Recipe({
+      _user: req.user.id,
+      servings,
+      preparationMinutes,
+      cookingMinutes,
+      readyInMinutes,
+      extendedIngredients,
+      instructions,
+      id,
+      sourceName,
+      sourceUrl,
+      title,
+      image,
+      analyzedInstructions
+    }).save();
 
-    // const recipe = await new Recipe({
-    //   _user: req.user.id,
-    //   servings,
-    //   preparationMinutes,
-    //   cookingMinutes,
-    //   extendedIngredients,
-    //   instructions,
-    //   id,
-    //   sourceUrl,
-    //   title,
-    //   image,
-    //   analyzedInstructions
-    // }).save();
-
-    // res.json(recipe);
-    res.send("finished");
+    // Save updated User Model
+    const user = await req.user.save();
+    res.send(user);
   });
 };

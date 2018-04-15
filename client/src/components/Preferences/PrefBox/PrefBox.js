@@ -32,10 +32,10 @@ class PrefBox extends Component {
   // Message to display when preferences are modified and saved by user
   success(prefType) {
     message.config({
-      top: "25%",
+      top: "40%",
       duration: 1.3
     });
-    message.success(` ${prefType.toUpperCase()} SUCCESSFULLY UPDATED !`);
+    message.success(` ${prefType.toUpperCase()} SUCCESSFULLY UPDATED!`);
   }
 
   // when checkbox is clicked, cancel/save buttons will render and state will be updated with new "checked" value
@@ -130,10 +130,6 @@ const CheckBoxContainer = styled(Col)`
   margin: 0 auto;
   border-radius: 4px;
   margin-top: 15px !important;
-
-  @media (max-width: 628px) {
-    margin-top: 0px !important;
-  }
 `;
 
 const CheckBoxRow = styled(Row)`

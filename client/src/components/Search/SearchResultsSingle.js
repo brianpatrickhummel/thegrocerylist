@@ -7,23 +7,24 @@ import { Card, Icon } from "antd";
 const { Meta } = Card;
 
 const SearchResultsSingle = props => {
-  let { goBack } = props;
-  console.log("single props goback: ", goBack);
+  let { goBack, dataElement, saveRecipe } = props;
+  console.log("dataElement at SRS Comp: ", dataElement);
+  console.log("dataElement.id: ", dataElement.id);
   return (
     <ModalContainer>
       <Card
         style={{ width: "90%" }}
-        cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+        cover={<img alt="example" src={dataElement.image} />}
         actions={[
           <Icon type="arrow-left" onClick={goBack} />,
-          <Icon type="like" onClick={() => console.log("Clicked, Saving...")} />,
+          <Icon type="like" onClick={() => saveRecipe(dataElement.id, dataElement)} />,
           <a href="https://www.google.com" target="about_blank">
             <Icon type="link" onClick={() => console.log("Loading webpage...")} />
           </a>
         ]}
       >
         <Meta
-          title="Card title"
+          title={dataElement.title}
           description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ex et rerum itaque ratione, corrupti explicabo cumque, eligendi non aspernatur ab alias aliquam accusamus magni! Debitis earum facere eveniet. Atque?"
         />
       </Card>

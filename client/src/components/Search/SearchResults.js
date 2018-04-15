@@ -7,7 +7,8 @@ import styled from "styled-components";
 
 class SearchResults extends Component {
   state = {
-    showPortal: false
+    showPortal: false,
+    clickedItemId: null
   };
 
   componentDidMount() {
@@ -18,15 +19,26 @@ class SearchResults extends Component {
     if (data.length) {
       let content = [];
       console.log("search results data: ", data);
+      console.log(("analyzed instructions: ", data[0].analyzedInstructions));
 
-      for (let item of data) {
+      for (let i = 0; i < data.length; i++) {
         content.push(
-          <Column key={item.id} xs={{ offset: 2, span: 20 }} sm={{ offset: 3, span: 18 }} lg={{ offset: 4, span: 16 }}>
+          <Column key={i} xs={{ offset: 2, span: 20 }} sm={{ offset: 3, span: 18 }} lg={{ offset: 4, span: 16 }}>
             <Row>
-              <RecipeTitle id={item.id}>{item.title.toUpperCase()}</RecipeTitle>
+              <RecipeTitle id={data[i].id}>{data[i].title.toUpperCase()}</RecipeTitle>
             </Row>
             <Row>
-              <Image src={item.image} alt="" onClick={() => this.setState({ showPortal: !showPortal })} />
+              <Image
+                id={i}
+                src={data[i].image}
+                alt=""
+                onClick={e => {
+                  this.setState({
+                    clickedItemId: e.target.id,
+                    showPortal: !showPortal
+                  });
+                }}
+              />
             </Row>
           </Column>
         );
@@ -43,14 +55,21 @@ class SearchResults extends Component {
 
   render() {
     let { cuisine, data } = this.props;
-    let { showPortal } = this.state;
+    let { showPortal, clickedItemId } = this.state;
     return (
       <div>
         <Header>{cuisine}</Header>
         {this.renderContent(data)}
         {/* Mount SearchResultsSingle component via React Portal */}
         {/* arrow fn in callback prop to bind this to context of component */}
-        {showPortal && <Portal open={showPortal} goBack={() => this.goBack()} />}
+        {showPortal && (
+          <Portal
+            open={showPortal}
+            dataElement={data[clickedItemId]}
+            saveRecipe={this.props.saveRecipe}
+            goBack={() => this.goBack()}
+          />
+        )}
       </div>
     );
   }

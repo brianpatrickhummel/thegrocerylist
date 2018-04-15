@@ -7,6 +7,7 @@ import SearchResults from "./SearchResults";
 import axios from "axios";
 
 class Search extends Component {
+  // Local State will store recipe results
   state = {
     loading: false,
     data: [],
@@ -31,7 +32,7 @@ class Search extends Component {
     );
   }
 
-  // HTTP request to Spoonacular API, triggered when user makes a DropDown menu selection
+  // DropDown menu selection initializes HTTP request to Spoonacular API
   async getRecipes(key) {
     this.setState({ loading: true });
     let result = await axios.get(`/recipe/search/${key}`);
@@ -64,7 +65,7 @@ class Search extends Component {
     const antIcon = <Icon type="loading" style={{ fontSize: 80 }} spin />;
 
     return (
-      // If auth data is loaded and user has set Cuisines in Prefs, render DropDown Menu
+      // Auth loaded && user HAS set Cuisines in Prefs, render DropDown Menu
       auth && Object.keys(auth.preferences.cuisines).every(i => !auth.preferences.cuisines[i]) ? (
         <SetCuisinesMessage
           xs={{ span: 22, offset: 1 }}
@@ -84,7 +85,7 @@ class Search extends Component {
             PLEASE SET CUISINES PREFERENCES <Icon type="rollback" style={{ fontSize: 16 }} />
           </CuisineLink>
         </SetCuisinesMessage>
-      ) : // If auth data is loaded, but user has not set any Cuisines in Prefs, render reminder
+      ) : // Auth loaded but user HAS NOT set any Cuisines in Prefs, render reminder
       auth ? (
         <div>
           <Column xs={{ span: 20, offset: 2 }}>
@@ -94,6 +95,8 @@ class Search extends Component {
               </Anchor>
             </Dropdown>
           </Column>
+          {/* Placeholder Bar to match Bar on SearchResults component */}
+          {!data.length && <Header>.</Header>}
           {/*  User clicks option, show loading spinner until Axios request completes */}
           {loading ? (
             <SpinColumn xs={{ span: 8, offset: 8 }}>
@@ -119,6 +122,18 @@ const Exclaim = styled(Icon)`
   font-size: 22px;
   color: #b62b37;
   margin-bottom: 10px;
+`;
+
+const Header = styled.h1`
+  color: rgba(255, 255, 255, 0);
+  text-align: center;
+  margin-top: 58px;
+  letter-spacing: 0.1em;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  @media (max-width: 480px) {
+    font-size: 22px;
+  }
 `;
 
 const Anchor = styled.a`

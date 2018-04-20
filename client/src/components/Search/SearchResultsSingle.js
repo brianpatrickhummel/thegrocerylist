@@ -65,7 +65,7 @@ class SearchResultsSingle extends Component {
   displayError(errorMessage) {
     message.config({
       top: "30%",
-      duration: 1.4
+      duration: 2.3
     });
     message.success(` ${errorMessage}, Please Try Again`);
   }
@@ -142,7 +142,7 @@ class SearchResultsSingle extends Component {
 
         {/* --- Recipe Saved, Display Sucess Message --- */}
         {Object.keys(recipe).length && (
-          <SuccessCard className="saveRecipeErrorDiv">
+          <SuccessCard bordered={false} className="saveRecipeErrorDiv">
             <Text>{this.displaySuccess()}</Text>
             {this.exitSavePortal(recipe.id)}
           </SuccessCard>
@@ -157,7 +157,7 @@ class SearchResultsSingle extends Component {
 
         {/* --- Recipe Save Error, Display Error Message --- */}
         {error && (
-          <ErrorCard className="saveRecipeErrorDiv">
+          <ErrorCard bordered={false} className="saveRecipeErrorDiv">
             <Text>{this.displayError(error)}</Text>
             {this.exitSavePortal()}
           </ErrorCard>

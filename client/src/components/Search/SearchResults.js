@@ -23,7 +23,7 @@ class SearchResults extends Component {
               <Image
                 id={i}
                 src={data[i].image}
-                alt=""
+                alt="recipe image"
                 onClick={e => {
                   this.setState({
                     clickedItemId: e.target.id,
@@ -50,7 +50,7 @@ class SearchResults extends Component {
     let { showPortal, clickedItemId } = this.state;
 
     return (
-      <div className="searchResults">
+      <SearchResultsRow className="searchResults">
         <Header>{cuisine}</Header>
         {this.renderContent(data)}
         {/* Mount SearchResultsSingle component via React Portal */}
@@ -62,12 +62,14 @@ class SearchResults extends Component {
             removeSavedRecipe={removeSavedRecipe}
           />
         )}
-      </div>
+      </SearchResultsRow>
     );
   }
 }
 
 export default SearchResults;
+
+const SearchResultsRow = styled(Row)``;
 
 const Header = styled.h1`
   color: #2e3539;

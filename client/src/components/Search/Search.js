@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Menu, Dropdown, Icon, Row, Col } from "antd";
+import { Menu, Dropdown, Icon, Row, Col, Button } from "antd";
 import Spinner from "../Spinner";
 import styled from "styled-components";
 import SearchResults from "./SearchResults";
@@ -12,7 +12,8 @@ class Search extends Component {
   state = {
     loading: false,
     data: [],
-    cuisine: ""
+    cuisine: "",
+    offset: 0
   };
 
   // Render DropDown menu fields from user's Cuisines Prefs
@@ -36,7 +37,7 @@ class Search extends Component {
   // DropDown menu selection initializes HTTP request to Spoonacular API
   async getRecipes(key) {
     this.setState({ loading: true });
-    let result = await axios.get(`/recipe/search/${key}`);
+    let result = await axios.get(`/recipe/search/${key}/${this.state.offset}`);
 
     // Store results of Axios query in local state, disable Loading Spinner
     this.state.data.push(...result.data);
@@ -51,9 +52,23 @@ class Search extends Component {
     });
   }
 
+  nextPage(key) {
+    this.setState(
+      {
+        data: [],
+        offset: this.state.offset + (key === "Prev" ? -3 : +3)
+      },
+      () => {
+        console.log("offset after click: ", key);
+        console.log("state.offest after click: ", this.state.offset);
+        this.getRecipes(this.state.cuisine);
+      }
+    );
+  }
+
   render() {
     let { auth } = this.props;
-    let { data, loading, cuisine } = this.state;
+    let { data, loading, cuisine, offset } = this.state;
 
     // Ant Design Drop-Down Menu Component
     const menu = (
@@ -116,6 +131,26 @@ class Search extends Component {
               removeSavedRecipe={recipeId => this.removeSavedRecipe(recipeId)}
             />
           ) : null}
+          {!loading && (
+            <PageButtonRow>
+              <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 8 }}>
+                {data.length > 0 &&
+                  offset > 0 && (
+                    <Button id={"Prev"} onClick={e => this.nextPage(e.target.id)}>
+                      Prev
+                    </Button>
+                  )}
+              </PageButtonCol>
+
+              <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 0 }}>
+                {data.length > 0 && (
+                  <Button id={"Next"} onClick={e => this.nextPage(e.target.id)}>
+                    Next
+                  </Button>
+                )}
+              </PageButtonCol>
+            </PageButtonRow>
+          )}
         </div>
       ) : null
     );
@@ -192,4 +227,12 @@ const MessageH3 = styled.h3`
 
 const Horizontal = styled.hr`
   border-color: rgba(255, 255, 255, 0.2);
+`;
+
+const PageButtonRow = styled(Row)`
+  margin: 15px 0 40px 0;
+`;
+
+const PageButtonCol = styled(Col)`
+  text-align: center;
 `;

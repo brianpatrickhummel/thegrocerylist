@@ -27,7 +27,7 @@ class HeaderBar extends Component {
             <LinkAnchor to={link} className={classNames}>
               <div className="hvr-shrink">
                 <Icon>
-                  <LinkImage src={image} alt="" />
+                  <LinkImage src={image} alt="menu item icon" />
                 </Icon>
                 <LinkText>{text}</LinkText>
               </div>
@@ -36,7 +36,7 @@ class HeaderBar extends Component {
             <LinkAnchor2 href={link} className={classNames}>
               <div className="hvr-shrink">
                 <Icon>
-                  <LinkImage src={image} alt="" />
+                  <LinkImage src={image} alt="logout icon" />
                 </Icon>
                 <LinkText>{text}</LinkText>
               </div>

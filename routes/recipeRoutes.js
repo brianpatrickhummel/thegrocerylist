@@ -5,9 +5,10 @@ const Recipe = require("../models/Recipe");
 
 module.exports = app => {
   // Search For Recipes By Cuisine
-  app.get("/recipe/search/:queryCuisine/:offset?", requireLogin, async (req, res) => {
-    let { queryCuisine } = req.params;
-    let offset = req.params.offset || 0;
+  app.get("/recipe/search/:queryCuisine/:direction?/:offset?", requireLogin, async (req, res) => {
+    let { queryCuisine, direction } = req.params;
+    let offset = parseInt(req.params.offset) || 0;
+    let directionSign = Math.sign(direction === "Next" ? 1 : -1);
     let { intolerances, diet } = req.user.preferences;
     let results_recipeIds = [];
     let results_recipeInfo = [
@@ -518,7 +519,6 @@ module.exports = app => {
       // }
     ];
 
-    console.log("offset param:", offset);
     // Convert Pref Objects into Spoonacular Query String segments
     function makeString(obj) {
       let arr = [];
@@ -533,35 +533,54 @@ module.exports = app => {
 
     let queryIntolerances = makeString(intolerances);
     let queryDiet = makeString(diet);
+    let numberOfResults = 3;
 
-    let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=3&offset=${offset}&query=*`;
+    // Recursive Spoonacular API query
+    // User may save recipes while paginating results
+    // When saved recipes are filtered, will recursively call API query until
+    // "numberOfResults" of recipes have accumulated in "results_recipeIds" array
+    const querySpoon = async () => {
+      let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=${numberOfResults}&offset=${offset}&query=*`;
 
-    // Query list of recipes
-    let results = await axios({
-      method: "get",
-      url: query,
-      headers: {
-        "X-Mashape-Key": keys.spoonacularKey,
-        Accept: "application/json"
+      // Query list of recipes
+      let results = await axios({
+        method: "get",
+        url: query,
+        headers: {
+          "X-Mashape-Key": keys.spoonacularKey,
+          Accept: "application/json"
+        }
+      });
+      if (!results.data.results.length) return res.send([{ id: 0, title: "No Recipes Found" }]);
+
+      // Store first 10 unsaved recipe ids into results_recipeIds array
+      for (let item of results.data.results) {
+        // UNLESS Recipe Id is already stored in User Model's savedRecipe array
+        if (req.user.savedRecipes.indexOf(item.id) === -1) {
+          results_recipeIds.push(item.id);
+        } else {
+          console.log(`Recipe ${item.id} has already been saved by user`);
+        }
       }
-    });
-    if (!results.data.results.length) return res.send([{ id: 0, title: "No Recipes Found" }]);
 
-    // Store first 10 unsaved recipe ids into results_recipeIds array
-    for (let item of results.data.results) {
-      // UNLESS Recipe Id is already stored in User Model's savedRecipe array
-      if (req.user.savedRecipes.indexOf(item.id) === -1) {
-        results_recipeIds.push(item.id);
-      } else {
-        console.log(`Recipe ${item.id} has already been saved by user`);
+      // If after filtering saved recipes an additional query is necessary
+      // will make another call adjusting the update based on whether user is
+      // paginating forward or backward through results
+      if (results_recipeIds.length < numberOfResults) {
+        offset += directionSign * numberOfResults;
+        return querySpoon(offset);
       }
-    }
+    };
+
+    await querySpoon();
 
     // Query for recipe info by id in results_recipeIds array
     // Store in results_recipeInf array
     const start = Date.now();
     let queryIds = results_recipeIds.join("%2C");
+
     let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
+
     // console.log("query2: ", query2);
     // Query list of recipes
     let results2 = await axios({

@@ -382,6 +382,9 @@ a.ant-btn-sm {
 }
 
 @media (max-width: 380px) {
+  .ant-checkbox-wrapper {
+    font-size: 9px !important;
+  }
   .ant-tabs-tab {
     padding: 10px 0px 4px 0px !important;
     margin: 5px 8px !important;
@@ -389,6 +392,12 @@ a.ant-btn-sm {
   .ant-tabs-nav-container {
     font-size: 12px !important;
     line-height: 1.5 !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .ant-checkbox-wrapper {
+    font-size: 8px !important;
   }
 }
 

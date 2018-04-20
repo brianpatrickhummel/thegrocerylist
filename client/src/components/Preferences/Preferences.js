@@ -14,13 +14,13 @@ const Preferences = ({ match }) => {
           <UserAccounts />
         </TabPane>
         <TabPane tab={<SpanText>DIET</SpanText>} key="2">
-          <PrefBox prefType={"diet"} styling={dietAndIntolerances} />
+          <PrefBox prefType={"diet"} styling={diet} />
         </TabPane>
         <TabPane tab={<SpanText>CUISINES</SpanText>} key="4">
           <PrefBox prefType={"cuisines"} styling={cuisines} />
         </TabPane>
         <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="3">
-          <PrefBox prefType={"intolerances"} styling={dietAndIntolerances} />
+          <PrefBox prefType={"intolerances"} styling={intolerances} />
         </TabPane>
       </Tabs>
     </div>
@@ -34,9 +34,9 @@ const SpanText = styled.span`
 `;
 
 // styling variations for the three versions of the PrefBox components
-let dietAndIntolerances = {
+let diet = {
   CheckBoxColumn: {
-    xs: { span: 14, offset: 7 },
+    xs: { span: 15, offset: 5 },
     sm: { span: 7, offset: 1 }
   },
   CheckBoxContainer: {
@@ -53,6 +53,18 @@ let cuisines = {
   },
   CheckBoxContainer: {
     xs: { span: 22, offset: 1 },
+    sm: { span: 22, offset: 1 },
+    md: { span: 20, offset: 2 }
+  }
+};
+
+let intolerances = {
+  CheckBoxColumn: {
+    xs: { span: 14, offset: 7 },
+    sm: { span: 7, offset: 1 }
+  },
+  CheckBoxContainer: {
+    xs: { span: 18, offset: 3 },
     sm: { span: 22, offset: 1 },
     md: { span: 20, offset: 2 }
   }

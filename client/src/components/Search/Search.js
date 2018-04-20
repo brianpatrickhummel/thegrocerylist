@@ -13,7 +13,8 @@ class Search extends Component {
     loading: false,
     data: [],
     cuisine: "",
-    offset: 0
+    offset: 0,
+    searched: false
   };
 
   // Render DropDown menu fields from user's Cuisines Prefs
@@ -35,9 +36,9 @@ class Search extends Component {
   }
 
   // DropDown menu selection initializes HTTP request to Spoonacular API
-  async getRecipes(key) {
+  async getRecipes(cuisines, direction = "Next") {
     this.setState({ loading: true });
-    let result = await axios.get(`/recipe/search/${key}/${this.state.offset}`);
+    let result = await axios.get(`/recipe/search/${cuisines}/${direction}/${this.state.offset}`);
 
     // Store results of Axios query in local state, disable Loading Spinner
     this.state.data.push(...result.data);
@@ -52,30 +53,34 @@ class Search extends Component {
     });
   }
 
-  nextPage(key) {
+  nextPage(direction) {
     this.setState(
       {
         data: [],
-        offset: this.state.offset + (key === "Prev" ? -3 : +3)
+        offset: this.state.offset + (direction === "Prev" ? -3 : +3)
       },
       () => {
-        console.log("offset after click: ", key);
+        console.log("offset after click: ", direction);
         console.log("state.offest after click: ", this.state.offset);
-        this.getRecipes(this.state.cuisine);
+        this.getRecipes(this.state.cuisine, direction);
       }
     );
   }
 
   render() {
     let { auth } = this.props;
-    let { data, loading, cuisine, offset } = this.state;
+    let { data, loading, cuisine, offset, searched } = this.state;
 
     // Ant Design Drop-Down Menu Component
     const menu = (
       <Menu
         onClick={({ key }) => {
           // Reset local state
-          this.setState({ cuisine: key, data: [] });
+          this.setState({
+            cuisine: key,
+            data: [],
+            searched: true
+          });
           // Initialize Axios req to Spoonacular API
           this.getRecipes(key);
         }}
@@ -134,7 +139,7 @@ class Search extends Component {
           {!loading && (
             <PageButtonRow>
               <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 8 }}>
-                {data.length > 0 &&
+                {(data.length > 0 || searched) &&
                   offset > 0 && (
                     <Button id={"Prev"} onClick={e => this.nextPage(e.target.id)}>
                       Prev
@@ -143,7 +148,7 @@ class Search extends Component {
               </PageButtonCol>
 
               <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 0 }}>
-                {data.length > 0 && (
+                {(data.length > 0 || searched) && (
                   <Button id={"Next"} onClick={e => this.nextPage(e.target.id)}>
                     Next
                   </Button>

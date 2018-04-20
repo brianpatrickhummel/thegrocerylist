@@ -9,10 +9,7 @@ class SearchResults extends Component {
     clickedItemId: null
   };
 
-  componentDidMount() {
-    console.log("Mount Props: ", this.props);
-  }
-
+  // Display Each Search Result
   renderContent(data, showPortal) {
     if (data.length) {
       let content = [];
@@ -50,7 +47,6 @@ class SearchResults extends Component {
 
   render() {
     let { cuisine, data, removeSavedRecipe } = this.props;
-
     let { showPortal, clickedItemId } = this.state;
 
     return (

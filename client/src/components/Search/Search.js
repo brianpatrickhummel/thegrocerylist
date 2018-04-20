@@ -45,12 +45,10 @@ class Search extends Component {
 
   // If user saves a recipe, remove that recipe from state data array
   removeSavedRecipe(recipeId) {
-    let data = this.state.data.filter(object => object.id !== recipeId);
-
-    this.setState({
-      data: data
+    let newData = this.state.data.filter(recipe => recipe.id !== recipeId);
+    this.setState({ data: newData }, () => {
+      console.log("after saving recipe, state: ", this.state);
     });
-    console.log("after saving recipe, state: ", this.state);
   }
 
   render() {

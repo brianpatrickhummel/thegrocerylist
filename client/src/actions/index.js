@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER, IS_LOADING } from "./types";
+import { FETCH_USER, SAVE_RECIPE, SAVE_RECIPE_SUCCESS, SAVE_RECIPE_ERROR, SAVE_RECIPE_RESET } from "./types";
 
 // Gather User Model from MongoDB (for credits/survey data)
 // redux-thunk allows us to return a function (with access to dispatch()) from action creator
@@ -43,17 +43,43 @@ export const updatePrefs = (checkedList, prefType) => async dispatch => {
 };
 
 // Save Single Recipe
+// export const saveRecipe = (recipeId, dataElement) => async dispatch => {
+//   const res = await axios.post(`/recipe/save/${recipeId}`, dataElement);
+//   dispatch({ type: FETCH_USER, payload: res.data });
+//   console.log("saveRecipe action finished");
+// };
+
 export const saveRecipe = (recipeId, dataElement) => async dispatch => {
-  const res = await axios.post(`/recipe/save/${recipeId}`, dataElement);
-  dispatch({ type: IS_LOADING, payload: { isSpinning: false } });
-  dispatch({ type: FETCH_USER, payload: res.data });
-  console.log("saveRecipe action finished");
+  console.log("dispatching SAVE_RECIPE");
+  dispatch({
+    type: SAVE_RECIPE,
+    payload: null
+  });
+
+  try {
+    const res = await axios.post(`/recipe/save/${recipeId}`, dataElement);
+
+    console.log("dispatching SAVE_RECIPE_SUCCESS");
+    dispatch({
+      type: SAVE_RECIPE_SUCCESS,
+      payload: res.data
+    });
+  } catch (e) {
+    // catch errors here
+
+    console.log("dispatching SAVE_RECIPE_ERROR");
+    console.log("e.message: ", e.message);
+    dispatch({
+      type: SAVE_RECIPE_ERROR,
+      payload: e.message
+    });
+  }
 };
 
-export const showLoader = boolean => {
-  console.log(`showLoader action creator received boolean:  ${boolean}`);
-  return {
-    type: IS_LOADING,
-    payload: { isSpinning: boolean }
-  };
+export const resetSavedRecipe = () => async dispatch => {
+  console.log("dispatching SAVE_RECIPE_RESET");
+  dispatch({
+    type: SAVE_RECIPE_RESET,
+    payload: null
+  });
 };

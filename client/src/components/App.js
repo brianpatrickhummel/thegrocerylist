@@ -19,6 +19,7 @@ const MyGroceryLists = () => <h2>My Grocery Lists</h2>;
 class App extends Component {
   componentDidMount() {
     // when app launches call the fetchUser action creator
+    console.log("<App> fetching user action");
     this.props.fetchUser();
   }
 

@@ -518,61 +518,61 @@ module.exports = app => {
     ];
 
     // // Convert Pref Objects into Spoonacular Query String segments
-    // function makeString(obj) {
-    //   let arr = [];
-    //   for (let key in obj) {
-    //     if (obj[key] === true && key !== "$init") {
-    //       arr.push(key);
+    //     function makeString(obj) {
+    //       let arr = [];
+    //       for (let key in obj) {
+    //         if (obj[key] === true && key !== "$init") {
+    //           arr.push(key);
+    //         }
+    //       }
+    //       // join with url-encoding for comma-space
+    //       return arr.join("%2C+");
     //     }
-    //   }
-    //   //      // join with url-encoding for comma-space
-    //   return arr.join("%2C+");
-    // }
 
-    // let queryIntolerances = makeString(intolerances);
-    // let queryDiet = makeString(diet);
+    //     let queryIntolerances = makeString(intolerances);
+    //     let queryDiet = makeString(diet);
 
-    // let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=10&offset=0&query=*`;
+    //     let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=10&offset=0&query=*`;
 
-    // //    // Query list of recipes
-    // let results = await axios({
-    //   method: "get",
-    //   url: query,
-    //   headers: {
-    //     "X-Mashape-Key": keys.spoonacularKey,
-    //     Accept: "application/json"
-    //   }
-    // });
-    // if (!results.data.results.length) return res.send([{ id: 0, title: "No Recipes Found" }]);
+    //     // Query list of recipes
+    //     let results = await axios({
+    //       method: "get",
+    //       url: query,
+    //       headers: {
+    //         "X-Mashape-Key": keys.spoonacularKey,
+    //         Accept: "application/json"
+    //       }
+    //     });
+    //     if (!results.data.results.length) return res.send([{ id: 0, title: "No Recipes Found" }]);
 
-    // //   // Store each recipe id in results_recipeIds array
-    // for (let item of results.data.results) {
-    //   // UNLESS Recipe Id is already stored in User Model's savedRecipe array
-    //   if (req.user.savedRecipes.indexOf(item.id) === -1) {
-    //     results_recipeIds.push(item.id);
-    //   } else {
-    //     console.log(`Recipe ${item.id} has already been saved by user`);
-    //   }
-    // }
+    //     //  Store each recipe id in results_recipeIds array
+    //     for (let item of results.data.results) {
+    //       // UNLESS Recipe Id is already stored in User Model's savedRecipe array
+    //       if (req.user.savedRecipes.indexOf(item.id) === -1) {
+    //         results_recipeIds.push(item.id);
+    //       } else {
+    //         console.log(`Recipe ${item.id} has already been saved by user`);
+    //       }
+    //     }
 
-    // // Query for recipe info by id in results_recipeIds array
-    // // Store in results_recipeInf array
-    // const start = Date.now();
-    // let queryIds = results_recipeIds.join("%2C");
-    // let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
-    // // console.log("query2: ", query2);
-    // // Query list of recipes
-    // let results2 = await axios({
-    //   method: "get",
-    //   url: query2,
-    //   headers: {
-    //     "X-Mashape-Key": keys.spoonacularKey,
-    //     Accept: "application/json"
-    //   }
-    // });
-    // results_recipeInfo = results2.data;
+    //     // Query for recipe info by id in results_recipeIds array
+    //     // Store in results_recipeInf array
+    //     const start = Date.now();
+    //     let queryIds = results_recipeIds.join("%2C");
+    //     let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
+    //     // console.log("query2: ", query2);
+    //     // Query list of recipes
+    //     let results2 = await axios({
+    //       method: "get",
+    //       url: query2,
+    //       headers: {
+    //         "X-Mashape-Key": keys.spoonacularKey,
+    //         Accept: "application/json"
+    //       }
+    //     });
+    //     results_recipeInfo = results2.data;
 
-    // console.log("This query process took: ", Date.now() - start);
+    //     console.log("This query process took: ", Date.now() - start);
 
     // Return results_recipeInf array to client
     res.send(results_recipeInfo);
@@ -581,7 +581,7 @@ module.exports = app => {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   // User Saves a Recipe to MongoDB
-  app.post("/recipe/save/:recipeId", async (req, res) => {
+  app.post("/recipe/save/:recipeId", requireLogin, async (req, res) => {
     let { recipeId } = req.params;
     // Save RecipeId to User Model for reference on Recipe Search Route
     req.user.savedRecipes.push(recipeId);
@@ -603,7 +603,7 @@ module.exports = app => {
     const existingRecipe = await Recipe.findOne({ id: recipeId });
     if (existingRecipe) {
       console.log("Recipe already exists in MongoDB");
-      return res.send(req.user);
+      return res.send(existingRecipe);
     }
 
     // Create a new instance/document of the User Model
@@ -639,8 +639,8 @@ module.exports = app => {
       analyzedInstructions
     }).save();
 
-    // Save updated User Model
+    // Save User Model after having pushed recipeId to saveRecipes array
     const user = await req.user.save();
-    res.send(user);
+    res.send(recipe);
   });
 };

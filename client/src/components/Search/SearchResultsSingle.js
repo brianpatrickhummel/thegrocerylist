@@ -3,10 +3,10 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Card, Icon, Col, Row } from "antd";
+import { Card, Icon, Col, Row, message } from "antd";
 import Spinner from "../Spinner";
 import { connect } from "react-redux";
-import { saveRecipe, showLoader } from "../../actions";
+import { saveRecipe, resetSavedRecipe } from "../../actions";
 
 class SearchResultsSingle extends Component {
   renderIngredients = dataElement => {
@@ -28,7 +28,7 @@ class SearchResultsSingle extends Component {
     }
     return content;
   };
-  // converting to class based component
+
   renderInstructions = dataElement => {
     let content = [];
     for (let item of dataElement.analyzedInstructions[0].steps) {
@@ -47,103 +47,131 @@ class SearchResultsSingle extends Component {
     return content;
   };
 
-  // awaitSave = async (goBack, spinner) => {
-  //   let promise = new Promise(resolve => {
-  //     console.log("spinner.isSpinning: ", spinner.isSpinning);
-  //     while (spinner.isSpinning === true) {
-  //       console.log("while loop, checking isSpinning");
-  //       if (spinner.isSpinning === false) {
-  //         console.log("promise resolved");
-  //         return resolve();
-  //       }
-  //     }
-  //     return promise;
-  //   });
+  // On Error or Success, unmount Portal and reset Redux savedRecipe state
+  exitSavePortal = recipeid => {
+    if (recipeid) this.props.removeSavedRecipe(recipeid);
+    this.props.resetSavedRecipe();
+    this.props.goBack();
+  };
 
-  //   await promise;
-  //   goBack();
-  // };
+  displaySuccess() {
+    message.config({
+      top: "30%",
+      duration: 1.4
+    });
+    message.success(" Recipe Successfully Saved");
+  }
+
+  displayError(errorMessage) {
+    message.config({
+      top: "30%",
+      duration: 1.4
+    });
+    message.success(` ${errorMessage}, Please Try Again`);
+  }
 
   render() {
-    let { goBack, dataElement, saveRecipe, removeSavedRecipe, spinner, showLoader } = this.props;
+    let {
+      goBack,
+      dataElement,
+      saveRecipe,
+      savedRecipe: { recipe, error, loading }
+    } = this.props;
 
     return (
       <ModalContainer className="singleRecipeInfo">
-        {spinner.isSpinning === false && (
-          <RecipeCard
-            actions={[
-              <Icon type="arrow-left" onClick={goBack}>
-                <IconText>BACK</IconText>
-              </Icon>,
-              <Icon
-                type="like"
-                onClick={() => {
-                  showLoader(true);
-                  removeSavedRecipe(dataElement.id);
-                  saveRecipe(dataElement.id, dataElement);
-                }}
-              >
-                <IconText>SAVE</IconText>
-              </Icon>,
-              <a href={dataElement.sourceUrl} target="about_blank">
-                <Icon type="link">
-                  <IconText>DETAILS</IconText>
-                </Icon>
-              </a>
-            ]}
-          >
-            <Title>{dataElement.title.toUpperCase()}</Title>
-            <TimeRow style={{ textAlign: "center" }}>
-              <TimeCol xs={{ span: 8 }}>
-                <Row>
-                  <Text> PREP TIME: </Text>
-                </Row>
-                <Row>
-                  <Text>{dataElement.preparationMinutes} Minutes </Text>
-                </Row>
-              </TimeCol>
-              <TimeCol xs={{ span: 8 }}>
-                <Row>
-                  <Text> COOK TIME: </Text>
-                </Row>
-                <Row>
-                  <Text> {dataElement.cookingMinutes} Minutes</Text>
-                </Row>
-              </TimeCol>
-              <TimeCol xs={{ span: 8 }}>
-                <Row>
-                  <Text> TOTAL TIME: </Text>
-                </Row>
-                <Row>
-                  <Text> {dataElement.readyInMinutes} Minutes </Text>
-                </Row>
-              </TimeCol>
-            </TimeRow>
-            <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }}>
-              <IngredientsRow>{this.renderIngredients(dataElement)}</IngredientsRow>
-            </Col>
-            <Col xs={{ span: 24 }}>
-              <InstructionsRow>{this.renderInstructions(dataElement)}</InstructionsRow>
-            </Col>
-          </RecipeCard>
+        {/* --- Display Recipe Details --- */}
+        {!loading &&
+          !error &&
+          !Object.keys(recipe).length && (
+            <RecipeCard
+              actions={[
+                <Icon type="arrow-left" onClick={goBack}>
+                  <IconText>BACK</IconText>
+                </Icon>,
+                <Icon
+                  type="like"
+                  onClick={() => {
+                    saveRecipe(dataElement.id, dataElement);
+                  }}
+                >
+                  <IconText>SAVE</IconText>
+                </Icon>,
+                <a href={dataElement.sourceUrl} target="about_blank">
+                  <Icon type="link">
+                    <IconText>DETAILS</IconText>
+                  </Icon>
+                </a>
+              ]}
+            >
+              <Title>{dataElement.title.toUpperCase()}</Title>
+              <TimeRow style={{ textAlign: "center" }}>
+                <TimeCol xs={{ span: 8 }}>
+                  <Row>
+                    <Text> PREP TIME: </Text>
+                  </Row>
+                  <Row>
+                    <Text>{dataElement.preparationMinutes} Minutes </Text>
+                  </Row>
+                </TimeCol>
+                <TimeCol xs={{ span: 8 }}>
+                  <Row>
+                    <Text> COOK TIME: </Text>
+                  </Row>
+                  <Row>
+                    <Text> {dataElement.cookingMinutes} Minutes</Text>
+                  </Row>
+                </TimeCol>
+                <TimeCol xs={{ span: 8 }}>
+                  <Row>
+                    <Text> TOTAL TIME: </Text>
+                  </Row>
+                  <Row>
+                    <Text> {dataElement.readyInMinutes} Minutes </Text>
+                  </Row>
+                </TimeCol>
+              </TimeRow>
+              <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }}>
+                <IngredientsRow>{this.renderIngredients(dataElement)}</IngredientsRow>
+              </Col>
+              <Col xs={{ span: 24 }}>
+                <InstructionsRow>{this.renderInstructions(dataElement)}</InstructionsRow>
+              </Col>
+            </RecipeCard>
+          )}
+
+        {/* --- Recipe Saved, Display Sucess Message --- */}
+        {Object.keys(recipe).length && (
+          <SuccessCard className="saveRecipeErrorDiv">
+            <Text>{this.displaySuccess()}</Text>
+            {this.exitSavePortal(recipe.id)}
+          </SuccessCard>
         )}
 
-        {spinner.isSpinning === true && (
+        {/* --- Recipe Save is Processing, Display Loader --- */}
+        {loading && (
           <SpinnerCard bordered={false}>
             <Spinner />
           </SpinnerCard>
+        )}
+
+        {/* --- Recipe Save Error, Display Error Message --- */}
+        {error && (
+          <ErrorCard className="saveRecipeErrorDiv">
+            <Text>{this.displayError(error)}</Text>
+            {this.exitSavePortal()}
+          </ErrorCard>
         )}
       </ModalContainer>
     );
   }
 }
 
-function mapStateToProps({ spinner }) {
-  console.log("searchResultssingle spinner state: ", spinner);
-  return { spinner };
+function mapStateToProps({ savedRecipe }) {
+  return { savedRecipe };
 }
 
-export default connect(mapStateToProps, { saveRecipe, showLoader })(SearchResultsSingle);
+export default connect(mapStateToProps, { saveRecipe, resetSavedRecipe })(SearchResultsSingle);
 
 const ModalContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.65);
@@ -161,6 +189,7 @@ const RecipeCard = styled(Card)`
   width: 75%;
   max-height: 95%;
   overflow: scroll;
+  margin-left: 8px !important;
   @media (max-width: 992px) {
     width: 90%;
   }
@@ -172,6 +201,7 @@ const RecipeCard = styled(Card)`
 const SpinnerCard = styled(Card)`
   width: 90%;
   height: 92%;
+  margin-left: 8px !important;
   background: rgba(0, 0, 0, 0) !important;
   text-align: center !important;
   padding: 45% 0 !important;
@@ -240,4 +270,20 @@ const InstructionsRow = styled(Row)`
 const Instruction = styled.p`
   font-size: 11px;
   margin-bottom: 0.4em !important;
+`;
+
+const ErrorCard = styled(Card)`
+  width: 90%;
+  height: 92%;
+  background-color: rgba(0, 0, 0, 0.95);
+  text-align: center !important;
+  padding: 45% 0 !important;
+`;
+
+const SuccessCard = styled(Card)`
+  width: 90%;
+  height: 92%;
+  background: black;
+  text-align: center !important;
+  padding: 45% 0 !important;
 `;

@@ -5,12 +5,14 @@
 const passport = require("passport"),
   User = require("../models/User"),
   ObjectID = require("mongodb").ObjectID;
+const requireLogin = require("../middlewares/requireLogin");
 
 module.exports = app => {
   // GET CURRENT USER
-  app.get("/api/current_user", (req, res) => {
+  app.get("/api/current_user", requireLogin, (req, res) => {
     // returns the MongoDB user id that cookie-session extracted from cookie
     // console.log("user id: ", req.user.id);
+
     res.send(req.user);
   });
 

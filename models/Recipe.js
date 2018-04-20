@@ -21,7 +21,7 @@ const RecipesSchema = new Schema({
     }
   ],
   instructions: String,
-  id: String,
+  id: Number,
   sourceName: String,
   sourceUrl: String,
   title: String,

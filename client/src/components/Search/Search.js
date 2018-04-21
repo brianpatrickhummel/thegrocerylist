@@ -38,11 +38,21 @@ class Search extends Component {
   // DropDown menu selection initializes HTTP request to Spoonacular API
   async getRecipes(cuisines, direction = "Next") {
     this.setState({ loading: true });
-    let result = await axios.get(`/recipe/search/${cuisines}/${direction}/${this.state.offset}`);
+    try {
+      let result = await axios.get(`/recipe/search/${cuisines}/${direction}/${this.state.offset}`);
+      console.log("search.js query success");
+      this.state.data.push(...result.data);
+      this.setState({ loading: false });
+    } catch (e) {
+      console.log("search.js query error:", e);
+      if (e.response.status === 404 && e.response.statusText === "No recipes found") {
+        this.setState({ data: [null], loading: false });
+      }
+    }
 
     // Store results of Axios query in local state, disable Loading Spinner
-    this.state.data.push(...result.data);
-    this.setState({ loading: false });
+
+    console.log("after query, this.data: ", this.state.data);
   }
 
   // If user saves a recipe, remove that recipe from state data array
@@ -53,6 +63,7 @@ class Search extends Component {
     });
   }
 
+  // Paging Buttons, call API query with page offset parameters
   nextPage(direction) {
     this.setState(
       {
@@ -91,7 +102,7 @@ class Search extends Component {
     );
 
     return (
-      // Auth loaded && user HAS set Cuisines in Prefs, render DropDown Menu
+      // Auth loaded but user HAS NOT set any Cuisines in Prefs, render reminder
       auth && Object.keys(auth.preferences.cuisines).every(i => !auth.preferences.cuisines[i]) ? (
         <SetCuisinesMessage
           xs={{ span: 22, offset: 1 }}
@@ -111,16 +122,18 @@ class Search extends Component {
             PLEASE SET CUISINES PREFERENCES <Icon type="rollback" style={{ fontSize: 16 }} />
           </CuisineLink>
         </SetCuisinesMessage>
-      ) : // Auth loaded but user HAS NOT set any Cuisines in Prefs, render reminder
+      ) : // Auth loaded && user HAS set Cuisines in Prefs, render DropDown Menu
       auth ? (
         <div>
-          <Column xs={{ span: 20, offset: 2 }}>
-            <Dropdown overlay={menu} trigger={["click"]} ref="dropdown">
-              <Anchor className="ant-dropdown-link" href="">
-                SELECT A CUISINE <Icon type="down-circle" />
-              </Anchor>
-            </Dropdown>
-          </Column>
+          <Row className="DropDownRow">
+            <Column xs={{ span: 20, offset: 2 }}>
+              <Dropdown overlay={menu} trigger={["click"]} ref="dropdown">
+                <Anchor className="ant-dropdown-link" href="">
+                  SELECT A CUISINE <Icon type="down-circle" />
+                </Anchor>
+              </Dropdown>
+            </Column>
+          </Row>
           {/* Placeholder Bar to match Bar on SearchResults component */}
           {!data.length && <Header>.</Header>}
           {/*  User clicks option, show loading spinner until Axios request completes */}
@@ -136,26 +149,27 @@ class Search extends Component {
               removeSavedRecipe={recipeId => this.removeSavedRecipe(recipeId)}
             />
           ) : null}
-          {!loading && (
-            <PageButtonRow>
-              <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 8 }}>
-                {(data.length > 0 || searched) &&
-                  offset > 0 && (
-                    <Button id={"Prev"} onClick={e => this.nextPage(e.target.id)}>
-                      Prev
+          {!loading &&
+            data[0] !== null && (
+              <PageButtonRow className="pageButtonDiv">
+                <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 8 }}>
+                  {(data.length > 0 || searched) &&
+                    offset > 0 && (
+                      <Button id={"Prev"} onClick={e => this.nextPage(e.target.id)}>
+                        Prev
+                      </Button>
+                    )}
+                </PageButtonCol>
+
+                <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 0 }}>
+                  {(data.length > 0 || searched) && (
+                    <Button id={"Next"} onClick={e => this.nextPage(e.target.id)}>
+                      Next
                     </Button>
                   )}
-              </PageButtonCol>
-
-              <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 0 }}>
-                {(data.length > 0 || searched) && (
-                  <Button id={"Next"} onClick={e => this.nextPage(e.target.id)}>
-                    Next
-                  </Button>
-                )}
-              </PageButtonCol>
-            </PageButtonRow>
-          )}
+                </PageButtonCol>
+              </PageButtonRow>
+            )}
         </div>
       ) : null
     );
@@ -177,7 +191,7 @@ const Exclaim = styled(Icon)`
 const Header = styled.h1`
   color: rgba(255, 255, 255, 0);
   text-align: center;
-  margin-top: 58px;
+  margin-top: 0.5em;
   letter-spacing: 0.1em;
   background-color: rgba(255, 255, 255, 0.1);
 
@@ -235,6 +249,7 @@ const Horizontal = styled.hr`
 `;
 
 const PageButtonRow = styled(Row)`
+  clear: both;
   margin: 15px 0 40px 0;
 `;
 

@@ -1,13 +1,9 @@
-//////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////// PASSPORT AUTHENTICATION ROUTES  //////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
+// PASSPORT AUTHENTICATION ROUTES
 
 const passport = require("passport");
 
 module.exports = app => {
   // = = = = = GOOGLE = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Google to authorize user
   app.get(
     "/auth/google",
     passport.authenticate("google", {
@@ -27,8 +23,6 @@ module.exports = app => {
   });
 
   // = = = = = Facebook = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Facebook to authorize user
   app.get(
     "/auth/facebook",
     passport.authenticate("facebook", {
@@ -43,8 +37,6 @@ module.exports = app => {
   });
 
   // = = = = = = Twitter = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Twitter to authorize user
   app.get("/auth/twitter", passport.authenticate("twitter", { scope: ["include_email=true"] }));
 
   // Handle the callback after Twitter has authorized the user
@@ -61,8 +53,6 @@ module.exports = app => {
   );
 
   // = = = = = = Github = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Github to authorize user
   app.get("/auth/github", passport.authenticate("github", { scope: "email" }));
 
   // Handle the callback after Github has authorized the user

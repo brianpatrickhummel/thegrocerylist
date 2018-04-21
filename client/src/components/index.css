@@ -1,12 +1,7 @@
 /* CSS for Components - mostly for Ant Design overrides */
 
-/* #root {
-  overflow: hidden;
-}
-
-#recipe-info {
-  position: relative;
-  z-index: 999;
+/* * {
+  border: 1px red solid;
 } */
 
 /* ======== App.js ========== */

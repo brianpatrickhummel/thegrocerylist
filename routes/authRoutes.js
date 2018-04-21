@@ -1,13 +1,9 @@
-//////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////// PASSPORT AUTHENTICATION ROUTES  //////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
+// PASSPORT AUTHENTICATION ROUTES
 
 const passport = require("passport");
 
 module.exports = app => {
   // = = = = = GOOGLE = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Google to authorize user
   app.get(
     "/auth/google",
     passport.authenticate("google", {
@@ -23,12 +19,10 @@ module.exports = app => {
   app.get("/auth/google/callback", passport.authenticate("google"), (req, res) => {
     // console.log("after Google auth, req.user: ", req.user);
     // console.log("after Google auth, session: ", req.session);
-    res.redirect("/preferences/1");
+    res.redirect("/preferences/0");
   });
 
   // = = = = = Facebook = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Facebook to authorize user
   app.get(
     "/auth/facebook",
     passport.authenticate("facebook", {
@@ -39,12 +33,10 @@ module.exports = app => {
   app.get("/auth/facebook/callback", passport.authenticate("facebook"), (req, res) => {
     // console.log("after Facebook auth, req.user: ", req.user);
     // console.log("after Facebook auth, session: ", req.session);
-    res.redirect("/preferences/1");
+    res.redirect("/preferences/0");
   });
 
   // = = = = = = Twitter = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Twitter to authorize user
   app.get("/auth/twitter", passport.authenticate("twitter", { scope: ["include_email=true"] }));
 
   // Handle the callback after Twitter has authorized the user
@@ -56,13 +48,11 @@ module.exports = app => {
     (req, res) => {
       // console.log("after Twitter auth, req.user: ", req.user);
       // console.log("after Twitter auth, session: ", req.session);
-      res.redirect("/preferences/1");
+      res.redirect("/preferences/0");
     }
   );
 
   // = = = = = = Github = = = = = = = = = = = = = = = = = = = = = = = = =
-
-  // Send To Github to authorize user
   app.get("/auth/github", passport.authenticate("github", { scope: "email" }));
 
   // Handle the callback after Github has authorized the user
@@ -74,7 +64,7 @@ module.exports = app => {
     (req, res) => {
       // console.log("after Github auth, req.user: ", req.user);
       // console.log("after Github auth, session: ", req.session);
-      res.redirect("/preferences/1");
+      res.redirect("/preferences/0");
     }
   );
 };

@@ -53,7 +53,7 @@ class HeaderBar extends Component {
         {/* Header Nav - visibility controlled by Media Queries */}
         <Header style={{ textAlign: "center" }}>
           <Row type="flex" justify="center">
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
               {/* call render function passing in class names specific only to menu bar (not sidebar) */}
               {this.renderMenuItems("NavBar")}
             </Menu>

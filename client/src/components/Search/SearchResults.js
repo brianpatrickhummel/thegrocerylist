@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Portal from "./Portal";
 import { Col, Row } from "antd";
 import styled from "styled-components";
+import NoResults from "./NoResults";
 
 class SearchResults extends Component {
   state = {
@@ -11,7 +12,8 @@ class SearchResults extends Component {
 
   // Display Each Search Result
   renderContent(data, showPortal) {
-    if (data.length) {
+    console.log("searchresults data:: ", data);
+    if (data[0] !== null) {
       let content = [];
       for (let i = 0; i < data.length; i++) {
         content.push(
@@ -36,7 +38,7 @@ class SearchResults extends Component {
         );
       }
       return content;
-    } else return null;
+    } else return <NoResults />;
   }
 
   goBack() {
@@ -50,9 +52,10 @@ class SearchResults extends Component {
     let { showPortal, clickedItemId } = this.state;
 
     return (
-      <SearchResultsRow className="searchResults">
+      <div className="searchResultsDiv">
         <Header>{cuisine}</Header>
-        {this.renderContent(data)}
+
+        <Row className="searchResultsRow">{this.renderContent(data)}</Row>
         {/* Mount SearchResultsSingle component via React Portal */}
         {showPortal && (
           <Portal
@@ -62,19 +65,17 @@ class SearchResults extends Component {
             removeSavedRecipe={removeSavedRecipe}
           />
         )}
-      </SearchResultsRow>
+      </div>
     );
   }
 }
 
 export default SearchResults;
 
-const SearchResultsRow = styled(Row)``;
-
 const Header = styled.h1`
   color: #2e3539;
   text-align: center;
-  margin-top: 58px;
+  margin-top: 0.5em;
   letter-spacing: 0.1em;
   background-color: rgba(255, 255, 255, 0.5);
 

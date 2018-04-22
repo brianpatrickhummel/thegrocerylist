@@ -40,6 +40,8 @@ module.exports = app => {
       console.log("querySpoon called");
       let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}&diet=${queryDiet}&instructionsRequired=true&intolerances=${queryIntolerances}&limitLicense=false&number=${numberOfResults}&offset=${offset}&query=*`;
 
+      console.log("query: ", query);
+
       // Query list of recipes
 
       let results = await axios({
@@ -54,14 +56,22 @@ module.exports = app => {
       // If NO Recipe Results are returned, throw error
       if (results.data.results.length === 0) throw "No recipes found";
 
-      // Store first 10 unsaved recipe ids into results_recipeIds array
+      // Iterate through RecipeID Search Results
       for (let item of results.data.results) {
-        // UNLESS Recipe Id is already stored in User Model's savedRecipe array
-        if (req.user.savedRecipes.indexOf(item.id) === -1) {
-          results_recipeIds.push(item.id);
-        } else {
-          console.log(`Recipe ${item.id} has already been saved by user`);
+        // Until numberOfResults recipeIds are collected
+        if (results_recipeIds.length < numberOfResults) {
+          // If a RecipeId is not already saved by user
+          if (req.user.savedRecipes.indexOf(item.id) === -1) {
+            // Collect unsaved RecipeId
+            results_recipeIds.push(item.id);
+            console.log("id added to results_recipeIds: ", item.id);
+          } else {
+            // Skip saved RecipeId
+            console.log(`Recipe ${item.id} has already been saved by user`);
+          }
         }
+        // We have collected enough RecipeIds, exit iteration early
+        else break;
       }
 
       // If after filtering saved recipes an additional query is necessary
@@ -73,6 +83,7 @@ module.exports = app => {
       }
     };
 
+    // Spoonacular API Recipe ID Search - Collect RecipeIds
     try {
       await querySpoon();
     } catch (e) {
@@ -83,14 +94,15 @@ module.exports = app => {
       }
     }
 
-    // Query for recipe info by id in results_recipeIds array
-    // Store in results_recipeInf array
+    // Benchmarking Spoonacular's Single vs Bulk Recipe Info endpoints
     const start = Date.now();
+    console.log("recipeId results are: ", results_recipeIds);
+
+    // Spoonacular API Bulk Recipe Info Search
     let queryIds = results_recipeIds.join("%2C");
 
     let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
 
-    // console.log("query2: ", query2);
     // Query list of recipes
     let results2 = await axios({
       method: "get",

@@ -69,11 +69,11 @@ class Search extends Component {
     this.setState(
       {
         data: [],
-        offset: this.state.offset + (direction === "Prev" ? -3 : +3)
+        offset: direction === "Prev" ? this.state.offset - 3 : this.state.offset + 3
       },
       () => {
-        console.log("offset after click: ", direction);
-        console.log("state.offest after click: ", this.state.offset);
+        console.log("direction after click: ", direction);
+        console.log("state.offset after click: ", this.state.offset);
         this.getRecipes(this.state.cuisine, direction);
       }
     );

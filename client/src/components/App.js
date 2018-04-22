@@ -28,7 +28,7 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Wrapper>
-            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences/1" />)} />
+            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences/0" />)} />
             <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
             <Route
               path="*"

@@ -60,6 +60,7 @@ class Search extends Component {
     let newData = this.state.data.filter(recipe => recipe.id !== recipeId);
     this.setState({ data: newData }, () => {
       console.log("after saving recipe, state: ", this.state);
+      if (!this.state.data.length) this.getRecipes(this.state.cuisine, "Next");
     });
   }
 

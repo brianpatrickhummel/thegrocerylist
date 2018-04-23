@@ -94,7 +94,7 @@ module.exports = app => {
       }
     }
 
-    // Benchmarking Spoonacular's Single vs Bulk Recipe Info endpoints
+    // Benchmarking Spoonacular's Single vs Bulk Recipe Info Endpoints
     const start = Date.now();
     console.log("recipeId results are: ", results_recipeIds);
 

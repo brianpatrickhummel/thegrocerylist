@@ -189,7 +189,8 @@ module.exports = app => {
 
     // Save User Model after having pushed recipeId to saveRecipes array
     const user = await req.user.save();
-    res.send(recipe);
+    // Return recipe and user model to save recipe action creator
+    res.send({ recipe, user });
   });
 
   // Get Saved Recipe Info

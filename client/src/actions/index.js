@@ -45,10 +45,8 @@ export const saveRecipe = (recipeId, cuisine, dataElement) => async dispatch => 
     const res = await axios.post(`/recipe/save/${cuisine}/${recipeId}`, dataElement);
     // Recipe Saved Successfully
     console.log("saveRecipe res: ", res);
-    dispatch({
-      type: SAVE_RECIPE_SUCCESS,
-      payload: res.data
-    });
+    dispatch({ type: SAVE_RECIPE_SUCCESS, payload: res.data.recipe });
+    dispatch({ type: FETCH_USER, payload: res.data.user });
   } catch (e) {
     console.log("dispatching SAVE_RECIPE_ERROR");
     console.log("action creator error", e);

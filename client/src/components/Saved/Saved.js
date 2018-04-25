@@ -44,7 +44,6 @@ class Search extends Component {
 
     // Fill recipeIds with at most 10 records
     for (let recipeId of subDocCuisine) {
-      console.log("typeof recipeId", typeof recipeId);
       if (recipeIdsObj.recipeIds.length < (subDocCuisine.length < 10 ? subDocCuisine.length : 10)) {
         recipeIdsObj.recipeIds.push(recipeId);
       } else break;
@@ -54,12 +53,10 @@ class Search extends Component {
 
     try {
       let result = await axios.post(`/recipes/saved`, recipeIdsObj);
-      console.log("client result: ", result);
       // Store results of Axios query in local state
       this.state.data.push(...result.data);
       // Disable Loading Spinner
       this.setState({ loading: false });
-      console.log("after query, this.data: ", this.state.data);
     } catch (e) {
       // console.log("search.js query error:", e);
       // if (e.response.status === 404 && e.response.statusText === "No recipes found") {

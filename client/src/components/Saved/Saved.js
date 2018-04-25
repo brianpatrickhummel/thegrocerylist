@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Menu, Dropdown, Icon, Row, Col, Button, message } from "antd";
+import { Menu, Dropdown, Icon, Row, Col, Button } from "antd";
 import Spinner from "../Spinner";
 import styled from "styled-components";
-import SearchResults from "./SearchResults";
+import NoResults from "../NoResults";
+// import SearchResults from "./SearchResults";
 import axios from "axios";
 
 class Search extends Component {
@@ -14,83 +15,85 @@ class Search extends Component {
     data: [],
     cuisine: "",
     offset: 0,
-    searched: false,
-    error: ""
+    searched: false
   };
 
   // Render DropDown menu fields from user's Cuisines Prefs
   renderFields(auth) {
     return (
       auth &&
-      Object.keys(auth.preferences.cuisines)
-        .sort()
-        .map((cuisine, index) => {
-          if (auth.preferences.cuisines[cuisine] === true) {
-            return (
-              <Menu.Item key={cuisine.toUpperCase()}>
-                <a>{cuisine.toUpperCase()}</a>
-              </Menu.Item>
-            );
-          } else return null;
+      Object.keys(auth.savedRecipes.cuisines)
+        .filter(item => auth.savedRecipes.cuisines[item].length)
+        .map(cuisine => {
+          return (
+            <Menu.Item key={cuisine.toUpperCase()}>
+              <a>{cuisine.toUpperCase()}</a>
+            </Menu.Item>
+          );
         })
     );
   }
 
-  // DropDown menu selection initializes HTTP request to Spoonacular API
-  async getRecipes(cuisines, direction = "Next") {
+  // DropDown menu selection initializes Mongo Recipe Collection Query
+  async getRecipes(auth, cuisineKey) {
     this.setState({ loading: true });
+
+    // Based on offset, grab 10 recipe ids from User SavedRecipes subdoc
+    let recipeIdsObj = { recipeIds: [] };
+    let subDocCuisine = auth.savedRecipes.cuisines[cuisineKey];
+
+    // Fill recipeIds with at most 10 records
+    for (let recipeId of subDocCuisine) {
+      console.log("typeof recipeId", typeof recipeId);
+      if (recipeIdsObj.recipeIds.length < (subDocCuisine.length < 10 ? subDocCuisine.length : 10)) {
+        recipeIdsObj.recipeIds.push(recipeId);
+      } else break;
+    }
+
+    console.log("recipeIdsObj.recipeIds", recipeIdsObj.recipeIds);
+
     try {
-      let result = await axios.get(`/recipe/search/${cuisines}/${direction}/${this.state.offset}`);
+      let result = await axios.post(`/recipes/saved`, recipeIdsObj);
+      console.log("client result: ", result);
       // Store results of Axios query in local state
       this.state.data.push(...result.data);
       // Disable Loading Spinner
       this.setState({ loading: false });
+      console.log("after query, this.data: ", this.state.data);
     } catch (e) {
-      console.log("search.js query error:", e);
-      if (e.response.status && e.response.status === 404 && e.response.statusText === "No recipes found") {
-        this.setState({ data: [], loading: false });
-        this.displayError(e.response.statusText);
-      } else {
-        this.displayError(e);
-        this.setState({ data: [], loading: false, error: e });
-      }
+      // console.log("search.js query error:", e);
+      // if (e.response.status === 404 && e.response.statusText === "No recipes found") {
+      //   this.setState({ data: [null], loading: false });
     }
-    console.log("after query, this.state: ", this.state);
-  }
-
-  displayError(errorMessage) {
-    message.config({
-      top: "30%",
-      duration: 2.5
-    });
-    message.error(` ${errorMessage}, Please Try Again`);
-    this.setState({ error: "" });
   }
 
   // If user saves a recipe, remove that recipe from state data array
-  removeSavedRecipe(recipeId) {
-    let newData = this.state.data.filter(recipe => recipe.id !== recipeId);
-    this.setState({ data: newData }, () => {
-      if (!this.state.data.length) this.getRecipes(this.state.cuisine, "Next");
-    });
-  }
+  // removeSavedRecipe(recipeId) {
+  //   let newData = this.state.data.filter(recipe => recipe.id !== recipeId);
+  //   this.setState({ data: newData }, () => {
+  //     console.log("after saving recipe, state: ", this.state);
+  //     if (!this.state.data.length) this.getRecipes(this.state.cuisine, "Next");
+  //   });
+  // }
 
   // Paging Buttons, call API query with page offset parameters
-  nextPage(direction) {
-    this.setState(
-      {
-        data: [],
-        offset: direction === "Prev" ? this.state.offset - 3 : this.state.offset + 3
-      },
-      () => {
-        this.getRecipes(this.state.cuisine, direction);
-      }
-    );
-  }
+  // nextPage(direction) {
+  //   this.setState(
+  //     {
+  //       data: [],
+  //       offset: direction === "Prev" ? this.state.offset - 3 : this.state.offset + 3
+  //     },
+  //     () => {
+  //       console.log("direction after click: ", direction);
+  //       console.log("state.offset after click: ", this.state.offset);
+  //       this.getRecipes(this.state.cuisine, direction);
+  //     }
+  //   );
+  // }
 
   render() {
     let { auth } = this.props;
-    let { data, loading, cuisine, offset, searched, error } = this.state;
+    let { data, loading, offset, searched } = this.state;
 
     // Ant Design Drop-Down Menu Component
     const menu = (
@@ -103,7 +106,7 @@ class Search extends Component {
             searched: true
           });
           // Initialize Axios req to Spoonacular API
-          this.getRecipes(key);
+          this.getRecipes(auth, key.toLowerCase());
         }}
       >
         {/* Call fn To Render Drop-Down Menu Items */}
@@ -134,7 +137,7 @@ class Search extends Component {
         </SetCuisinesMessage>
       ) : // Auth loaded && user HAS set Cuisines in Prefs, render DropDown Menu
       auth ? (
-        <div className="search">
+        <div className="saved">
           <Row className="DropDownRow">
             <Column xs={{ span: 20, offset: 2 }}>
               <Dropdown overlay={menu} trigger={["click"]} ref="dropdown">
@@ -146,21 +149,30 @@ class Search extends Component {
           </Row>
           {/* Placeholder Bar to match Bar on SearchResults component */}
           {!data.length && <Header>.</Header>}
+          {/*  If no savedRecipes on User Model, display NoResults component */}
+          {!Object.keys(auth.savedRecipes.cuisines).filter(item => auth.savedRecipes.cuisines[item].length).length >
+            0 && (
+            <NoResults
+              header={"YOU HAVEN'T SAVED ANY RECIPES"}
+              text={"SAVE SOME RECIPES FROM YOUR SEARH RESULTS AND THEY'LL APPEAR HERE"}
+            />
+          )}
           {/*  User clicks option, show loading spinner until Axios request completes */}
           {loading ? (
             <SpinColumn xs={{ span: 8, offset: 8 }}>
               <Spinner />
             </SpinColumn>
           ) : // Only render SearchResults if state data has length
-          searched && !error ? (
-            <SearchResults
+          data.length ? (
+            <h6>Here are the results</h6>
+          ) : /* <SearchResults
               data={data}
               cuisine={cuisine}
               removeSavedRecipe={recipeId => this.removeSavedRecipe(recipeId)}
-            />
-          ) : null}
+            /> */
+          null}
           {!loading &&
-            !error &&
+            data[0] !== null &&
             data.length > 0 && (
               <PageButtonRow className="pageButtonDiv">
                 <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 8 }}>
@@ -181,7 +193,6 @@ class Search extends Component {
                 </PageButtonCol>
               </PageButtonRow>
             )}
-          {/* --- Recipe Search Error, Display Error Message --- */}
         </div>
       ) : null
     );

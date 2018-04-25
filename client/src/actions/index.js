@@ -34,7 +34,7 @@ export const updatePrefs = (checkedList, prefType) => async dispatch => {
 };
 
 // Save Single Recipe
-export const saveRecipe = (recipeId, dataElement) => async dispatch => {
+export const saveRecipe = (recipeId, cuisine, dataElement) => async dispatch => {
   // Begin Save, Display Loading Indicator
   dispatch({
     type: SAVE_RECIPE,
@@ -42,13 +42,16 @@ export const saveRecipe = (recipeId, dataElement) => async dispatch => {
   });
 
   try {
-    const res = await axios.post(`/recipe/save/${recipeId}`, dataElement);
+    const res = await axios.post(`/recipe/save/${cuisine}/${recipeId}`, dataElement);
     // Recipe Saved Successfully
+    console.log("saveRecipe res: ", res);
     dispatch({
       type: SAVE_RECIPE_SUCCESS,
       payload: res.data
     });
   } catch (e) {
+    console.log("dispatching SAVE_RECIPE_ERROR");
+    console.log("action creator error", e);
     // Recipe Save Encountered Error
     dispatch({
       type: SAVE_RECIPE_ERROR,

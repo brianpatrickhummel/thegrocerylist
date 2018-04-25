@@ -55,24 +55,29 @@ class SearchResultsSingle extends Component {
   };
 
   displaySuccess() {
+    console.log("SRS displaySuccess called");
     message.config({
-      top: "30%",
-      duration: 1.4
+      top: "40%",
+      duration: 2
     });
     message.success(" Recipe Successfully Saved");
   }
 
   displayError(errorMessage) {
+    console.log("SRS displayError called");
+    // console.log("error message", errorMessage);
     message.config({
-      top: "30%",
-      duration: 2.3
+      top: "40%",
+      duration: 3.3
     });
-    message.success(` ${errorMessage}, Please Try Again`);
+    message.error(` ${errorMessage}, Please Try Again`);
+    this.exitSavePortal();
   }
 
   render() {
     let {
       goBack,
+      cuisine,
       dataElement,
       saveRecipe,
       savedRecipe: { recipe, error, loading }
@@ -92,7 +97,7 @@ class SearchResultsSingle extends Component {
                 <Icon
                   type="like"
                   onClick={() => {
-                    saveRecipe(dataElement.id, dataElement);
+                    saveRecipe(dataElement.id, cuisine.toLowerCase(), dataElement);
                   }}
                 >
                   <IconText>SAVE</IconText>
@@ -142,7 +147,7 @@ class SearchResultsSingle extends Component {
 
         {/* --- Recipe Saved, Display Sucess Message --- */}
         {Object.keys(recipe).length && (
-          <SuccessCard bordered={false} className="saveRecipeErrorDiv">
+          <SuccessCard bordered={false} className="saveRecipeSuccessDiv">
             <Text>{this.displaySuccess()}</Text>
             {this.exitSavePortal(recipe.id)}
           </SuccessCard>
@@ -159,7 +164,6 @@ class SearchResultsSingle extends Component {
         {error && (
           <ErrorCard bordered={false} className="saveRecipeErrorDiv">
             <Text>{this.displayError(error)}</Text>
-            {this.exitSavePortal()}
           </ErrorCard>
         )}
       </ModalContainer>

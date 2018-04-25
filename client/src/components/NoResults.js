@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Icon } from "antd";
 import styled from "styled-components";
 
-export default () => {
+export default ({ header, text }) => {
   return (
     <Column
       className="noResultsColumn"
@@ -11,9 +11,9 @@ export default () => {
       lg={{ span: 16, offset: 4 }}
     >
       <Header>
-        <Icon type="frown-o" /> NO RECIPES FOUND
+        <Icon type="frown-o" /> {header}
       </Header>
-      <Text>TRY SEARCHING ANOTHER CUISINE OR MAKING ADJUSTMENTS TO YOUR PREFERENCES</Text>
+      <Text>{text}</Text>
     </Column>
   );
 };

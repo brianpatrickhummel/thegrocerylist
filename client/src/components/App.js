@@ -10,9 +10,9 @@ import Landing from "./Landing";
 import Preferences from "./Preferences/Preferences";
 import HeaderBar from "./HeaderBar";
 import Search from "./Search/Search";
+import Saved from "./Saved/Saved";
 const Create = () => <h2>Create a new list</h2>;
 const ViewOneList = () => <h2>Here's your list</h2>;
-const SavedRecipes = () => <h2>Saved Recipes</h2>;
 const Favorites = () => <h2>Favorites</h2>;
 const MyGroceryLists = () => <h2>My Grocery Lists</h2>;
 
@@ -40,7 +40,7 @@ class App extends Component {
                       <Route exact path="/create" component={Create} />
                       <Route path="/lists" component={MyGroceryLists} />
                       <Route path="/viewonelist/:listid" component={ViewOneList} />
-                      <Route path="/saved" component={SavedRecipes} />
+                      <Route path="/saved" component={Saved} />
                       <Route path="/favorites" component={Favorites} />
                       <Route exact path="/search" component={Search} />
                     </Switch>

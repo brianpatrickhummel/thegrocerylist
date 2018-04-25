@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const SavedRecipesSchema = require("./SavedRecipes");
 
 const UserSchema = new Schema({
   primaryId: String,
@@ -96,7 +97,10 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  savedRecipes: [String],
+  savedRecipes: {
+    type: SavedRecipesSchema,
+    default: SavedRecipesSchema
+  },
   preferences: {
     intolerances: {
       dairy: { type: Boolean, default: false },

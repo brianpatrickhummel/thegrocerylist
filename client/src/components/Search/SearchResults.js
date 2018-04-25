@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Portal from "./Portal";
 import { Col, Row } from "antd";
 import styled from "styled-components";
-import NoResults from "./NoResults";
+import NoResults from "../NoResults";
 
 class SearchResults extends Component {
   state = {
@@ -12,8 +12,7 @@ class SearchResults extends Component {
 
   // Display Each Search Result
   renderContent(data, showPortal) {
-    console.log("searchresults data:: ", data);
-    if (data[0] !== null) {
+    if (data.length > 0) {
       let content = [];
       for (let i = 0; i < data.length; i++) {
         content.push(
@@ -38,7 +37,13 @@ class SearchResults extends Component {
         );
       }
       return content;
-    } else return <NoResults />;
+    } else
+      return (
+        <NoResults
+          header={"NO RECIPES FOUND"}
+          text={"TRY SEARCHING ANOTHER CUISINE OR MAKING ADJUSTMENTS TO YOUR PREFERENCES"}
+        />
+      );
   }
 
   goBack() {
@@ -61,6 +66,7 @@ class SearchResults extends Component {
           <Portal
             open={showPortal}
             dataElement={data[clickedItemId]}
+            cuisine={cuisine}
             goBack={() => this.goBack()}
             removeSavedRecipe={removeSavedRecipe}
           />

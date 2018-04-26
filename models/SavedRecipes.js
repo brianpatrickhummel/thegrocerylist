@@ -6,30 +6,174 @@ const { Schema } = mongoose;
 
 const SavedRecipesSchema = new Schema({
   cuisines: {
-    african: [Number],
-    american: [Number],
-    british: [Number],
-    cajun: [Number],
-    caribbean: [Number],
-    chinese: [Number],
-    easterneuropean: [Number],
-    french: [Number],
-    german: [Number],
-    greek: [Number],
-    indian: [Number],
-    irish: [Number],
-    italian: [Number],
-    japanese: [Number],
-    jewish: [Number],
-    korean: [Number],
-    latinamerican: [Number],
-    mexican: [Number],
-    middleeastern: [Number],
-    nordic: [Number],
-    southern: [Number],
-    spanish: [Number],
-    thai: [Number],
-    vietnamese: [Number]
+    african: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    american: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    british: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    cajun: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    caribbean: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    chinese: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    easterneuropean: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    french: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    german: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    greek: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    indian: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    irish: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    italian: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    japanese: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    jewish: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    korean: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    latinamerican: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    mexican: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    middleeastern: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    nordic: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    southern: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    spanish: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    thai: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ],
+    vietnamese: [
+      {
+        id: Number,
+        title: String,
+        image: String
+      }
+    ]
   }
 });
 

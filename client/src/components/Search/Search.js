@@ -40,7 +40,7 @@ class Search extends Component {
   async getRecipes(cuisines, direction = "Next") {
     this.setState({ loading: true });
     try {
-      let result = await axios.get(`/recipe/search/${cuisines}/${direction}/${this.state.offset}`);
+      let result = await axios.get(`/recipe/search/${cuisines.toLowerCase()}/${direction}/${this.state.offset}`);
       // Store results of Axios query in local state
       this.state.data.push(...result.data);
       // Disable Loading Spinner

@@ -134,7 +134,7 @@ class Search extends Component {
         </SetCuisinesMessage>
       ) : // Auth loaded && user HAS set Cuisines in Prefs, render DropDown Menu
       auth ? (
-        <div className="saved">
+        <div className="savedRecipesComponent">
           <Row className="DropDownRow">
             <Column xs={{ span: 20, offset: 2 }}>
               <Dropdown overlay={menu} trigger={["click"]} ref="dropdown">

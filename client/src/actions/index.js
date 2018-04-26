@@ -5,8 +5,7 @@ import { FETCH_USER, SAVE_RECIPE, SAVE_RECIPE_SUCCESS, SAVE_RECIPE_ERROR, SAVE_R
 // redux-thunk allows us to return a function (with access to dispatch()) from action creator
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/current_user");
-  // Pass updated User Model to Redux Store
-  dispatch({ type: FETCH_USER, payload: res.data }); // user profile info is stored in .data
+  dispatch({ type: FETCH_USER, payload: res.data });
 };
 
 // Change primary social media account
@@ -44,12 +43,12 @@ export const saveRecipe = (recipeId, cuisine, dataElement) => async dispatch => 
   try {
     const res = await axios.post(`/recipe/save/${cuisine}/${recipeId}`, dataElement);
     // Recipe Saved Successfully
-    console.log("saveRecipe res: ", res);
+    // console.log("saveRecipe res: ", res);
     dispatch({ type: SAVE_RECIPE_SUCCESS, payload: res.data.recipe });
     dispatch({ type: FETCH_USER, payload: res.data.user });
   } catch (e) {
-    console.log("dispatching SAVE_RECIPE_ERROR");
-    console.log("action creator error", e);
+    // console.log("dispatching SAVE_RECIPE_ERROR");
+    // console.log("action creator error", e);
     // Recipe Save Encountered Error
     dispatch({
       type: SAVE_RECIPE_ERROR,
@@ -59,7 +58,7 @@ export const saveRecipe = (recipeId, cuisine, dataElement) => async dispatch => 
 };
 
 export const resetSavedRecipe = () => async dispatch => {
-  console.log("dispatching SAVE_RECIPE_RESET");
+  // console.log("dispatching SAVE_RECIPE_RESET");
   dispatch({
     type: SAVE_RECIPE_RESET,
     payload: null

@@ -25,7 +25,7 @@ class UserAccounts extends Component {
   renderContent(auth) {
     return (
       this.props.auth && (
-        <Row className="userAccountsContainer">
+        <Row className="userAccountsComponent">
           {/* Primary Account */}
           <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} xl={{ span: 18, offset: 3 }}>
             <PanelContainer bordered={true} defaultActiveKey={"1"}>

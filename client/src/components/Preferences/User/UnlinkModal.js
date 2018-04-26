@@ -36,7 +36,7 @@ class UnlinkModal extends Component {
   render() {
     const { visible, loading } = this.state;
     return (
-      <div>
+      <div className="unlinkModalComponent">
         <Modal
           visible={visible}
           wrapClassName="unlinkModal"

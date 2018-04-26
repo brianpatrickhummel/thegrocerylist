@@ -84,7 +84,7 @@ class SearchResultsSingle extends Component {
     } = this.props;
 
     return (
-      <ModalContainer className="singleRecipeInfo">
+      <ModalContainer className="singleRecipeComponent">
         {/* --- Display Recipe Details --- */}
         {!loading &&
           !error &&

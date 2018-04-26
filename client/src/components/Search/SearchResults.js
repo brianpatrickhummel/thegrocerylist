@@ -57,7 +57,7 @@ class SearchResults extends Component {
     let { showPortal, clickedItemId } = this.state;
 
     return (
-      <div className="searchResultsDiv">
+      <div className="searchResultsComponent">
         <Header>{cuisine}</Header>
 
         <Row className="searchResultsRow">{this.renderContent(data)}</Row>

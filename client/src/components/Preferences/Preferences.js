@@ -7,19 +7,19 @@ const TabPane = Tabs.TabPane;
 
 const Preferences = ({ match }) => {
   return (
-    <div className="preferencesContainer" style={{ textAlign: "center" }}>
+    <div className="preferencesComponent" style={{ textAlign: "center" }}>
       <Tabs defaultActiveKey={match.params.defaultKey}>
         <TabPane tab={<SpanText>ACCOUNTS</SpanText>} key="1">
           <UserAccounts />
         </TabPane>
         <TabPane tab={<SpanText>DIET</SpanText>} key="2">
-          <PrefBox prefType={"diet"} styling={diet} />
+          <PrefBox prefType={"diet"} styling={diet} checkedList={{}} />
         </TabPane>
-        <TabPane tab={<SpanText>CUISINES</SpanText>} key="4">
-          <PrefBox prefType={"cuisines"} styling={cuisines} />
+        <TabPane tab={<SpanText>CUISINES</SpanText>} key="3">
+          <PrefBox prefType={"cuisines"} styling={cuisines} checkedList={{}} />
         </TabPane>
-        <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="3">
-          <PrefBox prefType={"intolerances"} styling={intolerances} />
+        <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="4">
+          <PrefBox prefType={"intolerances"} styling={intolerances} checkedList={{}} />
         </TabPane>
       </Tabs>
     </div>

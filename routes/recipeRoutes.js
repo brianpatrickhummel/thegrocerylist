@@ -15,109 +15,147 @@ module.exports = app => {
       let directionSign = Math.sign(direction === "Next" ? 1 : -1);
       let { intolerances, diet } = req.user.preferences;
       let results_recipeIds = [];
-      let results_recipeInfo = FullRecipeInfoResponse;
+      let results_recipeInfo = [];
 
-      // // Convert Pref Objects into Spoonacular Query String segments
-      // function makeString(obj) {
-      //   let arr = [];
-      //   for (let key in obj) {
-      //     if (obj[key] === true && key !== "$init") {
-      //       arr.push(key);
-      //     }
-      //   }
-      //   // join with url-encoding for comma-space
-      //   // if no diet or intolerances prefs, return empty string
-      //   return arr.length > 0 ? arr.join("%2C+") : "";
-      // }
+      // Convert Pref Objects into Spoonacular Query String segments
+      function makeString(obj) {
+        let arr = [];
+        for (let key in obj) {
+          if (obj[key] === true && key !== "$init") {
+            arr.push(key);
+          }
+        }
+        // join with url-encoding for comma-space
+        // if no diet or intolerances prefs, return empty string
+        return arr.length > 0 ? arr.join("%2C+") : "";
+      }
 
-      // let numberOfResults = 25;
-      // let dietString = makeString(diet);
-      // let intolString = makeString(intolerances);
-      // // If Diet/Intolerances Prefs provided, add to Query string
-      // let dietQuery = dietString.length === 0 ? "" : `&diet=${dietString}`;
-      // let intolQuery = intolString.length === 0 ? "" : `&intolerances=${intolString}`;
+      let numberOfResults = 1;
+      let dietString = makeString(diet);
+      let intolString = makeString(intolerances);
+      // If Diet/Intolerances Prefs provided, add to Query string
+      let dietQuery = dietString.length === 0 ? "" : `&diet=${dietString}`;
+      let intolQuery = intolString.length === 0 ? "" : `&intolerances=${intolString}`;
 
-      // // Recursive Spoonacular API query
-      // // User may save recipes while paginating results
-      // // When saved recipes are filtered, will recursively call API query until
-      // // "numberOfResults" of recipes have accumulated in "results_recipeIds" array
-      // const querySpoon = async () => {
-      //   let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine}${dietQuery}&instructionsRequired=true${intolQuery}&limitLicense=false&number=${numberOfResults}&offset=${offset}&query=*`;
+      // Recursive Spoonacular API query
+      // User may save recipes while paginating results
+      // When saved recipes are filtered, will recursively call API query until
+      // "numberOfResults" of recipes have accumulated in "results_recipeIds" array
+      const querySpoon = async () => {
+        console.log("querySPoon called");
+        let query = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${queryCuisine.toLowerCase()}${dietQuery}&instructionsRequired=true${intolQuery}&limitLicense=false&number=${numberOfResults}&offset=${offset}&query=*`;
 
-      //   // Query list of recipes
+        console.log(query);
+        // Query list of recipes
+        return;
+        let results = await axios({
+          method: "get",
+          url: query,
+          headers: {
+            "X-Mashape-Key": keys.spoonacularKey,
+            Accept: "application/json"
+          }
+        });
+        console.log("results:", results);
+        let { headers } = results;
+        let rateLimit = {
+          requestsLimit: parseInt(headers.get("X-Ratelimit-Requests-Limit")),
+          requestsRemaining: parseInt(headers.get("X-Ratelimit-Requests-Remaining")),
+          resultsLimit: parseInt(headers.get("X-Ratelimit-Results-Limit")),
+          resultsRemaining: parseInt(headers.get("X-Ratelimit-Results-Remaining")),
+          tinyRequestsLimit: parseInt(headers.get("X-Ratelimit-Tinyrequests-Limit")),
+          tinyRequestsRemaining: parseInt(headers.get("X-Ratelimit-Tinyrequests-Remaining"))
+        };
 
-      //   let results = await axios({
-      //     method: "get",
-      //     url: query,
-      //     headers: {
-      //       "X-Mashape-Key": keys.spoonacularKey,
-      //       Accept: "application/json"
-      //     }
-      //   });
-      //   console.log("25 ids are: ", results.data.results);
-      //   // If NO Recipe Results are returned, throw error
-      //   if (results.data.results.length === 0) throw "No recipes found";
+        console.log("requestsLimit: ", requestsLimit);
+        console.log("requestsRemaining: ", requestsRemaining);
+        console.log("resultsLimit: ", resultsLimit);
+        console.log("resultsRemaining: ", resultsRemaining);
+        console.log("tinyRequestsLimit: ", tinyRequestsLimit);
+        console.log("tinyRequestsRemaining: ", tinyRequestsRemaining);
 
-      //   // Iterate through RecipeID Search Results
-      //   for (let item of results.data.results) {
-      //     // Until numberOfResults recipeIds are collected
-      //     if (results_recipeIds.length < numberOfResults) {
-      //       // If a RecipeId is not already saved by user
-      //       if (req.user.savedRecipes.cuisines[queryCuisine.toLowerCase()].indexOf(item.id) === -1) {
-      //         // Collect unsaved RecipeId
-      //         results_recipeIds.push(item.id);
-      //         console.log("id added to results_recipeIds: ", item.id);
-      //       } else {
-      //         // Skip saved RecipeId
-      //         console.log(`Recipe ${item.id} has already been saved by user`);
-      //       }
-      //     }
-      //     // We have collected enough RecipeIds, exit iteration early
-      //     else break;
-      //   }
+        console.log("25 ids are: ", results.data.results);
+        // If NO Recipe Results are returned, throw error
+        if (results.data.results.length === 0) throw "No recipes found";
 
-      //   // If after filtering saved recipes an additional query is necessary
-      //   // will make another call adjusting the update based on whether user is
-      //   // paginating forward or backward through results
-      //   if (results_recipeIds.length < numberOfResults) {
-      //     offset += directionSign * numberOfResults;
-      //     return querySpoon(offset);
-      //   }
-      // };
+        // Iterate through RecipeID Search Results
+        for (let item of results.data.results) {
+          // Until numberOfResults recipeIds are collected
+          if (results_recipeIds.length < numberOfResults) {
+            // If a RecipeId is not already saved by user
+            if (req.user.savedRecipes.cuisines[queryCuisine.toLowerCase()].indexOf(item.id) === -1) {
+              // Collect unsaved RecipeId
+              results_recipeIds.push(item.id);
+              console.log("id added to results_recipeIds: ", item.id);
+            } else {
+              // Skip saved RecipeId
+              console.log(`Recipe ${item.id} has already been saved by user`);
+            }
+          }
+          // We have collected enough RecipeIds, exit iteration early
+          else break;
+        }
 
-      // // Spoonacular API Recipe ID Search - Collect RecipeIds
-      // try {
-      //   await querySpoon();
-      // } catch (e) {
-      //   if (e === "No recipes found") {
-      //     console.log("error in querySpoon try catch", e);
-      //     res.statusMessage = "No recipes found";
-      //     return res.status(404).end();
-      //   }
-      // }
+        // If after filtering saved recipes an additional query is necessary
+        // will make another call adjusting the update based on whether user is
+        // paginating forward or backward through results
+        if (results_recipeIds.length < numberOfResults) {
+          offset += directionSign * numberOfResults;
+          return querySpoon(offset);
+        }
+      };
 
-      // // Benchmarking Spoonacular's Single vs Bulk Recipe Info Endpoints
-      // const start = Date.now();
+      // Spoonacular API Recipe ID Search - Collect RecipeIds
+      try {
+        await querySpoon();
+      } catch (e) {
+        if (e === "No recipes found") {
+          console.log("error in querySpoon try catch", e);
+          res.statusMessage = "No recipes found";
+          return res.status(404).end();
+        }
+      }
 
-      // // Spoonacular API Bulk Recipe Info Search
-      // let queryIds = results_recipeIds.join("%2C");
+      // Benchmarking Spoonacular's Single vs Bulk Recipe Info Endpoints
+      const start = Date.now();
 
-      // if (!queryIds.length > 0) throw "empty recipeIds";
+      // Spoonacular API Bulk Recipe Info Search
+      let queryIds = results_recipeIds.join("%2C");
+      console.log("queryIds", queryIds);
+      if (!queryIds.length > 0) throw "empty recipeIds";
 
-      // let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
+      let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
 
-      // // Query list of recipes
-      // let results2 = await axios({
-      //   method: "get",
-      //   url: query2,
-      //   headers: {
-      //     "X-Mashape-Key": keys.spoonacularKey,
-      //     Accept: "application/json"
-      //   }
-      // });
-      // console.log("query 2 results recipe info: ", results2.data);
+      // Query list of recipes
+      let results2 = await axios({
+        method: "get",
+        url: query2,
+        headers: {
+          "X-Mashape-Key": keys.spoonacularKey,
+          Accept: "application/json"
+        }
+      });
 
-      // results_recipeInfo = results2.data;
+      let { headers } = results2;
+      let rateLimit = {
+        requestsLimit: parseInt(headers.get("X-Ratelimit-Requests-Limit")),
+        requestsRemaining: parseInt(headers.get("X-Ratelimit-Requests-Remaining")),
+        resultsLimit: parseInt(headers.get("X-Ratelimit-Results-Limit")),
+        resultsRemaining: parseInt(headers.get("X-Ratelimit-Results-Remaining")),
+        tinyRequestsLimit: parseInt(headers.get("X-Ratelimit-Tinyrequests-Limit")),
+        tinyRequestsRemaining: parseInt(headers.get("X-Ratelimit-Tinyrequests-Remaining"))
+      };
+
+      console.log("requestsLimit: ", requestsLimit);
+      console.log("requestsRemaining: ", requestsRemaining);
+      console.log("resultsLimit: ", resultsLimit);
+      console.log("resultsRemaining: ", resultsRemaining);
+      console.log("tinyRequestsLimit: ", tinyRequestsLimit);
+      console.log("tinyRequestsRemaining: ", tinyRequestsRemaining);
+
+      console.log("query 2 results recipe info: ", results2.data);
+
+      results_recipeInfo = results2.data;
 
       // // console.log("This query process took: ", Date.now() - start);
 
@@ -128,6 +166,7 @@ module.exports = app => {
       res.send(results_recipeInfo);
     } catch (e) {
       console.log("error in main recipe search trycatch");
+      console.log("error: ", e);
       if (e === "No recipes found") {
         res.statusMessage = e;
         return res.status(404).end();

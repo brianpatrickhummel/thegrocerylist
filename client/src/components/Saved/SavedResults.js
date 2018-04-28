@@ -3,7 +3,6 @@ import Portal from "./Portal";
 import { Col, Row } from "antd";
 import styled from "styled-components";
 import NoResults from "../NoResults";
-import SearchResultsSingle from "./SearchResultsSingle";
 
 class SearchResults extends Component {
   state = {
@@ -58,10 +57,10 @@ class SearchResults extends Component {
     let { showPortal, clickedItemId } = this.state;
 
     return (
-      <div className="searchResultsComponent">
-        <Header>{cuisine}</Header>
+      <div className="savedResultsComponent">
+        <Header>{cuisine.toUpperCase()}</Header>
 
-        <Row className="searchResultsRow">{this.renderContent(data)}</Row>
+        <Row className="savedResultsRow">{this.renderContent(data)}</Row>
         {/* Mount SearchResultsSingle component via React Portal */}
         {showPortal && (
           <Portal
@@ -70,7 +69,6 @@ class SearchResults extends Component {
             cuisine={cuisine}
             goBack={() => this.goBack()}
             removeSavedRecipe={removeSavedRecipe}
-            componentName={SearchResultsSingle}
           />
         )}
       </div>
@@ -83,7 +81,6 @@ export default SearchResults;
 const Header = styled.h1`
   color: rgba(255, 255, 255, 0.5);
   text-align: center;
-
   letter-spacing: 0.8em;
   text-indent: 0.8em;
   background-color: rgba(255, 255, 255, 0.1);

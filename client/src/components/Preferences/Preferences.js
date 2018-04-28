@@ -29,7 +29,19 @@ const Preferences = ({ match }) => {
 export default Preferences;
 
 const SpanText = styled.span`
-  font-weight: bold;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
+
+  @media (max-width: 576px) {
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 430px) {
+    letter-spacing: 0em;
+  }
 `;
 
 // styling variations for the three versions of the PrefBox components

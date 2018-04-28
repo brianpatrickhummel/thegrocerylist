@@ -32,9 +32,9 @@ class Landing extends Component {
         <TitleHeader style={{ marginTop: "120px" }}>GROCERY</TitleHeader>
         <TitleHeader style={{ marginBottom: "20px" }}>LIST</TitleHeader>
         <ImageContainer>
-          <ShoppingCartIcon src={require("../images/ShoppingCartIcon.svg")} />
-          <ListIcon src={require("../images/ListIcon.svg")} />
-          <SilverWareIcon src={require("../images/SilverWareIcon.svg")} />
+          <ShoppingCartIcon src={require("../images/ShoppingCartIconDark.svg")} />
+          <ListIcon src={require("../images/ListDark.svg")} />
+          <SilverWareIcon src={require("../images/SilverWareIconDark.svg")} />
         </ImageContainer>
         <br />
         {this.renderGooeyButton()}

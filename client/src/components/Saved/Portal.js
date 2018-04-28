@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import SearchResultsSingle from "./SearchResultsSingle";
+import SavedResultsSingle from "./SavedResultsSingle";
 
 class Portal extends React.Component {
   rootSelector = document.getElementById("recipe-info");
@@ -16,7 +16,7 @@ class Portal extends React.Component {
   }
 
   render() {
-    return ReactDOM.createPortal(<SearchResultsSingle {...this.props} />, this.container);
+    return ReactDOM.createPortal(<SavedResultsSingle {...this.props} />, this.container);
   }
 }
 

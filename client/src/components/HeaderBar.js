@@ -111,6 +111,7 @@ const LinkAnchor2 = styled.a`
 const LinkImage = styled.img`
   height: 75px;
   max-width: 80px;
+  opacity: 0.6;
 
   @media (max-width: 1127px) {
     height: 60px;
@@ -135,12 +136,13 @@ const LinkImage = styled.img`
 `;
 
 const LinkText = styled.span`
-  color: #362222;
+  color: rgb(215, 211, 211);
   font-weight: bold;
   line-height: 20px;
   margin-top: 12px;
   font-size: 14px;
   display: block;
+  opacity: 0.6 !important;
 
   @media (max-width: 1127px) {
     font-size: 11px;
@@ -155,12 +157,12 @@ const LinkText = styled.span`
     font-size: 8px;
   }
 
-  @media (max-width: 627px) {
+  @media (max-width: 628px) {
     display: inline;
     font-size: 11px;
     color: rgba(255, 255, 255, 0.5);
     font-weight: lighter;
     letter-spacing: 0.08em;
-    margin-left: 8px;
+    margin-left: 20px;
   }
 `;

@@ -5,8 +5,8 @@ import { Menu, Dropdown, Icon, Row, Col, Button } from "antd";
 import Spinner from "../Spinner";
 import styled from "styled-components";
 import NoResults from "../NoResults";
-// import SearchResults from "./SearchResults";
-import axios from "axios";
+import SavedResults from "./SavedResults";
+// import axios from "axios";
 
 class Search extends Component {
   // Local State will store recipe results
@@ -39,28 +39,22 @@ class Search extends Component {
     this.setState({ loading: true });
 
     // Based on offset, grab 10 recipe ids from User SavedRecipes subdoc
-    let recipeIdsObj = { recipeIds: [] };
+    let recipeIds = [];
     let subDocCuisine = auth.savedRecipes.cuisines[cuisineKey];
 
     // Fill recipeIds with at most 10 records
-    for (let recipeId of subDocCuisine) {
-      if (recipeIdsObj.recipeIds.length < (subDocCuisine.length < 10 ? subDocCuisine.length : 10)) {
-        recipeIdsObj.recipeIds.push(recipeId);
+    for (let obj of subDocCuisine) {
+      if (recipeIds.length < (subDocCuisine.length < 10 ? subDocCuisine.length : 10)) {
+        recipeIds.push(obj);
       } else break;
-    }
-
-    console.log("recipeIdsObj.recipeIds", recipeIdsObj.recipeIds);
-
-    try {
-      let result = await axios.post(`/recipes/saved`, recipeIdsObj);
-      // Store results of Axios query in local state
-      this.state.data.push(...result.data);
-      // Disable Loading Spinner
-      this.setState({ loading: false });
-    } catch (e) {
-      // console.log("search.js query error:", e);
-      // if (e.response.status === 404 && e.response.statusText === "No recipes found") {
-      //   this.setState({ data: [null], loading: false });
+      this.setState(
+        {
+          data: recipeIds,
+          cuisine: cuisineKey,
+          loading: false
+        },
+        () => console.log("state after pushing saved recipes: ", this.state)
+      );
     }
   }
 
@@ -90,7 +84,7 @@ class Search extends Component {
 
   render() {
     let { auth } = this.props;
-    let { data, loading, offset, searched } = this.state;
+    let { data, loading, offset, searched, cuisine } = this.state;
 
     // Ant Design Drop-Down Menu Component
     const menu = (
@@ -145,13 +139,13 @@ class Search extends Component {
             </Column>
           </Row>
           {/* Placeholder Bar to match Bar on SearchResults component */}
-          {!data.length && <Header>.</Header>}
+          {!data.length && <Header>•SAVED•</Header>}
           {/*  If no savedRecipes on User Model, display NoResults component */}
-          {!Object.keys(auth.savedRecipes.cuisines).filter(item => auth.savedRecipes.cuisines[item].length).length >
+          {Object.keys(auth.savedRecipes.cuisines).filter(item => auth.savedRecipes.cuisines[item].length).length ===
             0 && (
             <NoResults
               header={"YOU HAVEN'T SAVED ANY RECIPES"}
-              text={"SAVE SOME RECIPES FROM YOUR SEARH RESULTS AND THEY'LL APPEAR HERE"}
+              text={"SAVE SOME RECIPES FROM YOUR SEARCH RESULTS AND THEY'LL APPEAR HERE"}
             />
           )}
           {/*  User clicks option, show loading spinner until Axios request completes */}
@@ -161,13 +155,12 @@ class Search extends Component {
             </SpinColumn>
           ) : // Only render SearchResults if state data has length
           data.length ? (
-            <h6>Here are the results</h6>
-          ) : /* <SearchResults
+            <SavedResults
               data={data}
               cuisine={cuisine}
               removeSavedRecipe={recipeId => this.removeSavedRecipe(recipeId)}
-            /> */
-          null}
+            />
+          ) : null}
           {!loading &&
             data[0] !== null &&
             data.length > 0 && (
@@ -182,11 +175,12 @@ class Search extends Component {
                 </PageButtonCol>
 
                 <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 0 }}>
-                  {(data.length > 0 || searched) && (
-                    <Button id={"Next"} onClick={e => this.nextPage(e.target.id)}>
-                      Next
-                    </Button>
-                  )}
+                  {data.length > 10 &&
+                    searched && (
+                      <Button id={"Next"} onClick={e => this.nextPage(e.target.id)}>
+                        Next
+                      </Button>
+                    )}
                 </PageButtonCol>
               </PageButtonRow>
             )}
@@ -209,11 +203,12 @@ const Exclaim = styled(Icon)`
 `;
 
 const Header = styled.h1`
-  color: rgba(255, 255, 255, 0);
+  color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  margin-top: 0.5em;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.8em;
+  text-indent: 0.8em;
   background-color: rgba(255, 255, 255, 0.1);
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
 
   @media (max-width: 480px) {
     font-size: 22px;
@@ -221,17 +216,29 @@ const Header = styled.h1`
 `;
 
 const Anchor = styled.a`
-  color: #684345 !important;
-  font-size: 16px;
+  color: rgba(108, 76, 76, 0.87) !important;
+  font-size: 12px;
   cursor: default;
+  letter-spacing: 0.13em;
+  text-indent: 0.1em;
+  padding: 5px 15px;
+  border: 1px solid rgba(209, 205, 205, 0.15);
+  border-radius: 20px;
+  box-shadow: 3px 2px 9px rgba(1, 1, 1, 0.05);
+  background-color: rgba(255, 255, 255, 0.04);
   &:hover {
     color: rgba(255, 255, 255, 0.8) !important;
+  }
+  &:active {
+    box-shadow: inset 1px 1px 2px rgba(1, 1, 1, 0.1);
+    background-color: rgba(1, 1, 1, 0.02);
   }
 `;
 
 const Column = styled(Col)`
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const SpinColumn = styled(Col)`

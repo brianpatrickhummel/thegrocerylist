@@ -16,9 +16,9 @@ class Create extends Component {
     return !clicked ? (
       <div className="createComponent">
         <Col className="createColumn" xs={{ span: 20, offset: 2 }} style={{ textAlign: "center" }}>
-          <Row>
+          <TextRow>
             <Text>CREATE GROCERY LIST</Text>
-          </Row>
+          </TextRow>
           <Row>
             <LogoAnchor onClick={() => this.setState({ clicked: true })}>
               <LogoDiv className="hvr-shrink">
@@ -48,12 +48,35 @@ const LogoDiv = styled(Col)`
   border: 20px solid #b4afaf;
   border-radius: 100px;
   max-width: 400px;
-  @media (max-width: 768px) {
+
+  @media (max-width: 700px) {
+    padding: 28px 60px;
+    border: 17px solid #b4afaf;
+  }
+
+  @media (max-width: 628px) {
+    padding: 24px 50px;
+    border: 14px solid #b4afaf;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px 40px;
+    border: 14px solid #b4afaf;
+  }
+
+  @media (max-width: 380px) {
+    padding: 15px 35px;
+    border: 10px solid #b4afaf;
   }
 `;
 
 const LogoImg = styled.img`
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
+    max-width: 150px;
+  }
+
+  @media (max-width: 380px) {
+    max-width: 150px;
   }
 `;
 
@@ -63,10 +86,38 @@ const LogoAnchor = styled.a`
   }
 `;
 
-const Text = styled.p`
-  margin-top: 100px;
-  color: rgba(1, 1, 1, 0.27);
-  font-size: 28px;
-  letter-spacing: 0.03em;
-  text-indent: 0.015em;
+const TextRow = styled(Row)`
+  margin-top: 57px;
+  margin-bottom: 57px;
+`;
+
+const Text = styled(Col)`
+  font-size: 34px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
+
+  @media (max-width: 700px) {
+    font-size: 30px;
+    letter-spacing: 0.2em;
+  }
+
+  @media (max-width: 628px) {
+    font-size: 24px;
+    letter-spacing: 0.15em;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 21px;
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 380px) {
+    letter-spacing: 0.1em;
+    font-size: 20px;
+  }
 `;

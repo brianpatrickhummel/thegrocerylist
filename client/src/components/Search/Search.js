@@ -145,7 +145,7 @@ class Search extends Component {
             </Column>
           </Row>
           {/* Placeholder Bar to match Bar on SearchResults component */}
-          {!data.length && <Header>.</Header>}
+          {!data.length && <Header>•SEARCH•</Header>}
           {/*  User clicks option, show loading spinner until Axios request completes */}
           {loading ? (
             <SpinColumn xs={{ span: 8, offset: 8 }}>
@@ -201,11 +201,12 @@ const Exclaim = styled(Icon)`
 `;
 
 const Header = styled.h1`
-  color: rgba(255, 255, 255, 0);
+  color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  margin-top: 0.5em;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.8em;
+  text-indent: 0.8em;
   background-color: rgba(255, 255, 255, 0.1);
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
 
   @media (max-width: 480px) {
     font-size: 22px;
@@ -213,17 +214,29 @@ const Header = styled.h1`
 `;
 
 const Anchor = styled.a`
-  color: #684345 !important;
-  font-size: 16px;
+  color: rgba(108, 76, 76, 0.87) !important;
+  font-size: 12px;
   cursor: default;
+  letter-spacing: 0.13em;
+  text-indent: 0.1em;
+  padding: 5px 15px;
+  border: 1px solid rgba(209, 205, 205, 0.15);
+  border-radius: 20px;
+  box-shadow: 3px 2px 9px rgba(1, 1, 1, 0.05);
+  background-color: rgba(255, 255, 255, 0.04);
   &:hover {
     color: rgba(255, 255, 255, 0.8) !important;
+  }
+  &:active {
+    box-shadow: inset 1px 1px 2px rgba(1, 1, 1, 0.1);
+    background-color: rgba(1, 1, 1, 0.02);
   }
 `;
 
 const Column = styled(Col)`
   text-align: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const SpinColumn = styled(Col)`

@@ -208,7 +208,7 @@ const SpinnerCard = styled(Card)`
 
 const Title = styled.h3`
   text-align: center;
-  border: 1px solid rgba(1, 1, 1, 0.4);
+  border: 1px solid rgba(1, 1, 1, 0.5);
   padding: 10px;
 
   @media (max-width: 380px) {

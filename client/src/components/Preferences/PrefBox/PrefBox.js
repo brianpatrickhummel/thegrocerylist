@@ -10,20 +10,16 @@ class PrefBox extends Component {
     showButtons: false
   };
 
-  componentWillMount(checkedList) {
-    // reset unsaved changes to checkboxes if user leaves component and returns without a re-render
-    checkedList = {};
-    this.setState({
-      checkedList: checkedList
-    });
-  }
-
   setDefaultChecked(checkedList, prefType, auth) {
     // will only run once, if the checkedList has not been assigned values from the auth object in redux store
     if (!Object.keys(checkedList).length) {
+      let checkedListObj = {};
       for (let key in auth.preferences[prefType]) {
-        checkedList[key] = auth.preferences[prefType][key];
+        checkedListObj[key] = auth.preferences[prefType][key];
       }
+      this.setState({
+        checkedList: checkedListObj
+      });
     }
   }
 
@@ -75,7 +71,8 @@ class PrefBox extends Component {
   }
 
   render() {
-    const { prefType, styling, auth, updatePrefs, checkedList } = this.props;
+    const { prefType, styling, auth, updatePrefs } = this.props;
+    const { checkedList } = this.state;
 
     return (
       <CheckBoxContainer

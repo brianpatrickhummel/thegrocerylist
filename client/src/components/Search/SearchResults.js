@@ -100,7 +100,14 @@ const Column = styled(Col)`
   border: 1px solid rgba(104, 67, 69, 0.05);
   border-radius: 2px;
   padding: 10px 5px 20px 5px;
-  background-color: rgba(104, 67, 69, 0.1);
+  background-color: rgba(1,1,1,0.05);
+  box-shadow: 0px 0px 85px rgba(255,255,255,0.2);
+}
+
+
+
+
+
 `;
 
 const Image = styled.img`

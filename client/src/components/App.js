@@ -28,7 +28,7 @@ class App extends Component {
         <BrowserRouter>
           <Wrapper>
             {/* At root route, if logged in load User Prefs, else load login screen */}
-            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences/0" />)} />
+            <Route exact path="/" render={() => (!this.props.auth ? <Landing /> : <Redirect to="/preferences/1" />)} />
             {/* For every route other than root route, always load the HeadeBar Menu Component */}
             <Route path="/" render={props => props.location.pathname !== "/" && <HeaderBar />} />
             {/* For every route other than root route, always load the within Ant Layout Container */}

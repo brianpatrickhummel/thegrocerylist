@@ -43,11 +43,11 @@ export default connect(mapStateToProps)(Create);
 const LogoDiv = styled(Col)`
   background-color: #cbc5c5;
   text-align: center;
-
   padding: 30px 70px;
   border: 20px solid #b4afaf;
   border-radius: 100px;
   max-width: 400px;
+  box-shadow: 0px 0px 85px rgba(255, 255, 255, 0.2);
 
   @media (max-width: 700px) {
     padding: 28px 60px;

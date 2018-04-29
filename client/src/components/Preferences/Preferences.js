@@ -6,20 +6,21 @@ import PrefBox from "./PrefBox/PrefBox";
 const TabPane = Tabs.TabPane;
 
 const Preferences = ({ match }) => {
+  console.log(match.params.defaultKey);
   return (
     <div className="preferencesComponent" style={{ textAlign: "center" }}>
       <Tabs defaultActiveKey={match.params.defaultKey}>
-        <TabPane tab={<SpanText>ACCOUNTS</SpanText>} key="1">
+        <TabPane tab={<SpanText className="hvr-shrink">ACCOUNTS</SpanText>} key="1">
           <UserAccounts />
         </TabPane>
-        <TabPane tab={<SpanText>DIET</SpanText>} key="2">
-          <PrefBox prefType={"diet"} styling={diet} checkedList={{}} />
+        <TabPane tab={<SpanText className="hvr-shrink">DIET</SpanText>} key="2">
+          <PrefBox prefType={"diet"} styling={diet} />
         </TabPane>
-        <TabPane tab={<SpanText>CUISINES</SpanText>} key="3">
-          <PrefBox prefType={"cuisines"} styling={cuisines} checkedList={{}} />
+        <TabPane tab={<SpanText className="hvr-shrink">CUISINES</SpanText>} key="3">
+          <PrefBox prefType={"cuisines"} styling={cuisines} />
         </TabPane>
-        <TabPane tab={<SpanText>INTOLERANCES</SpanText>} key="4">
-          <PrefBox prefType={"intolerances"} styling={intolerances} checkedList={{}} />
+        <TabPane tab={<SpanText className="hvr-shrink">INTOLERANCES</SpanText>} key="4">
+          <PrefBox prefType={"intolerances"} styling={intolerances} />
         </TabPane>
       </Tabs>
     </div>
@@ -29,7 +30,7 @@ const Preferences = ({ match }) => {
 export default Preferences;
 
 const SpanText = styled.span`
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
   text-align: center;
   letter-spacing: 0.2em;
   text-indent: 0.2em;

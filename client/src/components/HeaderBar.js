@@ -53,7 +53,7 @@ class HeaderBar extends Component {
         {/* Header Nav - visibility controlled by Media Queries */}
         <Header style={{ textAlign: "center" }}>
           <Row type="flex" justify="center">
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["5"]}>
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
               {/* call render function passing in class names specific only to menu bar (not sidebar) */}
               {this.renderMenuItems("NavBar")}
             </Menu>
@@ -111,7 +111,7 @@ const LinkAnchor2 = styled.a`
 const LinkImage = styled.img`
   height: 75px;
   max-width: 80px;
-  opacity: 0.6;
+  opacity: 0.8;
 
   @media (max-width: 1127px) {
     height: 60px;
@@ -142,7 +142,7 @@ const LinkText = styled.span`
   margin-top: 12px;
   font-size: 14px;
   display: block;
-  opacity: 0.6 !important;
+  opacity: 0.8 !important;
 
   @media (max-width: 1127px) {
     font-size: 11px;

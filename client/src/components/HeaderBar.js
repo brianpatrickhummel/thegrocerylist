@@ -24,7 +24,7 @@ class HeaderBar extends Component {
         <Menu.Item key={index + 1}>
           {/* logic to render last index (logout) as an <a> rather than react-router <Link> */}
           {index !== 6 ? (
-            <LinkAnchor to={link} className={classNames}>
+            <LinkAnchor to={link} className={classNames} id={text.toLowerCase()}>
               <div className="hvr-shrink">
                 <Icon>
                   <LinkImage src={image} alt="menu item icon" />
@@ -33,7 +33,7 @@ class HeaderBar extends Component {
               </div>
             </LinkAnchor>
           ) : (
-            <LinkAnchor2 href={link} className={classNames}>
+            <LinkAnchor2 href={link} className={classNames} id={text.toLowerCase()}>
               <div className="hvr-shrink">
                 <Icon>
                   <LinkImage src={image} alt="logout icon" />

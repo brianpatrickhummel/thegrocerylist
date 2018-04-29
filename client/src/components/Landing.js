@@ -10,7 +10,7 @@ class Landing extends Component {
     for (let acct of acctTypes) {
       menuList.push(
         <li key={acct} className="share-item">
-          <a href={`/auth/${acct}`} className="share-button">
+          <a href={`/auth/${acct}`} className="share-button" id={acct}>
             <FontAwesome className="share-icon" name={acct} />
           </a>
         </li>

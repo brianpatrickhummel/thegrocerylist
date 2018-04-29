@@ -24,6 +24,14 @@
   </script>
   <script type="text/javascript" src="/static/js/TweenMax.min.js"></script>
   <script type="text/javascript" src="/static/js/share.js"></script>
+  <script>
+    $(document).on("click", ".ant-layout-sider-trigger", () => {
+      console.log("button clicked");
+      $(".AntLayout").css(
+        "display", "inline-block !important"
+      )
+    })
+  </script>
   <!-- Script to remove the "#_=_" added by Facebook to Auth redirect URIs -->
   <script>
     $(window).on('load', function (e) {

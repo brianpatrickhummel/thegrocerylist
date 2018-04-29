@@ -28,6 +28,9 @@
 }
 
 /* = = = = = = HeaderBar = = = = = = = */
+.ant-menu-item {
+  padding: 0 10px;
+}
 
 .ant-layout-header {
   height: 100%;
@@ -35,7 +38,7 @@
 }
 
 .ant-menu-horizontal > .ant-menu-item {
-  margin: 0 10px;
+  /* margin: 0 10px; */
   display: inline;
   text-align: center;
 }
@@ -239,16 +242,7 @@ a.ant-btn-sm {
   }
 }
 
-@media (max-width: 866px) {
-  .ant-menu-horizontal > .ant-menu-item {
-    padding: 0 4px;
-  }
-}
-
 @media (max-width: 700px) {
-  .ant-menu-horizontal > .ant-menu-item {
-    padding: 0 2px;
-  }
   .NavBar {
     margin: 18px 0;
   }

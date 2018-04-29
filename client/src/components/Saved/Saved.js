@@ -27,7 +27,7 @@ class Search extends Component {
         .map(cuisine => {
           return (
             <Menu.Item key={cuisine.toUpperCase()}>
-              <a>{cuisine.toUpperCase()}</a>
+              <DropDownAnchor>{cuisine.toUpperCase()}</DropDownAnchor>
             </Menu.Item>
           );
         })
@@ -233,6 +233,10 @@ const Anchor = styled.a`
     box-shadow: inset 1px 1px 2px rgba(1, 1, 1, 0.1);
     background-color: rgba(1, 1, 1, 0.02);
   }
+`;
+
+const DropDownAnchor = styled.a`
+  color: rgba(108, 76, 76, 0.87) !important;
 `;
 
 const Column = styled(Col)`

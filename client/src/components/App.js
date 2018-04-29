@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -36,22 +36,25 @@ class App extends Component {
               path="*"
               render={props =>
                 props.location.pathname !== "/" && (
-                  <AntLayout className="AntLayout">
-                    {/* Not logged in and attempting to load a route, redirect to login */}
-                    {!this.props.auth ? (
-                      <Redirect to="/" />
-                    ) : (
-                      <Switch>
-                        <Route path="/preferences/:defaultKey" component={Preferences} />
-                        <Route exact path="/create" component={Create} />
-                        <Route path="/lists" component={MyGroceryLists} />
-                        <Route path="/viewonelist/:listid" component={ViewOneList} />
-                        <Route path="/saved" component={Saved} />
-                        <Route path="/favorites" component={Favorites} />
-                        <Route exact path="/search" component={Search} />
-                      </Switch>
-                    )}
-                  </AntLayout>
+                  <Fragment>
+                    <AntLayout className="AntLayout">
+                      {/* Not logged in and attempting to load a route, redirect to login */}
+                      {!this.props.auth ? (
+                        <Redirect to="/" />
+                      ) : (
+                        <Switch>
+                          <Route path="/preferences/:defaultKey" component={Preferences} />
+                          <Route exact path="/create" component={Create} />
+                          <Route path="/lists" component={MyGroceryLists} />
+                          <Route path="/viewonelist/:listid" component={ViewOneList} />
+                          <Route path="/saved" component={Saved} />
+                          <Route path="/favorites" component={Favorites} />
+                          <Route exact path="/search" component={Search} />
+                        </Switch>
+                      )}
+                    </AntLayout>
+                    <div className="afterAntLayout" />
+                  </Fragment>
                 )
               }
             />

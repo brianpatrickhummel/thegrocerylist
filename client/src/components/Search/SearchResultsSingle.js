@@ -84,7 +84,7 @@ class SearchResultsSingle extends Component {
     } = this.props;
 
     return (
-      <ModalContainer className="singleRecipeComponent">
+      <ModalContainer className="searchResultsSingleComponent">
         {/* --- Display Recipe Details --- */}
         {!loading &&
           !error &&
@@ -145,7 +145,7 @@ class SearchResultsSingle extends Component {
             </RecipeCard>
           )}
 
-        {/* --- Recipe Saved, Display Sucess Message --- */}
+        {/* --- Recipe Saved, Display Success Message --- */}
         {Object.keys(recipe).length && (
           <SuccessCard bordered={false} className="saveRecipeSuccessDiv">
             <Text>{this.displaySuccess()}</Text>
@@ -155,7 +155,7 @@ class SearchResultsSingle extends Component {
 
         {/* --- Recipe Save is Processing, Display Loader --- */}
         {loading && (
-          <SpinnerCard bordered={false}>
+          <SpinnerCard bordered={false} className="saveRecipeLoadingDiv">
             <Spinner />
           </SpinnerCard>
         )}

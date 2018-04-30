@@ -70,4 +70,6 @@ const ModalButton = styled(Button)`
 
 const ModalBodyText = styled.p`
   font-size: 16px !important;
+  color: #b82933 !important;
+  margin-top: 10px;
 `;

@@ -8,7 +8,7 @@ import NoResults from "../NoResults";
 import SavedResults from "./SavedResults";
 // import axios from "axios";
 
-class Search extends Component {
+class Saved extends Component {
   // Local State will store recipe results
   state = {
     loading: false,
@@ -57,15 +57,6 @@ class Search extends Component {
       );
     }
   }
-
-  // If user saves a recipe, remove that recipe from state data array
-  // removeSavedRecipe(recipeId) {
-  //   let newData = this.state.data.filter(recipe => recipe.id !== recipeId);
-  //   this.setState({ data: newData }, () => {
-  //     console.log("after saving recipe, state: ", this.state);
-  //     if (!this.state.data.length) this.getRecipes(this.state.cuisine, "Next");
-  //   });
-  // }
 
   // Paging Buttons, call API query with page offset parameters
   // nextPage(direction) {
@@ -155,11 +146,7 @@ class Search extends Component {
             </SpinColumn>
           ) : // Only render SearchResults if state data has length
           data.length ? (
-            <SavedResults
-              data={data}
-              cuisine={cuisine}
-              removeSavedRecipe={recipeId => this.removeSavedRecipe(recipeId)}
-            />
+            <SavedResults data={data} cuisine={cuisine} />
           ) : null}
           {!loading &&
             data[0] !== null &&
@@ -194,7 +181,7 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps)(Saved);
 
 const Exclaim = styled(Icon)`
   font-size: 22px;

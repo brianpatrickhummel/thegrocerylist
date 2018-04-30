@@ -170,7 +170,7 @@ passport.use(
         // user already exists and is logged in, we have to link accounts
         // pull the user out of the session
         var user = req.user;
-        console.log("twitter auth, user is : ", user);
+        // console.log("twitter auth, user is : ", user);
         // update the current user's Twitter credentials
         (user.authProviders.twitter.Id = profile.id),
           (user.authProviders.twitter.DisplayName = profile.displayName),

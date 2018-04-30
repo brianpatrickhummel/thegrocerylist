@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { Card, Icon, Col, Row, message } from "antd";
 import Spinner from "../Spinner";
 import { connect } from "react-redux";
+import DeleteModal from "./DeleteModal";
+import { resetDeleteRecipe } from "../../actions";
 
 class SavedResultsSingle extends Component {
   renderIngredients = dataElement => {
@@ -48,8 +50,7 @@ class SavedResultsSingle extends Component {
 
   // On Error or Success, unmount Portal and reset Redux savedRecipe state
   exitSavePortal = recipeid => {
-    if (recipeid) this.props.removeSavedRecipe(recipeid);
-    this.props.resetSavedRecipe();
+    this.props.resetRetrieveRecipe();
     this.props.goBack();
   };
 
@@ -73,17 +74,30 @@ class SavedResultsSingle extends Component {
     this.exitSavePortal();
   }
 
+  deleteSuccess(text) {
+    message.config({
+      top: "25%",
+      duration: 1.3
+    });
+    message.success(text);
+  }
+
+  renderDeleteModal() {
+    // calls the showModal method from child UnlinkModal component via react-redux Connect's getWrappedInstance
+    this.refs.DeleteModal.getWrappedInstance().showModal();
+  }
+
   render() {
     let {
       goBack,
-      cuisine,
       dataElement,
-      saveRecipe,
-      savedRecipe: { recipe, error, loading }
+      cuisine,
+      deleteRecipe,
+      deletedRecipe: { recipe, error, loading }
     } = this.props;
 
     return (
-      <ModalContainer className="singleRecipeComponent">
+      <ModalContainer className="savedResultsSingleComponent">
         {/* --- Display Recipe Details --- */}
         {!loading &&
           !error &&
@@ -94,12 +108,12 @@ class SavedResultsSingle extends Component {
                   <IconText>BACK</IconText>
                 </Icon>,
                 <Icon
-                  type="like"
+                  type="dislike"
                   onClick={() => {
-                    saveRecipe(dataElement.id, cuisine.toLowerCase(), dataElement);
+                    this.renderDeleteModal();
                   }}
                 >
-                  <IconText>SAVE</IconText>
+                  <IconText>DELETE</IconText>
                 </Icon>,
                 <a href={dataElement.sourceUrl} target="about_blank">
                   <Icon type="link">
@@ -144,9 +158,9 @@ class SavedResultsSingle extends Component {
             </RecipeCard>
           )}
 
-        {/* --- Recipe Saved, Display Sucess Message --- */}
+        {/* --- Recipe Deleted, Display Success Message --- */}
         {Object.keys(recipe).length && (
-          <SuccessCard bordered={false} className="saveRecipeSuccessDiv">
+          <SuccessCard bordered={false} className="deleteRecipeSuccessDiv">
             <Text>{this.displaySuccess()}</Text>
             {this.exitSavePortal(recipe.id)}
           </SuccessCard>
@@ -154,23 +168,34 @@ class SavedResultsSingle extends Component {
 
         {/* --- Recipe Save is Processing, Display Loader --- */}
         {loading && (
-          <SpinnerCard bordered={false}>
+          <SpinnerCard bordered={false} className="deleteRecipeLoadingDiv">
             <Spinner />
           </SpinnerCard>
         )}
 
         {/* --- Recipe Save Error, Display Error Message --- */}
         {error && (
-          <ErrorCard bordered={false} className="saveRecipeErrorDiv">
+          <ErrorCard bordered={false} className="deleteRecipeErrorDiv">
             <Text>{this.displayError(error)}</Text>
           </ErrorCard>
         )}
+        <DeleteModal
+          ref="DeleteModal"
+          deleteRecipe={recipeId => deleteRecipe}
+          recipeId={dataElement.id}
+          recipeTitle={dataElement.title}
+          cuisine={cuisine}
+        />
       </ModalContainer>
     );
   }
 }
 
-export default connect(null)(SavedResultsSingle);
+function mapStateToProps({ deletedRecipe }) {
+  return { deletedRecipe };
+}
+
+export default connect(mapStateToProps, { resetDeleteRecipe })(SavedResultsSingle);
 
 const ModalContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.65);

@@ -97,6 +97,10 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  savedRecipesCount: {
+    type: Number,
+    default: 0
+  },
   savedRecipes: {
     type: SavedRecipesSchema,
     default: SavedRecipesSchema

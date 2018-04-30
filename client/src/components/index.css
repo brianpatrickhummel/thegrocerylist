@@ -185,11 +185,6 @@ a.ant-btn-sm {
   text-align: center;
 }
 
-.ant-modal-body > p {
-  color: #b82933 !important;
-  margin-top: 10px;
-}
-
 .ant-modal-footer {
   text-align: center !important;
 }

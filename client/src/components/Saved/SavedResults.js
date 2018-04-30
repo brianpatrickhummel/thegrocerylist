@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import Portal from "./Portal";
-import { Col, Row } from "antd";
+import { Col, Row, Card, message } from "antd";
 import styled from "styled-components";
 import NoResults from "../NoResults";
+import { connect } from "react-redux";
+import Spinner from "../Spinner";
+import { retrieveRecipe, resetRetrieveRecipe } from "../../actions";
 
-class SearchResults extends Component {
+class SavedResults extends Component {
   state = {
-    showPortal: false,
-    clickedItemId: null
+    showPortal: false
   };
 
-  // Display Each Search Result
-  renderContent(data, showPortal) {
+  // Display Each Saved Recipe
+  renderContent(data, showPortal, retrieveRecipe) {
+    // console.log(typeof retrieveRecipe);
     if (data.length > 0) {
       let content = [];
       for (let i = 0; i < data.length; i++) {
@@ -26,8 +29,8 @@ class SearchResults extends Component {
                 src={data[i].image}
                 alt="recipe image"
                 onClick={e => {
+                  retrieveRecipe(data[i].id);
                   this.setState({
-                    clickedItemId: e.target.id,
                     showPortal: !showPortal
                   });
                 }}
@@ -52,31 +55,59 @@ class SearchResults extends Component {
     });
   }
 
+  displayError(errorMessage) {
+    console.log("SRS displayError called");
+    // console.log("error message", errorMessage);
+    message.config({
+      top: "40%",
+      duration: 3.3
+    });
+    message.error(` ${errorMessage}, Please Try Again`);
+    this.exitSavePortal();
+  }
+
   render() {
-    let { cuisine, data, removeSavedRecipe } = this.props;
-    let { showPortal, clickedItemId } = this.state;
+    let {
+      cuisine,
+      data,
+      retrieveRecipe,
+      retrievedRecipe: { recipe, error, loading }
+    } = this.props;
+
+    let { showPortal } = this.state;
 
     return (
       <div className="savedResultsComponent">
         <Header>{cuisine.toUpperCase()}</Header>
-
-        <Row className="savedResultsRow">{this.renderContent(data)}</Row>
-        {/* Mount SearchResultsSingle component via React Portal */}
-        {showPortal && (
-          <Portal
-            open={showPortal}
-            dataElement={data[clickedItemId]}
-            cuisine={cuisine}
-            goBack={() => this.goBack()}
-            removeSavedRecipe={removeSavedRecipe}
-          />
+        {/* --- Recipe Save is Processing, Display Loader --- */}
+        {loading && (
+          <SpinnerCard bordered={false} className="retrieveRecipeLoadingDiv">
+            <Spinner />
+          </SpinnerCard>
+        )}
+        {!loading && <Row className="savedResultsRow">{this.renderContent(data, showPortal, retrieveRecipe)}</Row>}
+        {/* Mount SavedResultsSingle component via React Portal */}
+        {!loading &&
+          showPortal &&
+          Object.keys(recipe).length && (
+            <Portal open={showPortal} dataElement={recipe} cuisine={cuisine} goBack={() => this.goBack()} />
+          )}
+        {/* --- Recipe Retrieve Error, Display Error Message --- */}
+        {error && (
+          <ErrorCard bordered={false} className="retrieveRecipeErrorDiv">
+            <Text>{this.displayError(error)}</Text>
+          </ErrorCard>
         )}
       </div>
     );
   }
 }
 
-export default SearchResults;
+function mapStateToProps({ retrievedRecipe }) {
+  return { retrievedRecipe };
+}
+
+export default connect(mapStateToProps, { retrieveRecipe, resetRetrieveRecipe })(SavedResults);
 
 const Header = styled.h1`
   color: rgba(255, 255, 255, 0.5);
@@ -90,6 +121,7 @@ const Header = styled.h1`
     font-size: 22px;
   }
 `;
+
 const Column = styled(Col)`
   text-align: center;
   margin-top: 20px;
@@ -100,11 +132,6 @@ const Column = styled(Col)`
   background-color: rgba(1,1,1,0.05);
   box-shadow: 0px 0px 105px rgba(255,255,255,0.15);
 }
-
-
-
-
-
 `;
 
 const Image = styled.img`
@@ -142,4 +169,30 @@ const RecipeTitle = styled.p`
   @media (max-width: 480px) {
     font-weight: bolder;
   }
+`;
+
+const SpinnerCard = styled(Card)`
+  width: 90%;
+  height: 92%;
+  margin-left: 8px !important;
+  background: rgba(0, 0, 0, 0) !important;
+  text-align: center !important;
+  margin-top: 10em;
+`;
+
+const ErrorCard = styled(Card)`
+  width: 90%;
+  height: 92%;
+  background-color: rgba(0, 0, 0, 0.95);
+  text-align: center !important;
+  margin-top: 10em;
+`;
+
+const Text = styled.p`
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-indent: 0.05em;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0 !important;
 `;

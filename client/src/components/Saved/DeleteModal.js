@@ -8,9 +8,7 @@ const FontAwesome = require("react-fontawesome");
 
 class DeleteModal extends Component {
   state = {
-    visible: false,
-    recipeId: "",
-    recipeTitle: ""
+    visible: false
   };
 
   showModal = () => {
@@ -19,9 +17,11 @@ class DeleteModal extends Component {
     });
   };
 
-  handleOk = (recipeId, cuisine, deleteRecipe) => {
+  handleOk = (recipeId, cuisine, deleteRecipe, goBack, removeSavedRecipe) => {
     console.log("running handleOk");
     deleteRecipe(recipeId, cuisine);
+    goBack();
+    removeSavedRecipe(recipeId);
     this.setState({ visible: false });
   };
 
@@ -31,7 +31,7 @@ class DeleteModal extends Component {
 
   render() {
     const { visible } = this.state;
-    const { recipeTitle, recipeId, cuisine, deleteRecipe } = this.props;
+    const { recipeTitle, recipeId, goBack, cuisine, deleteRecipe, removeSavedRecipe } = this.props;
 
     return (
       <div className="deleteRecipeModalComponent">
@@ -44,7 +44,11 @@ class DeleteModal extends Component {
             <ModalButton key="back" onClick={this.handleCancel}>
               NO, CANCEL
             </ModalButton>,
-            <ModalButton key="submit" type="primary" onClick={() => this.handleOk(recipeId, cuisine, deleteRecipe)}>
+            <ModalButton
+              key="submit"
+              type="primary"
+              onClick={() => this.handleOk(recipeId, cuisine, deleteRecipe, goBack, removeSavedRecipe)}
+            >
               YES, DELETE
             </ModalButton>
           ]}

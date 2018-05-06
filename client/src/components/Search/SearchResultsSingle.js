@@ -19,7 +19,7 @@ class SearchResultsSingle extends Component {
         <Row key={keyGenerator}>
           <Col xs={{ span: 24, offset: 0 }} sm={{ span: 21, offset: 1 }}>
             <Ingredient>
-              <span>{item.originalString.toUpperCase()}</span>
+              <span>{item.original.toUpperCase()}</span>
             </Ingredient>
           </Col>
         </Row>

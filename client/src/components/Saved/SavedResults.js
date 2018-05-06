@@ -2,15 +2,19 @@ import React, { Component } from "react";
 import Portal from "./Portal";
 import { Col, Row, Card, message } from "antd";
 import styled from "styled-components";
-import NoResults from "../NoResults";
 import { connect } from "react-redux";
 import Spinner from "../Spinner";
-import { retrieveRecipe, resetRetrieveRecipe } from "../../actions";
+import { retrieveRecipe, resetDeleteRecipe } from "../../actions";
 
 class SavedResults extends Component {
   state = {
     showPortal: false
   };
+
+  componentDidMount() {
+    console.log("SavedResults.js mounted");
+    window.scrollTo(0, 0);
+  }
 
   // Display Each Saved Recipe
   renderContent(data, showPortal, retrieveRecipe) {
@@ -40,19 +44,23 @@ class SavedResults extends Component {
         );
       }
       return content;
-    } else
-      return (
-        <NoResults
-          header={"NO RECIPES FOUND"}
-          text={"TRY SEARCHING ANOTHER CUISINE OR MAKING ADJUSTMENTS TO YOUR PREFERENCES"}
-        />
-      );
+    }
   }
 
   goBack() {
     this.setState({
       showPortal: false
     });
+  }
+
+  displaySuccess() {
+    console.log("SRS delete displaySuccess called");
+    this.props.resetDeleteRecipe();
+    message.config({
+      top: "40%",
+      duration: 1
+    });
+    message.success("Recipe Successfully Deleted");
   }
 
   displayError(errorMessage) {
@@ -63,7 +71,6 @@ class SavedResults extends Component {
       duration: 3.3
     });
     message.error(` ${errorMessage}, Please Try Again`);
-    this.exitSavePortal();
   }
 
   render() {
@@ -71,7 +78,10 @@ class SavedResults extends Component {
       cuisine,
       data,
       retrieveRecipe,
+      removeSavedRecipe,
+      deletedRecipe: { recipe: delRecipe, error: delError, loading: delLoading },
       retrievedRecipe: { recipe, error, loading }
+      // } = this.props;
     } = this.props;
 
     let { showPortal } = this.state;
@@ -80,34 +90,50 @@ class SavedResults extends Component {
       <div className="savedResultsComponent">
         <Header>{cuisine.toUpperCase()}</Header>
         {/* --- Recipe Save is Processing, Display Loader --- */}
-        {loading && (
-          <SpinnerCard bordered={false} className="retrieveRecipeLoadingDiv">
-            <Spinner />
-          </SpinnerCard>
-        )}
-        {!loading && <Row className="savedResultsRow">{this.renderContent(data, showPortal, retrieveRecipe)}</Row>}
+        {loading ||
+          (delLoading && (
+            <SpinnerCard bordered={false} className="retrieveRecipeLoadingDiv">
+              <Spinner />
+            </SpinnerCard>
+          ))}
+        {!loading &&
+          data.length > 0 && (
+            <Row className="savedResultsRow">{this.renderContent(data, showPortal, retrieveRecipe)}</Row>
+          )}
         {/* Mount SavedResultsSingle component via React Portal */}
         {!loading &&
-          showPortal &&
-          Object.keys(recipe).length && (
-            <Portal open={showPortal} dataElement={recipe} cuisine={cuisine} goBack={() => this.goBack()} />
+          showPortal && (
+            <Portal
+              open={showPortal}
+              dataElement={recipe}
+              cuisine={cuisine}
+              goBack={() => this.goBack()}
+              removeSavedRecipe={removeSavedRecipe}
+            />
           )}
         {/* --- Recipe Retrieve Error, Display Error Message --- */}
-        {error && (
-          <ErrorCard bordered={false} className="retrieveRecipeErrorDiv">
-            <Text>{this.displayError(error)}</Text>
-          </ErrorCard>
+        {error ||
+          (delError && (
+            <ErrorCard bordered={false} className="retrieveRecipeErrorDiv">
+              <Text>{this.displayError(error)}</Text>
+            </ErrorCard>
+          ))}
+        {/* --- Recipe Deleted, Display Success Message --- */}
+        {Object.keys(delRecipe).length > 0 && (
+          <SuccessCard bordered={false} className="deleteRecipeSuccessDiv">
+            <Text>{this.displaySuccess()}</Text>
+          </SuccessCard>
         )}
       </div>
     );
   }
 }
 
-function mapStateToProps({ retrievedRecipe }) {
-  return { retrievedRecipe };
+function mapStateToProps({ retrievedRecipe, deletedRecipe }) {
+  return { retrievedRecipe, deletedRecipe };
 }
 
-export default connect(mapStateToProps, { retrieveRecipe, resetRetrieveRecipe })(SavedResults);
+export default connect(mapStateToProps, { retrieveRecipe, resetDeleteRecipe })(SavedResults);
 
 const Header = styled.h1`
   color: rgba(255, 255, 255, 0.5);
@@ -195,4 +221,12 @@ const Text = styled.p`
   text-align: center;
   font-weight: bold;
   margin-bottom: 0 !important;
+`;
+
+const SuccessCard = styled(Card)`
+  width: 90%;
+  height: 92%;
+  background: black;
+  text-align: center !important;
+  padding: 45% 0 !important;
 `;

@@ -11,6 +11,10 @@ class SearchResults extends Component {
     clickedItemId: null
   };
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   // Display Each Search Result
   renderContent(data, showPortal) {
     if (data.length > 0) {

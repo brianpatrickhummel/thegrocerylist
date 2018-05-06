@@ -6,7 +6,7 @@ import PrefBox from "./PrefBox/PrefBox";
 const TabPane = Tabs.TabPane;
 
 const Preferences = ({ match }) => {
-  console.log(match.params.defaultKey);
+  // console.log(match.params.defaultKey);
   return (
     <div className="preferencesComponent" style={{ textAlign: "center" }}>
       <Tabs defaultActiveKey={match.params.defaultKey}>

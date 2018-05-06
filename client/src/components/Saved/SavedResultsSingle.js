@@ -3,13 +3,16 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Card, Icon, Col, Row, message } from "antd";
-import Spinner from "../Spinner";
+import { Card, Icon, Col, Row } from "antd";
 import { connect } from "react-redux";
 import DeleteModal from "./DeleteModal";
-import { resetDeleteRecipe } from "../../actions";
+import { deleteRecipe } from "../../actions";
 
 class SavedResultsSingle extends Component {
+  componentDidMount() {
+    console.log("SavedResultsSingle.js mounted");
+  }
+
   renderIngredients = dataElement => {
     let content = [];
     // Satisfying React's unique key policy with a generic counter
@@ -20,7 +23,7 @@ class SavedResultsSingle extends Component {
         <Row key={keyGenerator}>
           <Col xs={{ span: 24, offset: 0 }} sm={{ span: 21, offset: 1 }}>
             <Ingredient>
-              <span>{item.originalString.toUpperCase()}</span>
+              <span>{item.original.toUpperCase()}</span>
             </Ingredient>
           </Col>
         </Row>
@@ -49,38 +52,30 @@ class SavedResultsSingle extends Component {
   };
 
   // On Error or Success, unmount Portal and reset Redux savedRecipe state
-  exitSavePortal = recipeid => {
-    this.props.resetRetrieveRecipe();
-    this.props.goBack();
-  };
+  // exitSavePortal(recipeId) {
+  //   console.log("exitSavePortal recipeId:", recipeId);
+  //   this.props.removeSavedRecipe(recipeId);
+  //   this.props.goBack();
+  // }
 
-  displaySuccess() {
-    console.log("SRS displaySuccess called");
-    message.config({
-      top: "40%",
-      duration: 2
-    });
-    message.success(" Recipe Successfully Saved");
-  }
+  // displayError(errorMessage) {
+  //   console.log("SRS displayError called");
+  //   // console.log("error message", errorMessage);
+  //   message.config({
+  //     top: "40%",
+  //     duration: 3.3
+  //   });
+  //   message.error(` ${errorMessage}, Please Try Again`);
+  //   this.exitSavePortal();
+  // }
 
-  displayError(errorMessage) {
-    console.log("SRS displayError called");
-    // console.log("error message", errorMessage);
-    message.config({
-      top: "40%",
-      duration: 3.3
-    });
-    message.error(` ${errorMessage}, Please Try Again`);
-    this.exitSavePortal();
-  }
-
-  deleteSuccess(text) {
-    message.config({
-      top: "25%",
-      duration: 1.3
-    });
-    message.success(text);
-  }
+  // deleteSuccess(text) {
+  //   message.config({
+  //     top: "25%",
+  //     duration: 1.3
+  //   });
+  //   message.success(text);
+  // }
 
   renderDeleteModal() {
     // calls the showModal method from child UnlinkModal component via react-redux Connect's getWrappedInstance
@@ -88,114 +83,83 @@ class SavedResultsSingle extends Component {
   }
 
   render() {
-    let {
-      goBack,
-      dataElement,
-      cuisine,
-      deleteRecipe,
-      deletedRecipe: { recipe, error, loading }
-    } = this.props;
+    let { goBack, dataElement, cuisine, deleteRecipe, removeSavedRecipe } = this.props;
 
     return (
       <ModalContainer className="savedResultsSingleComponent">
         {/* --- Display Recipe Details --- */}
-        {!loading &&
-          !error &&
-          !Object.keys(recipe).length && (
-            <RecipeCard
-              actions={[
-                <Icon type="arrow-left" onClick={goBack}>
-                  <IconText>BACK</IconText>
-                </Icon>,
-                <Icon
-                  type="dislike"
-                  onClick={() => {
-                    this.renderDeleteModal();
-                  }}
-                >
-                  <IconText>DELETE</IconText>
-                </Icon>,
-                <a href={dataElement.sourceUrl} target="about_blank">
-                  <Icon type="link">
-                    <IconText>DETAILS</IconText>
-                  </Icon>
-                </a>
-              ]}
-            >
-              <Title>{dataElement.title.toUpperCase()}</Title>
-              <TimeRow style={{ textAlign: "center" }}>
-                <TimeCol xs={{ span: 8 }}>
-                  <Row>
-                    <Text> PREP TIME: </Text>
-                  </Row>
-                  <Row>
-                    <Text>{dataElement.preparationMinutes} Minutes </Text>
-                  </Row>
-                </TimeCol>
-                <TimeCol xs={{ span: 8 }}>
-                  <Row>
-                    <Text> COOK TIME: </Text>
-                  </Row>
-                  <Row>
-                    <Text> {dataElement.cookingMinutes} Minutes</Text>
-                  </Row>
-                </TimeCol>
-                <TimeCol xs={{ span: 8 }}>
-                  <Row>
-                    <Text> TOTAL TIME: </Text>
-                  </Row>
-                  <Row>
-                    <Text> {dataElement.readyInMinutes} Minutes </Text>
-                  </Row>
-                </TimeCol>
-              </TimeRow>
-              <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }}>
-                <IngredientsRow>{this.renderIngredients(dataElement)}</IngredientsRow>
-              </Col>
-              <Col xs={{ span: 24 }}>
-                <InstructionsRow>{this.renderInstructions(dataElement)}</InstructionsRow>
-              </Col>
-            </RecipeCard>
-          )}
+        {
+          <RecipeCard
+            actions={[
+              <Icon type="arrow-left" onClick={goBack}>
+                <IconText>BACK</IconText>
+              </Icon>,
+              <Icon
+                type="dislike"
+                onClick={() => {
+                  this.renderDeleteModal();
+                }}
+              >
+                <IconText>DELETE</IconText>
+              </Icon>,
+              <a href={dataElement.sourceUrl} target="about_blank">
+                <Icon type="link">
+                  <IconText>DETAILS</IconText>
+                </Icon>
+              </a>
+            ]}
+          >
+            <Title>{dataElement.title.toUpperCase()}</Title>
+            <TimeRow style={{ textAlign: "center" }}>
+              <TimeCol xs={{ span: 8 }}>
+                <Row>
+                  <Text> PREP TIME: </Text>
+                </Row>
+                <Row>
+                  <Text>{dataElement.preparationMinutes} Minutes </Text>
+                </Row>
+              </TimeCol>
+              <TimeCol xs={{ span: 8 }}>
+                <Row>
+                  <Text> COOK TIME: </Text>
+                </Row>
+                <Row>
+                  <Text> {dataElement.cookingMinutes} Minutes</Text>
+                </Row>
+              </TimeCol>
+              <TimeCol xs={{ span: 8 }}>
+                <Row>
+                  <Text> TOTAL TIME: </Text>
+                </Row>
+                <Row>
+                  <Text> {dataElement.readyInMinutes} Minutes </Text>
+                </Row>
+              </TimeCol>
+            </TimeRow>
+            <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }}>
+              <IngredientsRow>{this.renderIngredients(dataElement)}</IngredientsRow>
+            </Col>
+            <Col xs={{ span: 24 }}>
+              <InstructionsRow>{this.renderInstructions(dataElement)}</InstructionsRow>
+            </Col>
+          </RecipeCard>
+        }
 
-        {/* --- Recipe Deleted, Display Success Message --- */}
-        {Object.keys(recipe).length && (
-          <SuccessCard bordered={false} className="deleteRecipeSuccessDiv">
-            <Text>{this.displaySuccess()}</Text>
-            {this.exitSavePortal(recipe.id)}
-          </SuccessCard>
-        )}
-
-        {/* --- Recipe Save is Processing, Display Loader --- */}
-        {loading && (
-          <SpinnerCard bordered={false} className="deleteRecipeLoadingDiv">
-            <Spinner />
-          </SpinnerCard>
-        )}
-
-        {/* --- Recipe Save Error, Display Error Message --- */}
-        {error && (
-          <ErrorCard bordered={false} className="deleteRecipeErrorDiv">
-            <Text>{this.displayError(error)}</Text>
-          </ErrorCard>
-        )}
         <DeleteModal
           ref="DeleteModal"
           deleteRecipe={recipeId => deleteRecipe}
           recipeId={dataElement.id}
           recipeTitle={dataElement.title}
           cuisine={cuisine}
+          goBack={goBack}
+          removeSavedRecipe={removeSavedRecipe}
         />
       </ModalContainer>
     );
   }
 }
 
-function mapStateToProps({ deletedRecipe }) {
-  return { deletedRecipe };
-}
-
-export default connect(mapStateToProps, { resetDeleteRecipe })(SavedResultsSingle);
+export default connect(null, { deleteRecipe })(SavedResultsSingle);
 
 const ModalContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.65);
@@ -220,15 +184,6 @@ const RecipeCard = styled(Card)`
   @media (max-width: 480px) {
     width: 95%;
   }
-`;
-
-const SpinnerCard = styled(Card)`
-  width: 90%;
-  height: 92%;
-  margin-left: 8px !important;
-  background: rgba(0, 0, 0, 0) !important;
-  text-align: center !important;
-  padding: 45% 0 !important;
 `;
 
 const Title = styled.h3`
@@ -259,15 +214,6 @@ const TimeCol = styled(Col)`
   margin: 10px 0;
 `;
 
-const Text = styled.p`
-  font-size: 8px;
-  letter-spacing: 0.1em;
-  text-indent: 0.05em;
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 0 !important;
-`;
-
 const IngredientsRow = styled(Row)`
   text-align: center;
   background-color: rgba(1, 1, 1, 0.02);
@@ -296,18 +242,11 @@ const Instruction = styled.p`
   margin-bottom: 0.4em !important;
 `;
 
-const ErrorCard = styled(Card)`
-  width: 90%;
-  height: 92%;
-  background-color: rgba(0, 0, 0, 0.95);
-  text-align: center !important;
-  padding: 45% 0 !important;
-`;
-
-const SuccessCard = styled(Card)`
-  width: 90%;
-  height: 92%;
-  background: black;
-  text-align: center !important;
-  padding: 45% 0 !important;
+const Text = styled.p`
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-indent: 0.05em;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0 !important;
 `;

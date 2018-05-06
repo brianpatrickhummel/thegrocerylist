@@ -37,41 +37,62 @@ class Saved extends Component {
   // DropDown menu selection initializes Mongo Recipe Collection Query
   async getRecipes(auth, cuisineKey) {
     this.setState({ loading: true });
+    let subDocCuisine = auth.savedRecipes.cuisines[cuisineKey];
+    console.log("subDocCuisine.length: ", subDocCuisine.length);
+    console.log("auth in getRecipes: ", auth.savedRecipes.cuisines[cuisineKey]);
 
     // Based on offset, grab 10 recipe ids from User SavedRecipes subdoc
     let recipeIds = [];
-    let subDocCuisine = auth.savedRecipes.cuisines[cuisineKey];
 
     // Fill recipeIds with at most 10 records
-    for (let obj of subDocCuisine) {
+    for (let i = this.state.offset; i < subDocCuisine.length; i++) {
       if (recipeIds.length < (subDocCuisine.length < 10 ? subDocCuisine.length : 10)) {
-        recipeIds.push(obj);
+        console.log("reipe pushed: ", subDocCuisine[i]);
+        console.log("index: ", i);
+        recipeIds.push(subDocCuisine[i]);
       } else break;
-      this.setState(
-        {
-          data: recipeIds,
-          cuisine: cuisineKey,
-          loading: false
-        },
-        () => console.log("state after pushing saved recipes: ", this.state)
-      );
     }
+
+    console.log("before setting state recipeIds:", recipeIds);
+    this.setState(
+      {
+        data: recipeIds,
+        cuisine: cuisineKey,
+        loading: false
+      },
+      () => console.log("state in getRecipes: ", this.state)
+    );
+  }
+
+  removeSavedRecipe(recipeId) {
+    console.log("saved.js removing recipe: ", recipeId);
+    let newData = this.state.data.filter(recipe => recipe.id !== recipeId);
+    this.setState({ data: newData }, () => {
+      console.log("updated Saved.js state after deleting recipe", this.state);
+      if (!this.state.data.length) {
+        console.log("this.state.data.length is zero: ", this.state.data.lenth);
+        // If all 10 recipes deleted, start from beginning
+        this.setState({ offset: 0 });
+        this.getRecipes(this.props.auth, this.state.cuisine);
+      }
+    });
   }
 
   // Paging Buttons, call API query with page offset parameters
-  // nextPage(direction) {
-  //   this.setState(
-  //     {
-  //       data: [],
-  //       offset: direction === "Prev" ? this.state.offset - 3 : this.state.offset + 3
-  //     },
-  //     () => {
-  //       console.log("direction after click: ", direction);
-  //       console.log("state.offset after click: ", this.state.offset);
-  //       this.getRecipes(this.state.cuisine, direction);
-  //     }
-  //   );
-  // }
+  nextPage(direction) {
+    this.setState(
+      {
+        data: [],
+        offset: direction === "Prev" ? this.state.offset - 3 : this.state.offset + 3
+      },
+      () => {
+        console.log("direction after click: ", direction);
+        console.log("state.offset after click: ", this.state.offset);
+        console.log("state.data after click: ", this.state.data);
+        this.getRecipes(this.props.auth, this.state.cuisine, direction);
+      }
+    );
+  }
 
   render() {
     let { auth } = this.props;
@@ -87,7 +108,8 @@ class Saved extends Component {
             data: [],
             searched: true
           });
-          // Initialize Axios req to Spoonacular API
+          // Pull saved recipes from user.savedRecipes....
+          console.log("calling getRecipes menu click");
           this.getRecipes(auth, key.toLowerCase());
         }}
       >
@@ -133,12 +155,7 @@ class Saved extends Component {
           {!data.length && <Header>•SAVED•</Header>}
           {/*  If no savedRecipes on User Model, display NoResults component */}
           {Object.keys(auth.savedRecipes.cuisines).filter(item => auth.savedRecipes.cuisines[item].length).length ===
-            0 && (
-            <NoResults
-              header={"YOU HAVEN'T SAVED ANY RECIPES"}
-              text={"SAVE SOME RECIPES FROM YOUR SEARCH RESULTS AND THEY'LL APPEAR HERE"}
-            />
-          )}
+            0 && <NoResults header={"YOU HAVEN'T SAVED ANY RECIPES"} text={"SEARCH FOR & SAVE SOME RECIPES"} />}
           {/*  User clicks option, show loading spinner until Axios request completes */}
           {loading ? (
             <SpinColumn xs={{ span: 8, offset: 8 }}>
@@ -146,7 +163,11 @@ class Saved extends Component {
             </SpinColumn>
           ) : // Only render SearchResults if state data has length
           data.length ? (
-            <SavedResults data={data} cuisine={cuisine} />
+            <SavedResults
+              data={data}
+              cuisine={cuisine}
+              removeSavedRecipe={recipeId => this.removeSavedRecipe(recipeId)}
+            />
           ) : null}
           {!loading &&
             data[0] !== null &&
@@ -162,7 +183,7 @@ class Saved extends Component {
                 </PageButtonCol>
 
                 <PageButtonCol xs={{ span: 6, offset: 4 }} sm={{ span: 4, offset: 0 }}>
-                  {data.length > 10 &&
+                  {offset + 3 < auth.savedRecipes.cuisines[cuisine].length &&
                     searched && (
                       <Button id={"Next"} onClick={e => this.nextPage(e.target.id)}>
                         Next

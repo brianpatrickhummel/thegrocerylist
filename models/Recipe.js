@@ -2,6 +2,13 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const RecipesSchema = new Schema({
+  _user: {
+    type: Array,
+    value: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
+  },
   servings: Number,
   preparationMinutes: Number,
   cookingMinutes: Number,
@@ -11,7 +18,7 @@ const RecipesSchema = new Schema({
       id: Number,
       name: String,
       amount: Number,
-      originalString: String,
+      original: String,
       aisle: String,
       unit: String
     }

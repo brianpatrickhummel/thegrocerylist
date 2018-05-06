@@ -71,7 +71,7 @@ export const saveRecipe = (recipeId, cuisine, dataElement) => async dispatch => 
   }
 };
 
-// Reset Save_Recipe State
+// RESET Save_Recipe State
 export const resetSavedRecipe = () => async dispatch => {
   // console.log("dispatching SAVE_RECIPE_RESET");
   dispatch({
@@ -101,7 +101,7 @@ export const retrieveRecipe = recipeId => async dispatch => {
   }
 };
 
-// Reset RETRIEVE_RECIPE State
+//RESET RETRIEVE_RECIPE State
 export const resetRetrieveRecipe = () => async dispatch => {
   // console.log("dispatching RETRIEVE_RECIPE_RESET");
   dispatch({
@@ -121,10 +121,12 @@ export const deleteRecipe = (recipeId, cuisine) => async dispatch => {
 
   try {
     const res = await axios.post(`/recipe/delete/${recipeId}/${cuisine}`);
-
+    console.log("delete response: ", res);
+    dispatch({ type: FETCH_USER, payload: res.data.user });
     dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res.data.recipe });
-    dispatch({ type: FETCH_USER, payload: res.data });
   } catch (e) {
+    console.log("delete error response: ", e);
+    console.log("delete error response status: ", e.statusMessage);
     dispatch({
       type: DELETE_RECIPE_ERROR,
       payload: e.message
@@ -132,7 +134,7 @@ export const deleteRecipe = (recipeId, cuisine) => async dispatch => {
   }
 };
 
-// Reset DELETE_RECIPE State
+// RESET DELETE_RECIPE State
 export const resetDeleteRecipe = () => async dispatch => {
   // console.log("dispatching DELETE_RECIPE_RESET");
   dispatch({

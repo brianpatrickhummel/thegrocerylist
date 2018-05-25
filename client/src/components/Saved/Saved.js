@@ -107,11 +107,7 @@ class Saved extends Component {
 
     const menu = (
       <Menu
-        onClick={({key}) => {
-        this.setState({cuisine: key, data: [], searched: true});
-        console.log("calling getRecipes menu click");
-        this.getRecipes(auth, key.toLowerCase());
-      }}>
+        onClick={({key}) => { // Reset local state this.setState({ cuisine: key, data: [], searched: true }); // Pull saved recipes from user.savedRecipes.... console.log("calling getRecipes menu click"); this.getRecipes(auth, key.toLowerCase()); }}>
         {/* Call fn To Render Drop-Down Menu Items */}
         {this.renderFields(auth)}
       </Menu>

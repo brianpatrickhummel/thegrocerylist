@@ -88,7 +88,7 @@ module.exports = app => {
                 console.log("id added to results_recipeIds: ", item.id);
               } else {
                 // Skip saved RecipeId
-                console.log(`Recipe ${item.id} has already been saved by user`)// We have collected enough RecipeIds, exit iteration early;
+                console.log(`Recipe ${item.id} has already been saved by user`) // We have collected enough RecipeIds, exit iteration early;
               }
             } else 
               break;
@@ -292,9 +292,17 @@ module.exports = app => {
 
       console.log(`Recipe ${recipeId} should no longer contain user id: ${o_id}`);
 
-      res.send({recipe, user});
+      // If no users are saving this recipe, delete recipe document from Recipe
+      // collection
+      if (recipe._user.length < 1) {
+        recipe = await Recipe.findOneAndRemove({id: recipeId});
+        console.log(`${recipe.title} was removed from database`);
+      }
+
+      res.send({recipe, user})
+
     } catch (e) {
-      console.log("sending error main try/catch");
+      console.log("sending error main try/catch e: ", e);
       return res.send(e);
     }
   });

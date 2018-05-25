@@ -78,7 +78,7 @@ class Saved extends Component {
     }, () => {
       console.log("updated Saved.js state after deleting recipe", this.state);
       if (!this.state.data.length) {
-        console.log("this.state.data.length is zero: ", this.state.data.lenth);
+        console.log("this.state.data.length is zero: ", this.state.data.length);
         // If all 10 recipes deleted, start from beginning
         this.setState({offset: 0});
         this.getRecipes(this.props.auth, this.state.cuisine);
@@ -105,10 +105,13 @@ class Saved extends Component {
     let {auth} = this.props;
     let {data, loading, offset, searched, cuisine} = this.state;
 
-    // Ant Design Drop-Down Menu Component
     const menu = (
       <Menu
-        onClick={({key}) => { // Reset local state this.setState({ cuisine: key, data: [], searched: true }); // Pull saved recipes from user.savedRecipes.... console.log("calling getRecipes menu click"); this.getRecipes(auth, key.toLowerCase()); }}>
+        onClick={({key}) => {
+        this.setState({cuisine: key, data: [], searched: true});
+        console.log("calling getRecipes menu click");
+        this.getRecipes(auth, key.toLowerCase());
+      }}>
         {/* Call fn To Render Drop-Down Menu Items */}
         {this.renderFields(auth)}
       </Menu>

@@ -81,6 +81,8 @@ class PrefBox extends Component {
         xs={styling.CheckBoxContainer.xs}
         sm={styling.CheckBoxContainer.sm}
         md={styling.CheckBoxContainer.md}
+        lg={styling.CheckBoxContainer.lg}
+        xl={styling.CheckBoxContainer.xl}
       >
         <CheckBoxRow type="flex" justify="start">
           {this.renderContent(checkedList, prefType, styling, auth)}
@@ -162,7 +164,10 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { updatePrefs })(PrefBox);
+export default connect(
+  mapStateToProps,
+  { updatePrefs }
+)(PrefBox);
 
 const CheckBoxContainer = styled(Col)`
   background: #fafafa;
@@ -191,7 +196,11 @@ const CheckBoxColumn = styled(Col)`
 `;
 
 const ButtonRow = styled(Row)`
-  margin: 25px 0 !important;
+  margin: 35px 0 !important;
+
+  @media (max-width: 380px) {
+    margin: 25px 0 !important;
+  }
 `;
 
 const SelectButtons = styled(Button)`

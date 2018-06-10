@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { connect } from "react-redux";
-import { Row, Col, Checkbox, Input, Menu, Dropdown, Button, Select, Icon } from "antd";
+import { Row, Col, Checkbox, Input, Button, Select, Icon } from "antd";
 // import Spinner from "../Spinner";
 import styled from "styled-components";
 import NoResults from "../NoResults";
@@ -9,14 +9,21 @@ const Option = Select.Option;
 
 class ListInput extends Component {
   state = {
-    cuisines: []
+    cuisines: [],
+    title: "",
+    days: null,
+    submitted: false
   };
 
-  onChange = e => {
-    console.log(`checked = ${e.target.value} + ${e.target.checked}`);
-  };
+  renderDayOptions() {
+    const children = [];
+    for (let i = 1; i <= 7; i++) {
+      children.push(<Option key={i}>{i}</Option>);
+    }
+    return children;
+  }
 
-  renderContent(auth) {
+  renderCuisinesContent(auth) {
     if (auth) {
       // once auth is loaded from redux, then set the initial state by assigning
       // values to checkedList
@@ -24,7 +31,12 @@ class ListInput extends Component {
       let objectpath = Object.keys(auth.preferences["cuisines"]).filter(key => auth.preferences["cuisines"][key]);
       for (let key of objectpath.sort()) {
         content.push(
-          <CheckBoxColumn xs={{ span: 16, offset: 4 }} md={{ span: 12, offset: 0 }} key={key}>
+          <CheckBoxColumn
+            className="ListInputCheckBoxCol"
+            xs={{ span: 16, offset: 5 }}
+            md={{ span: 12, offset: 0 }}
+            key={key}
+          >
             <CheckBox onChange={e => this.onChange(e)} value={key}>
               {key.toUpperCase()}
             </CheckBox>
@@ -35,21 +47,48 @@ class ListInput extends Component {
     }
   }
 
-  handleChange(value) {
-    console.log(`selected ${value}`);
-  }
+  // User enters Title for List
+  handleChange = e => {
+    console.log(e.target.value);
+    this.setState(
+      {
+        title: e.target.value
+      },
+      () => console.log("new state title: ", this.state.title)
+    );
+  };
 
-  handleDays(value) {
+  // User selects number of days for List
+  handleDays = value => {
     console.log(`number of days = ${value}`);
-  }
+    this.setState({ days: value }, () => console.log("new state days: ", this.state.days));
+  };
+
+  // User selects Cuisine Types for List
+  onChange = e => {
+    // If adding cuisine
+    if (e.target.checked) {
+      let addCuisine = this.state.cuisines.concat(e.target.value);
+      this.setState({ cuisines: addCuisine }, () => console.log("new state cuisine: ", this.state.cuisines));
+    }
+    // If removing a cuisine
+    else {
+      let addCuisine = this.state.cuisines.filter(item => item !== e.target.value);
+      this.setState({ cuisines: addCuisine }, () => console.log("new state cuisine: ", this.state.cuisines));
+    }
+  };
+
+  handleClick = () => {
+    console.log("clicked");
+    console.log(
+      `Cusines are ${this.state.cuisines.map(item => item)} and the list name is ${this.state.title} and will include ${
+        this.state.days
+      } recipes`
+    );
+  };
 
   render() {
     let { auth } = this.props;
-    const children = [];
-
-    for (let i = 0; i < 12; i++) {
-      children.push(<Option key={i}>{`Option ${i}`}</Option>);
-    }
 
     return Object.keys(auth.savedRecipes.cuisines).filter(item => auth.savedRecipes.cuisines[item].length).length ===
       0 ? (
@@ -62,38 +101,36 @@ class ListInput extends Component {
               <TextP>CREATE A NEW GROCERY LIST NAMED </TextP>
             </Col>
             <Col xs={{ span: 20, offset: 2 }} sm={{ span: 14, offset: 5 }} lg={{ span: 10, offset: 7 }}>
-              <Input style={{ textAlign: "center" }} placeholder="ENTER NAME FOR YOUR LIST" />
+              <Input
+                style={{ textAlign: "center", color: "rgba(127,103,103,0.4)" }}
+                placeholder="ENTER NAME FOR YOUR LIST"
+                onChange={this.handleChange}
+              />
             </Col>
           </NameRow>
           <DaysRow className="DaysRow" gutter={10}>
-            <Col xs={{ span: 3, offset: 4 }} md={{ span: 2, offset: 7 }} lg={{ span: 1, offset: 8 }}>
+            <Col xs={{ span: 3, offset: 4 }} sm={{ span: 2, offset: 7 }} md={{ span: 2, offset: 8 }}>
               <TextP>FOR</TextP>
             </Col>
 
-            <Col xs={{ span: 10 }} md={{ span: 6 }}>
+            <Col xs={{ span: 10 }} sm={{ span: 6 }} md={{ span: 4 }}>
               <Select
                 onChange={this.handleDays}
                 placeholder="HOW MANY ?"
-                style={{ textAlign: "center", width: "100%" }}
+                style={{ textAlign: "center", width: "100%", color: "rgba(127, 103, 103, 0.4)" }}
                 showArrow={false}
                 dropdownMatchSelectWidth={false}
               >
-                <Option value="1">1</Option>
-                <Option value="2">2</Option>
-                <Option value="3">3</Option>
-                <Option value="4">4</Option>
-                <Option value="5">5</Option>
-                <Option value="6">6</Option>
-                <Option value="7">7</Option>
+                {this.renderDayOptions()}
               </Select>
             </Col>
 
-            <Col xs={{ span: 3 }} md={{ span: 2 }} lg={{ span: 1 }}>
+            <Col xs={{ span: 3 }} sm={{ span: 2 }}>
               <TextP>DAYS</TextP>
             </Col>
           </DaysRow>
           <CuisinesRow className="CuisinesRow">
-            <Col xs={{ span: 24 }} style={{ textAlign: "center" }}>
+            <Col xs={{ span: 22, offset: 1 }} style={{ textAlign: "center" }}>
               <TextP>USING RECIPES THAT YOU HAVE SAVED FROM THE FOLLOWING CUISINES </TextP>
             </Col>
 
@@ -104,19 +141,15 @@ class ListInput extends Component {
               className="checkBoxContainer"
             >
               <CheckBoxRow type="flex" justify="start">
-                {this.renderContent(auth)}
-                {/* <Select
-                style={{ width: "100%" }}
-                size={"small"}
-                mode="multiple"
-                placeholder="SELECT CUISINES"
-                onChange={this.handleChange}
-              >
-                {children}
-              </Select> */}
+                {this.renderCuisinesContent(auth)}
               </CheckBoxRow>
             </CheckBoxContainer>
           </CuisinesRow>
+          <Row style={{ textAlign: "center" }}>
+            <SelectButton onClick={this.handleClick}>
+              CREATE<Icon type="file-add" style={{ fontSize: "16px", fontWeight: "bold" }} />
+            </SelectButton>
+          </Row>
         </ContainerRow>
       </div>
     );
@@ -126,7 +159,7 @@ class ListInput extends Component {
 export default ListInput;
 
 const CheckBoxContainer = styled(Col)`
-  background: rgba(127, 103, 103, 0.4);
+  background: rgba(127, 103, 103, 0.2);
   text-align: center;
 `;
 
@@ -169,11 +202,44 @@ const DaysRow = styled(Row)`
 `;
 
 const CuisinesRow = styled(Row)`
-  margin: 40px 0;
+  margin: 34px 0;
 `;
 
 const TextP = styled.p`
-  color: #918181;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
+  margin-bottom: 5px;
+
+  @media (min-width: 1128px) {
+    font-size: 28px;
+  }
+
+  @media (min-width: 992px) and (max-width: 1127px) {
+    font-size: 24px;
+  }
+
+  @media (min-width: 867px) and (max-width: 991px) {
+    font-size: 20px;
+  }
+`;
+
+const SelectButton = styled(Button)`
+  height: 40px;
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
+  font-size: 16px !important;
+  cursor: default;
+  letter-spacing: 0.13em;
+  text-indent: 0.1em;
+  border: 5px solid rgba(255, 255, 255, 0.5) !important;
+  border-radius: 20px !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  box-shadow: 0px 0px 85px 0px rgba(1, 1, 1, 0.1);
+`;
+
+const TextSpan = styled.span`
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
   margin-bottom: 5px;
 
   @media (min-width: 1128px) {

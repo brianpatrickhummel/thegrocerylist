@@ -54,7 +54,9 @@ let diet = {
   CheckBoxContainer: {
     xs: { span: 18, offset: 3 },
     sm: { span: 22, offset: 1 },
-    md: { span: 20, offset: 2 }
+    md: { span: 20, offset: 2 },
+    lg: { span: 16, offset: 4 },
+    xl: { span: 14, offset: 5 }
   }
 };
 
@@ -66,7 +68,9 @@ let cuisines = {
   CheckBoxContainer: {
     xs: { span: 22, offset: 1 },
     sm: { span: 22, offset: 1 },
-    md: { span: 20, offset: 2 }
+    md: { span: 20, offset: 2 },
+    lg: { span: 16, offset: 4 },
+    xl: { span: 14, offset: 5 }
   }
 };
 
@@ -78,6 +82,8 @@ let intolerances = {
   CheckBoxContainer: {
     xs: { span: 18, offset: 3 },
     sm: { span: 22, offset: 1 },
-    md: { span: 20, offset: 2 }
+    md: { span: 20, offset: 2 },
+    lg: { span: 16, offset: 4 },
+    xl: { span: 14, offset: 5 }
   }
 };

@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
-import {Row, Col, Checkbox, Button, message} from "antd";
-import {connect} from "react-redux";
-import {updatePrefs} from "../../../actions";
+import { Row, Col, Checkbox, Button, message } from "antd";
+import { connect } from "react-redux";
+import { updatePrefs } from "../../../actions";
 
 class PrefBox extends Component {
   state = {
@@ -18,13 +18,13 @@ class PrefBox extends Component {
       for (let key in auth.preferences[prefType]) {
         checkedListObj[key] = auth.preferences[prefType][key];
       }
-      this.setState({checkedList: checkedListObj});
+      this.setState({ checkedList: checkedListObj });
     }
   }
 
   // Message to display when preferences are modified and saved by user
   success(prefType) {
-    message.config({top: "40%", duration: 1.3});
+    message.config({ top: "40%", duration: 1.3 });
     message.success(` ${prefType.toUpperCase()} SUCCESSFULLY UPDATED!`);
   }
 
@@ -32,14 +32,14 @@ class PrefBox extends Component {
   // updated with new "checked" value
   onChange = (e, checkedList) => {
     checkedList[e.target.value] = e.target.checked;
-    this.setState({checkedList: checkedList, showButtons: true});
+    this.setState({ checkedList: checkedList, showButtons: true });
   };
 
   // cancel button will reset to default checkboxes and remove cancel/save buttons
   onCancel = checkedList => {
     // clear changes to checkboxes
     checkedList = {};
-    this.setState({checkedList: checkedList, showButtons: false});
+    this.setState({ checkedList: checkedList, showButtons: false });
   };
 
   // Process either Select None or Select All Button
@@ -48,9 +48,8 @@ class PrefBox extends Component {
     for (let key in auth.preferences[prefType]) {
       checkedListObj[key] = which;
     }
-    this.setState({showButtons: true, checkedList: checkedListObj});
-
-  }
+    this.setState({ showButtons: true, checkedList: checkedListObj });
+  };
 
   renderContent(checkedList, prefType, styling, auth) {
     if (auth) {
@@ -61,14 +60,8 @@ class PrefBox extends Component {
       let objectpath = Object.keys(auth.preferences[prefType]);
       for (let key of objectpath.sort()) {
         content.push(
-          <CheckBoxColumn
-            xs={styling.CheckBoxColumn.xs}
-            sm={styling.CheckBoxColumn.sm}
-            key={key}>
-            <Checkbox
-              checked={this.state.checkedList[key]}
-              onChange={e => this.onChange(e, checkedList)}
-              value={key}>
+          <CheckBoxColumn xs={styling.CheckBoxColumn.xs} sm={styling.CheckBoxColumn.sm} key={key}>
+            <Checkbox checked={this.state.checkedList[key]} onChange={e => this.onChange(e, checkedList)} value={key}>
               {key.toUpperCase()}
             </Checkbox>
           </CheckBoxColumn>
@@ -79,15 +72,16 @@ class PrefBox extends Component {
   }
 
   render() {
-    const {prefType, styling, auth, updatePrefs} = this.props;
-    const {checkedList} = this.state;
+    const { prefType, styling, auth, updatePrefs } = this.props;
+    const { checkedList } = this.state;
 
     return (
       <CheckBoxContainer
         className={`prefBox${prefType}Component`}
         xs={styling.CheckBoxContainer.xs}
         sm={styling.CheckBoxContainer.sm}
-        md={styling.CheckBoxContainer.md}>
+        md={styling.CheckBoxContainer.md}
+      >
         <CheckBoxRow type="flex" justify="start">
           {this.renderContent(checkedList, prefType, styling, auth)}
         </CheckBoxRow>
@@ -96,28 +90,31 @@ class PrefBox extends Component {
           <ButtonRow>
             <Col
               xs={{
-              span: 10,
-              offset: 2
-            }}
+                span: 10,
+                offset: 2
+              }}
               sm={{
-              span: 4,
-              offset: 8
-            }}>
-              <Button onClick={() => this.selectGroup(false, auth, prefType)}>None</Button>
+                span: 4,
+                offset: 8
+              }}
+            >
+              <SelectButtons onClick={() => this.selectGroup(false, auth, prefType)}>NONE</SelectButtons>
             </Col>
             <Col
               xs={{
-              span: 10
-            }}
+                span: 10
+              }}
               sm={{
-              span: 4
-            }}>
-              <Button
+                span: 4
+              }}
+            >
+              <SelectButtons
                 onClick={() => {
-                this.selectGroup(true, auth, prefType)
-              }}>
-                All
-              </Button>
+                  this.selectGroup(true, auth, prefType);
+                }}
+              >
+                ALL
+              </SelectButtons>
             </Col>
           </ButtonRow>
         )}
@@ -126,30 +123,33 @@ class PrefBox extends Component {
           <ButtonRow>
             <Col
               xs={{
-              span: 10,
-              offset: 2
-            }}
+                span: 10,
+                offset: 2
+              }}
               sm={{
-              span: 4,
-              offset: 8
-            }}>
-              <Button onClick={() => this.onCancel(checkedList)}>Cancel</Button>
+                span: 4,
+                offset: 8
+              }}
+            >
+              <SelectButtons onClick={() => this.onCancel(checkedList)}>CANCEL</SelectButtons>
             </Col>
             <Col
               xs={{
-              span: 10
-            }}
+                span: 10
+              }}
               sm={{
-              span: 4
-            }}>
-              <Button
+                span: 4
+              }}
+            >
+              <SelectButtons
                 onClick={() => {
-                updatePrefs(checkedList, `${prefType}`);
-                this.setState({checkedList: checkedList, showButtons: false});
-                this.success(prefType);
-              }}>
-                Save
-              </Button>
+                  updatePrefs(checkedList, `${prefType}`);
+                  this.setState({ checkedList: checkedList, showButtons: false });
+                  this.success(prefType);
+                }}
+              >
+                SAVE
+              </SelectButtons>
             </Col>
           </ButtonRow>
         )}
@@ -158,11 +158,11 @@ class PrefBox extends Component {
   }
 }
 
-function mapStateToProps({auth}) {
-  return {auth};
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
-export default connect(mapStateToProps, {updatePrefs})(PrefBox);
+export default connect(mapStateToProps, { updatePrefs })(PrefBox);
 
 const CheckBoxContainer = styled(Col)`
   background: #fafafa;
@@ -192,4 +192,19 @@ const CheckBoxColumn = styled(Col)`
 
 const ButtonRow = styled(Row)`
   margin: 25px 0 !important;
+`;
+
+const SelectButtons = styled(Button)`
+  color: rgba(108, 76, 76, 0.87) !important;
+  font-size: 12px !important;
+  cursor: default;
+  letter-spacing: 0.13em;
+  text-indent: 0.1em;
+  padding: 0px 15px !important;
+  border: 1px solid rgba(209, 205, 205, 0.6) !important;
+  border-radius: 20px !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  @media (max-width: 380px) {
+    font-size: 9px !important;
+  }
 `;

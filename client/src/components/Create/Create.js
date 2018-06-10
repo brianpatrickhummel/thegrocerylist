@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Row, Col } from "antd";
 // import Spinner from "../Spinner";
 import styled from "styled-components";
+import ListInput from "./ListInput";
 // import axios from "axios";
 const logo = require("../../images/LogoGray.svg");
 
@@ -13,6 +14,7 @@ class Create extends Component {
 
   render() {
     let { clicked } = this.state;
+    let { auth } = this.props;
     return !clicked ? (
       <div className="createComponent">
         <Col className="createColumn" xs={{ span: 20, offset: 2 }} style={{ textAlign: "center" }}>
@@ -29,7 +31,7 @@ class Create extends Component {
         </Col>
       </div>
     ) : (
-      <h6>clicked</h6>
+      <ListInput auth={auth} />
     );
   }
 }

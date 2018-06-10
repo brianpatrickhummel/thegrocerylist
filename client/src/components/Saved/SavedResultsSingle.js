@@ -1,5 +1,5 @@
-// Will mount on a new DOM Node as a child of SearchResults component
-// Using React16's Portal feature
+// Will mount on a new DOM Node as a child of SearchResults component Using
+// React16's Portal feature
 
 import React, { Component } from "react";
 import styled from "styled-components";
@@ -15,13 +15,22 @@ class SavedResultsSingle extends Component {
 
   renderIngredients = dataElement => {
     let content = [];
-    // Satisfying React's unique key policy with a generic counter
-    // Some Spoonacular Ingredients Lists have identical fields/object
+    // Satisfying React's unique key policy with a generic counter Some Spoonacular
+    // Ingredients Lists have identical fields/object
     let keyGenerator = 0;
     for (let item of dataElement.extendedIngredients) {
       content.push(
         <Row key={keyGenerator}>
-          <Col xs={{ span: 24, offset: 0 }} sm={{ span: 21, offset: 1 }}>
+          <Col
+            xs={{
+              span: 24,
+              offset: 0
+            }}
+            sm={{
+              span: 21,
+              offset: 1
+            }}
+          >
             <Ingredient>
               <span>{item.original.toUpperCase()}</span>
             </Ingredient>
@@ -38,7 +47,16 @@ class SavedResultsSingle extends Component {
     for (let item of dataElement.analyzedInstructions[0].steps) {
       content.push(
         <Row key={item.number}>
-          <Col xs={{ span: 24, offset: 0 }} sm={{ span: 21, offset: 1 }}>
+          <Col
+            xs={{
+              span: 24,
+              offset: 0
+            }}
+            sm={{
+              span: 21,
+              offset: 1
+            }}
+          >
             <Instruction>
               <span>
                 {item.number}. {item.step.toUpperCase()}
@@ -51,34 +69,9 @@ class SavedResultsSingle extends Component {
     return content;
   };
 
-  // On Error or Success, unmount Portal and reset Redux savedRecipe state
-  // exitSavePortal(recipeId) {
-  //   console.log("exitSavePortal recipeId:", recipeId);
-  //   this.props.removeSavedRecipe(recipeId);
-  //   this.props.goBack();
-  // }
-
-  // displayError(errorMessage) {
-  //   console.log("SRS displayError called");
-  //   // console.log("error message", errorMessage);
-  //   message.config({
-  //     top: "40%",
-  //     duration: 3.3
-  //   });
-  //   message.error(` ${errorMessage}, Please Try Again`);
-  //   this.exitSavePortal();
-  // }
-
-  // deleteSuccess(text) {
-  //   message.config({
-  //     top: "25%",
-  //     duration: 1.3
-  //   });
-  //   message.success(text);
-  // }
-
   renderDeleteModal() {
-    // calls the showModal method from child UnlinkModal component via react-redux Connect's getWrappedInstance
+    // calls the showModal method from child UnlinkModal component via react-redux
+    // Connect's getWrappedInstance
     this.refs.DeleteModal.getWrappedInstance().showModal();
   }
 
@@ -92,7 +85,8 @@ class SavedResultsSingle extends Component {
           <RecipeCard
             actions={[
               <Icon type="arrow-left" onClick={goBack}>
-                <IconText>BACK</IconText>
+                {" "}
+                <IconText>BACK</IconText>{" "}
               </Icon>,
               <Icon
                 type="dislike"
@@ -100,48 +94,75 @@ class SavedResultsSingle extends Component {
                   this.renderDeleteModal();
                 }}
               >
-                <IconText>DELETE</IconText>
+                <IconText>DELETE</IconText>{" "}
               </Icon>,
               <a href={dataElement.sourceUrl} target="about_blank">
+                {" "}
                 <Icon type="link">
                   <IconText>DETAILS</IconText>
-                </Icon>
+                </Icon>{" "}
               </a>
             ]}
           >
-            <Title>{dataElement.title.toUpperCase()}</Title>
-            <TimeRow style={{ textAlign: "center" }}>
-              <TimeCol xs={{ span: 8 }}>
+            <Title>{dataElement.title.toUpperCase()}</Title>{" "}
+            <TimeRow
+              style={{
+                textAlign: "center"
+              }}
+            >
+              <TimeCol
+                xs={{
+                  span: 8
+                }}
+              >
                 <Row>
-                  <Text> PREP TIME: </Text>
+                  <Text>PREP TIME:</Text>
                 </Row>
                 <Row>
-                  <Text>{dataElement.preparationMinutes} Minutes </Text>
-                </Row>
-              </TimeCol>
-              <TimeCol xs={{ span: 8 }}>
-                <Row>
-                  <Text> COOK TIME: </Text>
-                </Row>
-                <Row>
-                  <Text> {dataElement.cookingMinutes} Minutes</Text>
-                </Row>
-              </TimeCol>
-              <TimeCol xs={{ span: 8 }}>
-                <Row>
-                  <Text> TOTAL TIME: </Text>
-                </Row>
-                <Row>
-                  <Text> {dataElement.readyInMinutes} Minutes </Text>
+                  <Text>
+                    {dataElement.preparationMinutes}
+                    Minutes
+                  </Text>
                 </Row>
               </TimeCol>
-            </TimeRow>
+              <TimeCol
+                xs={{
+                  span: 8
+                }}
+              >
+                <Row>
+                  <Text>COOK TIME:</Text>
+                </Row>
+                <Row>
+                  <Text>
+                    {dataElement.cookingMinutes}
+                    Minutes
+                  </Text>
+                </Row>
+              </TimeCol>
+              <TimeCol
+                xs={{
+                  span: 8
+                }}
+              >
+                <Row>
+                  <Text>TOTAL TIME:</Text>
+                </Row>
+                <Row>
+                  <Text>
+                    {dataElement.readyInMinutes}
+                    Minutes
+                  </Text>
+                </Row>
+              </TimeCol>
+            </TimeRow>{" "}
             <Col xs={{ span: 22, offset: 1 }} sm={{ span: 18, offset: 3 }}>
-              <IngredientsRow>{this.renderIngredients(dataElement)}</IngredientsRow>
+              {" "}
+              <IngredientsRow>{this.renderIngredients(dataElement)}</IngredientsRow>{" "}
             </Col>
             <Col xs={{ span: 24 }}>
-              <InstructionsRow>{this.renderInstructions(dataElement)}</InstructionsRow>
-            </Col>
+              <InstructionsRow>{this.renderInstructions(dataElement)}</InstructionsRow>{" "}
+            </Col>{" "}
           </RecipeCard>
         }
 

@@ -12,10 +12,10 @@ module.exports = (config, env) => {
       "@font-family": "Futura",
       "@body-background": "rgba(105,67,69,1)",
       "@btn-primary-color": "#FFF",
-      "@btn-primary-bg": "#2e0f10",
+      "@btn-primary-bg": "rgba(105,67,69,0.85)",
       "@layout-header-background": "rgba(105,67,69,1)",
       "@layout-body-background": "#bdb6b6",
-      "@tooltip-bg": "#6E4648",
+      "@tooltip-bg": "rgba(109, 81, 81, 0.65)",
       "@tooltip-color": "white",
       "@menu-collapsed-width": "50px"
     }

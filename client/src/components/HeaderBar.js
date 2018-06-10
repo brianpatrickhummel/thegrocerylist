@@ -1,11 +1,11 @@
-import React, {Component} from "react";
-import {Link} from "react-router-dom";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import styled from "styled-components";
-import {Icon, Row, Layout, Menu} from "antd";
+import { Icon, Row, Layout, Menu } from "antd";
 import menudata from "./Data/menudata";
 import "./index.css";
-const {Header, Sider} = Layout;
+const { Header, Sider } = Layout;
 
 class HeaderBar extends Component {
   state = {
@@ -14,40 +14,34 @@ class HeaderBar extends Component {
 
   // Control whether the SideBar Nav is collapsed
   onCollapse = collapsed => {
-    this.setState({collapsed});
+    this.setState({ collapsed });
   };
 
   // render 6 Header Menu.Items by mapping through objects in menudata array
   renderMenuItems(classNames) {
-    return menudata.map(({
-      link,
-      image,
-      text
-    }, index) => {
+    return menudata.map(({ link, image, text }, index) => {
       return (
         <Menu.Item key={index + 1}>
           {/* logic to render last index (logout) as an <a> rather than react-router <Link> */}
-          {index !== 6
-            ? (
-              <LinkAnchor to={link} className={classNames} id={text.toLowerCase()}>
-                <div className="hvr-shrink">
-                  <Icon>
-                    <LinkImage src={image} alt="menu item icon"/>
-                  </Icon>
-                  <LinkText>{text}</LinkText>
-                </div>
-              </LinkAnchor>
-            )
-            : (
-              <LinkAnchor2 href={link} className={classNames} id={text.toLowerCase()}>
-                <div className="hvr-shrink">
-                  <Icon>
-                    <LinkImage src={image} alt="logout icon"/>
-                  </Icon>
-                  <LinkText>{text}</LinkText>
-                </div>
-              </LinkAnchor2>
-            )}
+          {index !== 6 ? (
+            <LinkAnchor to={link} className={classNames} id={text.toLowerCase()}>
+              <div className="hvr-shrink">
+                <Icon>
+                  <LinkImage src={image} alt="menu item icon" />
+                </Icon>
+                <LinkText>{text}</LinkText>
+              </div>
+            </LinkAnchor>
+          ) : (
+            <LinkAnchor2 href={link} className={classNames} id={text.toLowerCase()}>
+              <div className="hvr-shrink">
+                <Icon>
+                  <LinkImage src={image} alt="logout icon" />
+                </Icon>
+                <LinkText>{text}</LinkText>
+              </div>
+            </LinkAnchor2>
+          )}
         </Menu.Item>
       );
     });
@@ -57,9 +51,11 @@ class HeaderBar extends Component {
     return (
       <div>
         {/* Header Nav - visibility controlled by Media Queries */}
-        <Header style={{
-          textAlign: "center"
-        }}>
+        <Header
+          style={{
+            textAlign: "center"
+          }}
+        >
           <Row type="flex" justify="center">
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
               {/* call render function passing in class names specific only to menu bar (not sidebar) */}
@@ -68,14 +64,13 @@ class HeaderBar extends Component {
           </Row>
         </Header>
         {/* Sidebar Nav- visibility controlled by Media Queries */}
-        <Layout style={{
-          minHeight: "100vh"
-        }}>
-          <Sider
-            collapsible
-            collapsed={this.state.collapsed}
-            onCollapse={this.onCollapse}>
-            <div className="logo"/>
+        <Layout
+          style={{
+            minHeight: "100vh"
+          }}
+        >
+          <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
+            <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={[""]} mode="inline">
               {/* call render function passing in no class names*/}
               {this.renderMenuItems()}
@@ -87,10 +82,8 @@ class HeaderBar extends Component {
   }
 }
 
-function mapStateToProps({
-  auth
-}, ownProps) {
-  return {auth};
+function mapStateToProps({ auth }, ownProps) {
+  return { auth };
 }
 
 export default connect(mapStateToProps)(HeaderBar);
@@ -110,7 +103,7 @@ const LinkAnchor = styled(Link)`
 `;
 
 // External/Server API Links
-const LinkAnchor2 = styled.a `
+const LinkAnchor2 = styled.a`
   margin: 25px 0;
   height: 100%;
 
@@ -123,7 +116,7 @@ const LinkAnchor2 = styled.a `
   }
 `;
 
-const LinkImage = styled.img `
+const LinkImage = styled.img`
   height: 75px;
   max-width: 80px;
   opacity: 0.8;
@@ -150,7 +143,7 @@ const LinkImage = styled.img `
   }
 `;
 
-const LinkText = styled.span `
+const LinkText = styled.span`
   color: rgb(215, 211, 211);
   font-weight: bold;
   line-height: 20px;

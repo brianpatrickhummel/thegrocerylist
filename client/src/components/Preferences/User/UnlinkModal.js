@@ -66,6 +66,19 @@ export default connect(null, { unlinkAccount }, null, { withRef: true })(UnlinkM
 
 const ModalButton = styled(Button)`
   font-size: 11px !important;
+
+  color: rgba(108, 76, 76, 0.87) !important;
+  cursor: default;
+  letter-spacing: 0.13em;
+  text-indent: 0.1em;
+  border: 1px solid rgba(209, 205, 205, 0.6) !important;
+  border-radius: 20px !important;
+  background-color: rgba(255, 255, 255, 1) !important;
+
+  &:hover {
+    background-color: rgba(109, 81, 81, 0.65) !important;
+    border-color: rgba(109, 81, 81, 0.75) !important;
+  }
 `;
 
 const ModalBodyText = styled.p`

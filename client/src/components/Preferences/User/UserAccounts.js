@@ -27,7 +27,12 @@ class UserAccounts extends Component {
       this.props.auth && (
         <Row className="userAccountsComponent">
           {/* Primary Account */}
-          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} xl={{ span: 18, offset: 3 }}>
+          <Col
+            xs={{ span: 22, offset: 1 }}
+            md={{ span: 20, offset: 2 }}
+            lg={{ span: 18, offset: 3 }}
+            xl={{ span: 16, offset: 4 }}
+          >
             <PanelContainer bordered={true} defaultActiveKey={"1"}>
               <Panel header="PRIMARY ACCOUNT INFORMATION" key="1" showArrow={false}>
                 <Row type="flex" align="middle">
@@ -55,7 +60,12 @@ class UserAccounts extends Component {
             </PanelContainer>
           </Col>
           {/* Secondary Accounts */}
-          <Col xs={{ span: 22, offset: 1 }} sm={{ span: 22, offset: 1 }} xl={{ span: 18, offset: 3 }}>
+          <Col
+            xs={{ span: 22, offset: 1 }}
+            md={{ span: 20, offset: 2 }}
+            lg={{ span: 18, offset: 3 }}
+            xl={{ span: 16, offset: 4 }}
+          >
             <PanelContainer bordered={true}>
               <Panel header="MANAGE LINKED ACCOUNTS" key="2" showArrow={false}>
                 {this.renderLinkedAccounts(auth)}
@@ -145,7 +155,7 @@ class UserAccounts extends Component {
               /* no acct info, display Connect Buttons */
               <UnlinkedAccountsContainer xs={{ span: 22, offset: 1 }} sm={{ span: 20, offset: 0 }}>
                 <UnlinkedButton size="small" type="primary" data-account={key} href={`/connect/${key}`}>
-                  <span>CONNECT {key.toUpperCase()}</span>
+                  <UnlinkedButtonText>CONNECT {key.toUpperCase()}</UnlinkedButtonText>
                 </UnlinkedButton>
               </UnlinkedAccountsContainer>
             )}
@@ -173,7 +183,10 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { setPrimary, connectAccount })(UserAccounts);
+export default connect(
+  mapStateToProps,
+  { setPrimary, connectAccount }
+)(UserAccounts);
 
 const PanelContainer = styled(Collapse)`
   margin: 10px 0 !important;
@@ -243,15 +256,32 @@ const SecondaryButtons = styled(Button)`
   margin-top: 10px;
   text-align: center;
 
+  font-size: 12px !important;
+  color: rgba(108, 76, 76, 0.87) !important;
+  cursor: default;
+  letter-spacing: 0.13em;
+  text-indent: 0.1em;
+  border: 1px solid rgba(209, 205, 205, 0.6) !important;
+  border-radius: 20px !important;
+  background-color: rgba(255, 255, 255, 1) !important;
+
   @media (max-width: 575px) {
     width: 100% !important;
     height: 100% !important;
-    border-radius: 5px !important;
+    font-size: 12px !important;
+    color: rgba(108, 76, 76, 0.87) !important;
+
+    cursor: default;
+    letter-spacing: 0.13em;
+    text-indent: 0.1em;
+    border: 1px solid rgba(209, 205, 205, 0.6) !important;
+    border-radius: 20px !important;
+    background-color: rgba(255, 255, 255, 1) !important;
   }
 
   &:hover {
-    background-color: #6d5151 !important;
-    border-color: #6d5151 !important;
+    background-color: rgba(109, 81, 81, 0.65) !important;
+    border-color: rgba(109, 81, 81, 0.75) !important;
   }
 `;
 
@@ -293,14 +323,25 @@ const UnlinkedAccountsContainer = styled(Col)`
 `;
 
 const UnlinkedButton = styled(Button)`
-  font-size: 10px;
+  font-size: 12px !important;
+  color: rgba(108, 76, 76, 0.87) !important;
+  cursor: default;
+  letter-spacing: 0.13em;
+  text-indent: 0.1em;
+  border: 1px solid rgba(209, 205, 205, 0.6) !important;
+  border-radius: 20px !important;
+  background-color: rgba(255, 255, 255, 1) !important;
 
   @media (max-width: 575px) {
     margin-top: 10px !important;
   }
 
   &:hover {
-    background-color: #6d5151 !important;
-    border-color: #6d5151 !important;
+    background-color: rgba(122, 77, 78, 0.4) !important;
+    border-color: rgba(122, 77, 78, 0.5) !important;
   }
+`;
+
+const UnlinkedButtonText = styled.span`
+  padding: 7px;
 `;

@@ -18,8 +18,9 @@
 
 .ant-btn:hover {
   color: white !important;
-  background-color: #7a4d4e !important;
-  border-color: #7a4d4e !important;
+  background-color: rgba(122, 77, 78, 0.4) !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .ant-btn-primary:hover {
@@ -38,13 +39,13 @@
   padding: 0 40px !important;
 }
 
-.ant-menu-horizontal>.ant-menu-item {
+.ant-menu-horizontal > .ant-menu-item {
   padding: 0 30px;
   display: inline;
   text-align: center;
 }
 
-.ant-menu-inline-collapsed>.ant-menu-item {
+.ant-menu-inline-collapsed > .ant-menu-item {
   padding: 0px !important;
   text-align: center;
 }
@@ -73,30 +74,63 @@
 /* = = = = = = = = = = = = = UserAccounts / = = = = = = = = = = = = = */
 
 .ant-checkbox-wrapper {
-  color: rgba(108, 76, 76, 0.87) !important;
+  /* color: rgba(108, 76, 76, 0.87) !important; */
+}
+
+a.ant-btn-sm {
+  line-height: 23px !important;
 }
 
 @media (max-width: 575px) {
   .ant-tooltip {
     display: none !important;
   }
+
+  .ant-collapse-header {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ant-collapse-header {
+    font-size: 10px;
+  }
 }
 
 /* = = = = = = = = = = = = = Preferences  = = = = = = = == = = = = = */
+.ant-collapse,
+.ant-collapse > .ant-collapse-item:last-child,
+.ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+  border: none !important;
+  border-radius: 0 !important;
+}
 
 .ant-collapse-header {
   padding: 10px !important;
+  background-color: rgba(109, 81, 81, 0.9) !important;
   text-align: center;
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-align: center;
+  -webkit-letter-spacing: 0.2em;
+  -moz-letter-spacing: 0.2em;
+  -ms-letter-spacing: 0.2em;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.25), 1px 1px 1px rgba(1, 1, 1, 0.1);
 }
 
-.ant-collapse>.ant-collapse-item>.ant-collapse-header:hover {
+.ant-collapse-item {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header:hover {
   color: #4f778f;
 }
 
 /* center Letters in circular Button */
 
-a.ant-btn-sm {
-  line-height: 25px !important;
+.ant-btn-sm {
   padding: 0 6px !important;
 }
 
@@ -142,7 +176,7 @@ a.ant-btn-sm {
 }
 
 .ant-tabs-nav-wrap {
-  background: rgba(98, 71, 71, 0.1);
+  background-color: rgba(109, 81, 81, 0.5);
 }
 
 .ant-tabs-bar {
@@ -198,7 +232,7 @@ a.ant-btn-sm {
 
 .ant-checkbox-wrapper:hover .ant-checkbox-inner,
 .ant-checkbox:hover .ant-checkbox-inner,
-.ant-checkbox-input:focus+.ant-checkbox-inner {
+.ant-checkbox-input:focus + .ant-checkbox-inner {
   border-color: #812c31 !important;
 }
 
@@ -238,6 +272,28 @@ a.ant-btn-sm {
   color: #fff !important;
 }
 
+/* = = = = = = = Create = = = = = = = = */
+.ant-select-selection--single {
+  height: 21px !important;
+  text-align: center;
+  position: initial !important;
+}
+
+.ant-select-selection__placeholder,
+.ant-select-search__field__placeholder {
+  text-align: center !important;
+}
+
+.ant-select-selection__rendered {
+  line-height: 20px !important;
+  position: inherit !important;
+  display: inline-block !important;
+}
+
+.ant-select-selection-selected-value {
+  padding-right: 0 !important;
+}
+
 /* = = = = = = = = == = = = = = = = == = = = = = = = = =
 = = = = = = = = = = Media Queries = = = = = = = = = = =
 = = = = = = = = == = = = = = = = == = = = = = = = == = */
@@ -245,7 +301,7 @@ a.ant-btn-sm {
 /*  HEADER COMPONENT MQs */
 
 @media (max-width: 1127px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 22px;
   }
 }
@@ -257,13 +313,13 @@ a.ant-btn-sm {
 }
 
 @media (max-width: 866px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 15px;
   }
 }
 
 @media (max-width: 700px) {
-  .ant-menu-horizontal>.ant-menu-item {
+  .ant-menu-horizontal > .ant-menu-item {
     padding: 0 14px;
   }
 }
@@ -287,7 +343,7 @@ a.ant-btn-sm {
     min-width: 50px !important;
     width: 50px !important;
   }
-  .ant-layout-sider-collapsed>.ant-layout-sider-trigger {
+  .ant-layout-sider-collapsed > .ant-layout-sider-trigger {
     width: 50px !important;
   }
   .ant-layout-has-sider {
@@ -426,3 +482,38 @@ a.ant-btn-sm {
 }
 
 /*  END PREFS COMPONENT MQs */
+
+/* CREATE COMPONENT MQs */
+
+@media (min-width: 1128px) {
+  .ant-select-selection--single {
+    height: 43px !important;
+  }
+
+  .ant-select,
+  .ant-input {
+    font-size: 20px !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1127px) {
+  .ant-select-selection--single {
+    height: 36px !important;
+  }
+
+  .ant-select,
+  .ant-input {
+    font-size: 18px !important;
+  }
+}
+
+@media (min-width: 867px) and (max-width: 991px) {
+  .ant-select-selection--single {
+    height: 29px !important;
+  }
+
+  .ant-select,
+  .ant-input {
+    font-size: 15px !important;
+  }
+}

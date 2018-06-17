@@ -8,6 +8,6 @@ module.exports = {
   twitterConsumerKey: process.env.TWITTER_CONSUMER_KEY,
   twitterConsumerSecret: process.env.TWITTER_CONSUMER_SECRET,
   githubClientID: process.env.GITHUB_CLIENT_ID,
-  githubClientSecret: process.env.GITHUB_CLIENT_SECRET.toString,
+  githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
   spoonacularKey: process.env.SPOONACULAR_KEY
 };

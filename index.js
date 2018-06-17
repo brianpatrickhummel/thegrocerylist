@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
+const path = require("path");
 require("./services/passport");
 // Require Mongoose Schemas
 require("./models/User.js");
@@ -44,7 +45,10 @@ app.use(passport.session());
 mongoose.Promise = Promise;
 // MongoDB Configuration configuration
 var DB = keys.mongoURI || "mongodb://localhost/GroceryListDevLocal";
-mongoose.connect(DB, { useMongoClient: true });
+mongoose.connect(
+  DB,
+  { useMongoClient: true }
+);
 const db = mongoose.connection;
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
@@ -60,6 +64,16 @@ require("./routes/apiRoutes")(app);
 require("./routes/unlinkRoutes")(app);
 require("./routes/recipeRoutes")(app);
 require("./routes/prefRoutes")(app);
+
+// Serving React assets via Express Server when in Production Environment
+if (process.env.NODE_ENV === "production") {
+  // For traffic that is un-routed, first look for files to serve here
+  app.use(express.static("client/build"));
+  // For all remaining un-routed requests, serve the React index.html
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, function() {

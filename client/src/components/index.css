@@ -288,11 +288,13 @@ a.ant-btn-sm {
 .ant-select-selection__placeholder,
 .ant-select-search__field__placeholder {
   text-align: center !important;
-  color: rgba(127, 103, 103, 0.6) !important;
+  color: rgba(127, 103, 103, 0.3) !important;
+  font-style: italic;
 }
 
 ::placeholder {
-  color: rgba(127, 103, 103, 0.6) !important;
+  color: rgba(127, 103, 103, 0.3) !important;
+  font-style: italic;
 }
 
 .ant-select-dropdown-menu-item:hover {

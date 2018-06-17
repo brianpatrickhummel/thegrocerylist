@@ -202,7 +202,7 @@ const Exclaim = styled(Icon)`
 `;
 
 const Header = styled.h1`
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
   letter-spacing: 0.8em;
   text-indent: 0.8em;
@@ -224,7 +224,7 @@ const Anchor = styled.a`
   border: 1px solid rgba(209, 205, 205, 0.15);
   border-radius: 20px;
   box-shadow: 3px 2px 9px rgba(1, 1, 1, 0.05);
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: rgba(255, 255, 255, 0.2);
   &:hover {
     color: rgba(255, 255, 255, 0.8) !important;
   }

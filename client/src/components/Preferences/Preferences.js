@@ -30,7 +30,7 @@ const Preferences = ({ match }) => {
 export default Preferences;
 
 const SpanText = styled.span`
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
   letter-spacing: 0.2em;
   text-indent: 0.2em;

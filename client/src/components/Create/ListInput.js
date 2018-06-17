@@ -79,7 +79,11 @@ class ListInput extends Component {
   };
 
   handleClick = () => {
+    this.setState({ submitted: true }, () =>
+      console.log(`this.state.submitted: ${this.state.submitted} and this.state.days: ${this.state.days}`)
+    );
     console.log("clicked");
+
     console.log(
       `Cusines are ${this.state.cuisines.map(item => item)} and the list name is ${this.state.title} and will include ${
         this.state.days
@@ -101,8 +105,9 @@ class ListInput extends Component {
               <TextP>CREATE A NEW GROCERY LIST NAMED </TextP>
             </Col>
             <Col xs={{ span: 20, offset: 2 }} sm={{ span: 14, offset: 5 }} lg={{ span: 10, offset: 7 }}>
-              <Input
-                style={{ textAlign: "center", color: "rgba(127,103,103,0.4)" }}
+              <TestInput
+                submitted={this.state.submitted}
+                title={this.state.title}
                 placeholder="ENTER NAME FOR YOUR LIST"
                 onChange={this.handleChange}
               />
@@ -114,15 +119,16 @@ class ListInput extends Component {
             </Col>
 
             <Col xs={{ span: 10 }} sm={{ span: 6 }} md={{ span: 4 }}>
-              <Select
+              <DaySelect
+                submitted={this.state.submitted}
+                days={this.state.days}
                 onChange={this.handleDays}
                 placeholder="HOW MANY ?"
-                style={{ textAlign: "center", width: "100%", color: "rgba(127, 103, 103, 0.4)" }}
                 showArrow={false}
                 dropdownMatchSelectWidth={false}
               >
                 {this.renderDayOptions()}
-              </Select>
+              </DaySelect>
             </Col>
 
             <Col xs={{ span: 3 }} sm={{ span: 2 }}>
@@ -253,4 +259,20 @@ const TextSpan = styled.span`
   @media (min-width: 867px) and (max-width: 991px) {
     font-size: 20px;
   }
+`;
+
+const TestInput = styled(Input)`
+  text-align: center;
+  color: rgba(0, 0, 0, 0.65);
+
+  &::placeholder {
+    color: ;
+  }
+  border: ${props => props.submitted && props.title === "" && "2px red solid !important"};
+`;
+
+const DaySelect = styled(Select)`
+  text-align: center;
+  width: 100%;
+  border: ${props => props.submitted && props.days === null && "2px red solid"};
 `;

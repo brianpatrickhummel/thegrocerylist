@@ -5,6 +5,7 @@
   "dependencies": {
     "antd": "^3.0.3",
     "axios": "^0.17.1",
+    "babel-plugin-import": "^1.8.0",
     "react": "^16.2.0",
     "react-app-rewire-less": "^2.1.0",
     "react-app-rewired": "^1.5.2",
@@ -41,7 +42,5 @@
       "target": "http://localhost:5000"
     }
   },
-  "devDependencies": {
-    "babel-plugin-import": "^1.6.3"
-  }
+  "devDependencies": {}
 }

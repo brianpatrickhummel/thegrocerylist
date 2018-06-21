@@ -129,7 +129,7 @@ class Search extends Component {
             </Col>
           </Row>
           {/* forceUpdate so that Ant Menu selected item changes without having clicked it */}
-          <CuisineLink onClick={this.forceUpdate} to={"/Preferences/4"}>
+          <CuisineLink to={"/preferences/3"}>
             PLEASE SET CUISINES PREFERENCES <Icon type="rollback" style={{ fontSize: 16 }} />
           </CuisineLink>
         </SetCuisinesMessage>

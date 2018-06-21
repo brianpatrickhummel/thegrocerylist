@@ -172,7 +172,6 @@ export default connect(
 const CheckBoxContainer = styled(Col)`
   background: #fafafa;
   text-align: center;
-  margin: 0 auto;
   border-radius: 4px;
   margin-top: 15px !important;
 `;

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // import { connect } from "react-redux";
 import { Row, Col, Checkbox, Input, Button, Select, Icon } from "antd";
-// import Spinner from "../Spinner";
+// import Spinner from "../Misc/Spinner";
 import styled from "styled-components";
-import NoResults from "../NoResults";
+import NoResults from "../Misc/NoResults";
 // import axios from "axios";
 const Option = Select.Option;
 

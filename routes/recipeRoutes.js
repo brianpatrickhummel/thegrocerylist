@@ -118,7 +118,7 @@ module.exports = app => {
       // Spoonacular API Bulk Recipe Info Search
       let queryIds = results_recipeIds.join("%2C");
 
-      if (!queryIds.length > 0) throw "empty recipeIds";
+      if (!queryIds.length > 0) throw "No recipes found";
 
       let query2 = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/informationBulk?ids=${queryIds}&includeNutrition=false`;
 
@@ -136,9 +136,7 @@ module.exports = app => {
 
       // console.log("This query process took: ", Date.now() - start); Return
       // results_recipeInf array to client
-      if (!results_recipeInfo.length) {
-        throw "No recipes found";
-      }
+
       res.send(results_recipeInfo);
     } catch (e) {
       console.log("error in main recipe search trycatch", e);

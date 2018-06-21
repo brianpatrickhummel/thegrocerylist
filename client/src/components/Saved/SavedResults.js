@@ -3,7 +3,7 @@ import Portal from "./Portal";
 import { Col, Row, Card, message } from "antd";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import Spinner from "../Spinner";
+import Spinner from "../Misc/Spinner";
 import { retrieveRecipe, resetDeleteRecipe } from "../../actions";
 
 class SavedResults extends Component {
@@ -44,6 +44,8 @@ class SavedResults extends Component {
         );
       }
       return content;
+    } else {
+      return null;
     }
   }
 
@@ -53,7 +55,7 @@ class SavedResults extends Component {
     });
   }
 
-  displaySuccess() {
+  displaySuccess(data) {
     console.log("SRS delete displaySuccess called");
     this.props.resetDeleteRecipe();
     message.config({
@@ -133,7 +135,10 @@ function mapStateToProps({ retrievedRecipe, deletedRecipe }) {
   return { retrievedRecipe, deletedRecipe };
 }
 
-export default connect(mapStateToProps, { retrieveRecipe, resetDeleteRecipe })(SavedResults);
+export default connect(
+  mapStateToProps,
+  { retrieveRecipe, resetDeleteRecipe }
+)(SavedResults);
 
 const Header = styled.h1`
   color: rgba(255, 255, 255, 0.5);

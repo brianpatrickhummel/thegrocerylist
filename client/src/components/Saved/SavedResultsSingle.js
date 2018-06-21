@@ -9,10 +9,6 @@ import DeleteModal from "./DeleteModal";
 import { deleteRecipe } from "../../actions";
 
 class SavedResultsSingle extends Component {
-  componentDidMount() {
-    console.log("SavedResultsSingle.js mounted");
-  }
-
   renderIngredients = dataElement => {
     let content = [];
     // Satisfying React's unique key policy with a generic counter Some Spoonacular
@@ -180,7 +176,10 @@ class SavedResultsSingle extends Component {
   }
 }
 
-export default connect(null, { deleteRecipe })(SavedResultsSingle);
+export default connect(
+  null,
+  { deleteRecipe }
+)(SavedResultsSingle);
 
 const ModalContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.65);

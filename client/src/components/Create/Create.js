@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col } from "antd";
-// import Spinner from "../Spinner";
 import styled from "styled-components";
 import ListInput from "./ListInput";
-// import axios from "axios";
+import NoResults from "../Misc/NoResults";
+import NoCuisines from "../Misc/NoCuisines";
 const logo = require("../../images/LogoGray.svg");
 
 class Create extends Component {
@@ -15,7 +15,16 @@ class Create extends Component {
   render() {
     let { clicked } = this.state;
     let { auth } = this.props;
-    return !clicked ? (
+
+    return auth &&
+      // If no cuisine preferences have been saved, display prompt to set cuisine prefs
+      Object.keys(auth.preferences.cuisines).every(i => !auth.preferences.cuisines[i]) ? (
+      <NoCuisines />
+    ) : // If no saved recipes, display prompt to search for and save recipes prior to trying to create a list
+    Object.keys(auth.savedRecipes.cuisines).filter(item => auth.savedRecipes.cuisines[item].length).length === 0 ? (
+      <NoResults header={"YOU HAVE NOT SAVED ANY RECIPES YET"} text={"SEARCH FOR & SAVE SOME RECIPES"} />
+    ) : // Display the Create Grocery List Button
+    !clicked ? (
       <div className="createComponent">
         <Col className="createColumn" xs={{ span: 20, offset: 2 }} style={{ textAlign: "center" }}>
           <TextRow>
@@ -31,6 +40,7 @@ class Create extends Component {
         </Col>
       </div>
     ) : (
+      // Display the Create Grocery List Form
       <ListInput auth={auth} />
     );
   }

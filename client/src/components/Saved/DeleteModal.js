@@ -17,12 +17,12 @@ class DeleteModal extends Component {
     });
   };
 
-  handleOk = (recipeId, cuisine, deleteRecipe, goBack, removeSavedRecipe) => {
+  handleOk = async (recipeId, cuisine, deleteRecipe, goBack, removeSavedRecipe) => {
     console.log("running handleOk");
-    deleteRecipe(recipeId, cuisine);
     goBack();
-    removeSavedRecipe(recipeId);
     this.setState({ visible: false });
+    await deleteRecipe(recipeId, cuisine);
+    removeSavedRecipe(recipeId);
   };
 
   handleCancel = () => {
@@ -62,7 +62,12 @@ class DeleteModal extends Component {
   }
 }
 
-export default connect(null, { deleteRecipe }, null, { withRef: true })(DeleteModal);
+export default connect(
+  null,
+  { deleteRecipe },
+  null,
+  { withRef: true }
+)(DeleteModal);
 
 const ModalButton = styled(Button)`
   font-size: 11px !important;

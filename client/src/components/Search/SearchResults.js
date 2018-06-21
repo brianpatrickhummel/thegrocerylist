@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Portal from "./Portal";
 import { Col, Row } from "antd";
 import styled from "styled-components";
-import NoResults from "../NoResults";
+import NoResults from "../Misc/NoResults";
 import SearchResultsSingle from "./SearchResultsSingle";
 
 class SearchResults extends Component {

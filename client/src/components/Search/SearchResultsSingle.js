@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Card, Icon, Col, Row, message } from "antd";
-import Spinner from "../Spinner";
+import Spinner from "../Misc/Spinner";
 import { connect } from "react-redux";
 import { saveRecipe, resetSavedRecipe } from "../../actions";
 
@@ -175,7 +175,10 @@ function mapStateToProps({ savedRecipe }) {
   return { savedRecipe };
 }
 
-export default connect(mapStateToProps, { saveRecipe, resetSavedRecipe })(SearchResultsSingle);
+export default connect(
+  mapStateToProps,
+  { saveRecipe, resetSavedRecipe }
+)(SearchResultsSingle);
 
 const ModalContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.65);

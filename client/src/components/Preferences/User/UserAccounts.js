@@ -288,7 +288,6 @@ const SecondaryButtons = styled(Button)`
 const ButtonColumns = styled(Col)`
   text-align: center;
   display: block;
-  margin: 0 0 0 5px;
 
   @media (max-width: 628px) {
     margin-bottom: 5px !important;

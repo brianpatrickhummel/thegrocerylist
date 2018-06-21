@@ -151,8 +151,8 @@ class Saved extends Component {
             </Col>
           </Row>
           {/* forceUpdate so that Ant Menu selected item changes without having clicked it */}
-          <CuisineLink onClick={this.forceUpdate} to={"/Preferences/4"}>
-            PLEASE SET CUISINES PREFERENCES
+          <CuisineLink to={"/preferences/3"}>
+            PLEASE SET CUISINES PREFERENCES{" "}
             <Icon
               type="rollback"
               style={{

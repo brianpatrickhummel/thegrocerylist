@@ -574,7 +574,7 @@ a.ant-btn-sm {
 
 @media (max-width: 866px) {
   .ant-checkbox-wrapper span:nth-child(2) {
-    font-size: 10px;
-    letter-spacing: 0.06em;
+    font-size: 9px;
+    letter-spacing: 0.05em;
   }
 }

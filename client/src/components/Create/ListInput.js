@@ -15,9 +15,12 @@ class ListInput extends Component {
     submitted: false
   };
 
-  renderDayOptions() {
+  renderDayOptions(auth) {
     const children = [];
-    for (let i = 1; i <= 7; i++) {
+    // Dropdown will offer whichever is less:
+    // 7 or # of saved recipes
+    let limit = auth.savedRecipesCount < 7 ? auth.savedRecipesCount : 7;
+    for (let i = 1; i <= limit; i++) {
       children.push(<Option key={i}>{i}</Option>);
     }
     return children;
@@ -127,7 +130,7 @@ class ListInput extends Component {
                 showArrow={false}
                 dropdownMatchSelectWidth={false}
               >
-                {this.renderDayOptions()}
+                {this.renderDayOptions(auth)}
               </DaySelect>
             </Col>
 

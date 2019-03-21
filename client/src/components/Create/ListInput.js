@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 // import { connect } from "react-redux";
 import { Row, Col, Checkbox, Input, Button, Select, Icon } from "antd";
-// import Spinner from "../Misc/Spinner";
 import styled from "styled-components";
 import NoResults from "../Misc/NoResults";
-// import axios from "axios";
 const Option = Select.Option;
 
 class ListInput extends Component {
@@ -17,7 +15,7 @@ class ListInput extends Component {
 
   renderDayOptions(auth) {
     const children = [];
-    // Dropdown will offer whichever is less:
+    // Dropdown will display up to whichever is less:
     // 7 or # of saved recipes
     let limit = auth.savedRecipesCount < 7 ? auth.savedRecipesCount : 7;
     for (let i = 1; i <= limit; i++) {
